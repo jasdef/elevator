@@ -71,12 +71,13 @@
         <div class="block">
             <p class="block-heading">登入</p>
             <div class="block-body">
-                <form>
+                <form method="post" action="<?=base_url("/home/logining")?>">
                     <label>帳號</label>
-                    <input type="text" class="span12">
+                    <input type="text" name="account" class="span12">
                     <label>密碼</label>
-                    <input type="password" class="span12">
-                    <a href="index.html" class="btn btn-primary pull-right">登入</a>
+                    <input type="password" name="password" class="span12">
+					<p class="submit"><input type="submit" name="commit" value="登入"></p>
+                    
                     <label class="remember-me">記住我<input type="checkbox"></label>
                     <div class="clearfix"></div>
                 </form>
@@ -85,6 +86,11 @@
         <p class="pull-right" style=""><a href="" target="blank">Product by Chapman</a></p>
         <p><a href="reset-password.html">忘記密碼?</a></p>
     </div>
+	<?php  if (isset($errorMessage)){?>
+	<div class="alert alert-error">
+		<?=$errorMessage?>
+	</div>
+	<?php }?>
 </div>
   
 
