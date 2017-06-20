@@ -49,12 +49,11 @@ class Member
 		$mm = new Member_model;
 		
 		$result = $mm->selectAccount($account);
-		
+
 		return $result;
 		
 	}
-	
-	
+		
 	
 	public function getMemberData($account)
 	{

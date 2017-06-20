@@ -130,6 +130,7 @@ class Home extends CI_Controller {
 		$mem = new Member;
 		
 		session_start();  
+	
 		if(isset($_SESSION["account"]) && $_SESSION["account"] != null){ //已經登入的話直接回首頁  
 			redirect(base_url("/mainpage/index")); //轉回首頁  
 			return true;  
@@ -144,7 +145,7 @@ class Home extends CI_Controller {
 			$this->load->view(  
 				"sign-in",  
 				Array( "account" => $account ,  
-					"errorMessage" => "使用者帳號或密碼錯誤"  
+					"errorMessage" => "使用者帳號不存在"
 				)  
 			);        
 			return true;
@@ -168,23 +169,23 @@ class Home extends CI_Controller {
 		{
 			$person = $mem->getMemberData($account);
 			
-			$_SESSION["status"] = $person->status; //SESSION 使用者身分
+			$_SESSION["permission"] = $person->permission; //SESSION 使用者身分
 			
-			if($_SESSION["status"] == 0)
+			if($_SESSION["permission"] == 0)
 			{
 				$this->load->view(  
 					"sign-in",  
 					Array( "account" => $account ,  
 						"errorMessage" => "您的帳號已被停權，請聯絡管理員復權！"  
 					)  
-				);        
+				);      
 				return true;
 			}
 			else
 			{
 				$_SESSION["account"] = $account; //SESSION 帳號
 				$_SESSION["id"] = $person->id; //SESSION 使用者ID
-				$_SESSION["username"] = $person->name; //SESSION 使用者名稱
+			//	$_SESSION["username"] = $person->name; //SESSION 使用者名稱
 				redirect(base_url("/mainpage/index")); //轉回首頁
 			}
 		}
@@ -195,8 +196,8 @@ class Home extends CI_Controller {
 		
 		$mem = new Member;
 		
-		$person = $mem->getMemberData($account);
-
+		$person = $mem->getMemberData($account);		
+		
 		if($person->password == $password)
 		{
 			return 1;

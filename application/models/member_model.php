@@ -13,22 +13,14 @@ class Member_model extends CI_Model
 		$this->load->library('Datamodel');
 	
 	}
-
+	
 	public function insertMember($person)
 	{
-
 		$this->db->set('account',$person->account);
 		$this->db->set('password',$person->password);
-		$this->db->set('mail',$person->mail);
-		$this->db->set('tel1',$person->tel1);
-		$this->db->set('tel2',$person->tel2);
-		$this->db->set('name',$person->name);
-		$this->db->set('contacter',$person->contacter);
-		$this->db->set('identity',$person->identity);
-
+		$this->db->set('permission`',$person->permission`);	
 		$this->db->set('status',0);
 		$this->db->insert('account');
-	
 	}
 
 	
@@ -65,7 +57,9 @@ class Member_model extends CI_Model
 		$this->db->where('account',$account);
 		$data = $this->db->get();
 		
-		if ($data->num_rows > 0)
+		
+		
+		if ($data->num_rows() > 0)
 		{
 			return 1;
 		}
@@ -80,12 +74,12 @@ class Member_model extends CI_Model
 	public function getMemberData($account)
 	{
 		$person = new Personal_data();
-		$this->db->select('`id`,`account`,`password`,`mail`,`name`,`tel1`,`tel2`,`contacter`,`identity`,`status`');
+		$this->db->select('`id`,`account`,`password`,`permission`');
 		$this->db->from('account');
 		$this->db->where('account',$account);
 		$data = $this->db->get();
 		
-		if ($data->num_rows > 0)
+		if ($data->num_rows() > 0)
 		{
 			$r = $data->result();
 			
