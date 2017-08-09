@@ -30,16 +30,8 @@
 								<a href=""<?=base_url("/elevator/elevator_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">
-								<label>電梯名稱</label>
-								<input type="text" name = "Name" value="" class="input-xlarge">
 								<label>型號</label>
 								<input type="text" name = "Model" value="" class="input-xlarge">
-								<label>地址</label>
-								<input type="text" name = "Address" value="" class="input-xlarge">
-								<label>聯絡人</label>
-								<input type="text" name = "Contact" value="" class="input-xlarge">
-								<label>電話</label>
-								<input type="text" name = "Tel" value="" class="input-xlarge">
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

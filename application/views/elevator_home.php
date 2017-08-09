@@ -32,12 +32,10 @@
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">電梯名稱</a></th>
-												<th><a href="#">型號</a></th>
-												<th><a href="#">聯絡人</a></th>
-												<th><a href="#">連絡電話</a></th>
+												<th><a href="#">電梯編號</a></th>
+												<th><a href="#">電梯型號</a></th>
 												<th class="sorttable_nosort">編輯</th>
+												<th class="sorttable_nosort">刪除</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -48,12 +46,12 @@
 										?>
 											<tr>
 												<td><?=$row->id;?></td>
-												<td><?=$row->name;?></td>
 												<td><?=$row->model;?></td>
-												<td><?=$row->contact;?></td>
-												<td><?=$row->tel;?></td>
 												<td>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-eye-open"></i></a>
+													<a href="<?=base_url("/Elevator/edit_elevator")?>/elevator_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
+												</td>
+												<td>
+													<a href="<?=base_url("/Elevator/delete_elevator")?>/elevator_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
 												</td>
 											</tr>
 											<?php endforeach;

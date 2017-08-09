@@ -20,7 +20,6 @@ class Form_model extends CI_Model
 		$this->db->set('permission_date',$data->permissionDate);
 		$this->db->set('price',$data->price);
 		$this->db->set('receipt_remind',$data->remind);
-		$this->db->set('num',$data->num);
 		$this->db->set('elevator_id',$data->elevator);
 		$this->db->insert('form');	
 	}

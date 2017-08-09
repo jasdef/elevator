@@ -38,7 +38,7 @@ class Form extends CI_Controller {
 		$permissionDate = $this->input->post("Permission_date");
 		$price = $this->input->post("Price");
 		$remind = $this->input->post("Remind");
-		$num = $this->input->post("Num");
+
 		
 		$data->elevator = $elevator;
 		$data->month = $month;
@@ -47,7 +47,7 @@ class Form extends CI_Controller {
 		$data->permissionDate = $permissionDate;
 		$data->price = $price;
 		$data->remind = $remind;
-		$data->num = $num;
+
 		$form_model->insertForm($data);
 		redirect(base_url("/form/form_home"));
 	}

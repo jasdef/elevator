@@ -13,43 +13,27 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">新增表單</h1>
+					<h1 class="page-title">編輯電梯</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/form/form_home")?>">表單管理</a> <span class="divider">/</span></li>
-						<li class="active">新增表單</li>
+						<li><a href="<?=site_url("/elevator/elevator_home")?>">電梯管理</a> <span class="divider">/</span></li>
+						<li class="active">編輯電梯</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/form/form_create")?>" method="post">
+						<form id="tab" action="<?=site_url("/elevator/elevator_edit")?>" method="post">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
-								<a href=""<?=base_url("/form/form_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
+								<a href=""<?=base_url("/elevator/elevator_home")?>""><button class="btn ">取消</button></a>
 							</div>
-							<div class="well">
-								<label>電梯</label>
-								<select name="Elevator" id="Elevator" class="input-xlarge">
-									<option value = 1 selected="selected">單月</option>
-									<option value = 2>雙月</option>
-								</select>
-								<label>單雙月</label>
-								<select name="Month" id="Month" class="input-xlarge">
-									<option value = 1 selected="selected">單月</option>
-									<option value = 2>雙月</option>
-								</select>
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
-								<label>到期日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "End_date" value="1990/05/01" class="input-xlarge">
-								<label>許可證到期日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "Permission_date" value="1990/05/01" class="input-xlarge">
-								<label>價錢</label>
-								<input type="text" name = "Price" value="0" class="input-xlarge">
-								<label>收款提醒(間隔幾個月)</label>
-								<input type="text" name = "Remind" value="0" class="input-xlarge">
+							<div class="well">			
+								<label>電梯編號</label>
+								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
+								<label>電梯型號</label>
+								<input type="text" name = "Model" value="<?php print($this->data['model']);?>" class="input-xlarge">
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -23,22 +23,45 @@ class Elevator extends CI_Controller {
 		$this->load->view('create_elevator');
 	}
 	
+	public function delete_elevator() 
+	{
+		$elevator_model = new Elevator_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["elevator_id"];
+		$elevator_model->deleteElevator($id);
+		$this->data = $elevator_model->getElevator();	
+		$this->load->view('elevator_home', $this->data);	
+	}
+		
+	public function edit_elevator() 
+	{
+		$elevator_model = new Elevator_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["elevator_id"];
+		$this->data = $elevator_model->getElevatorByID($id);
+		$this->load->view('edit_elevator', $this->data);
+	}
+	
+	
+	public function elevator_edit() 
+	{
+		$elevator_model = new Elevator_model();
+		$data = New datamodel;
+		$id = $this->input->post("Id");
+		$model = $this->input->post("Model");
+		$data->id = $id;
+		$data->model = $model;
+		$elevator_model->updateElevator($data);
+		redirect(base_url("/elevator/elevator_home"));
+	}
+	
+	
 	public function elevator_create() 
 	{
 		$elevator_model = new Elevator_model();
 		$data = New datamodel;
-		$name = $this->input->post("Name");  
 		$model = $this->input->post("Model");
-		$address = $this->input->post("Address");
-		$contact = $this->input->post("Contact");
-		$tel = $this->input->post("Tel");
-
-		
-		$data->name = $name;
 		$data->model = $model;
-		$data->address = $address;
-		$data->contact = $contact;
-		$data->tel = $tel;
 		$elevator_model->insertElevator($data);
 		redirect(base_url("/elevator/elevator_home"));
 	}

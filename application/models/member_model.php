@@ -18,7 +18,7 @@ class Member_model extends CI_Model
 	{
 		$this->db->set('account',$person->account);
 		$this->db->set('password',$person->password);
-		$this->db->set('permission`',$person->permission`);	
+		$this->db->set('permission`',$person->permission);	
 		$this->db->set('status',0);
 		$this->db->insert('account');
 	}
