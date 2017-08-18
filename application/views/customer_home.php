@@ -12,12 +12,12 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">表單管理</h1>
+				<h1 class="page-title">客戶管理</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">表單管理</li>
+					<li class="active">客戶管理</li>
 				</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">
@@ -25,18 +25,17 @@
 					<div class="container-fluid">
 						<div class="row-fluid">
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/Form/create_form")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="<?=base_url("/Customer/create_customer")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
 							<form action="<?=base_url("/Form/form_borad")?>" method="post">
 								<div class="well">
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">表單名稱</a></th>
-												<th><a href="#">單雙月</a></th>
-												<th><a href="#">開始日期</a></th>
-												<th><a href="#">電梯型號</a></th>
+												<th><a href="#">客戶編號</a></th>
+												<th><a href="#">負責人</a></th>
+												<th><a href="#">地址</a></th>
+												<th><a href="#">電話</a></th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
@@ -49,13 +48,14 @@
 										?>
 											<tr>
 												<td><?=$row->id;?></td>
-												<td><?=$row->month;?></td>
-												<td><?=$row->start_date;?></td>
-												<td><?=$row->end_date;?></td>
-												<td><?=$row->permission_date;?></td>
+												<td><?=$row->name;?></td>
+												<td><?=$row->address;?></td>
+												<td><?=$row->tel;?></td>
 												<td>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
+													<a href="<?=base_url("/Customer/edit_customer")?>/customer_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
+												</td>
+												<td>
+													<a href="<?=base_url("/Customer/delete_customer")?>/customer_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
 												</td>
 											</tr>
 											<?php endforeach;

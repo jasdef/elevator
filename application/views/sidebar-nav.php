@@ -11,6 +11,11 @@
         <ul id="elevator-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/elevator/elevator_home")?>">新增與編輯</a></li>    
 		</ul>
+		
+		<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>客戶管理</i></a>
+        <ul id="customer-menu" class="nav nav-list collapse in">
+            <li ><a href="<?=base_url("/customer/customer_home")?>">新增與編輯</a></li>    
+		</ul>
 		<?php
 			}
 			else if($_SESSION["permission"] == 3) {
