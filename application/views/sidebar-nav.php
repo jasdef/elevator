@@ -1,12 +1,15 @@
 	<div class="sidebar-nav">
         <?php 
 			if($_SESSION["permission"] == 1) { 
+			
 		?>
 		<a href="#forms-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>表單管理</i></a>
-        <ul id="forms-menu" class="nav nav-list collapse in">
+
+	    <ul id="forms-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/form/form_home")?>">新增與編輯</a></li>
-        </ul>
+        </ul> 
 		
+			
 		<a href="#elevator-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>電梯管理</i></a>
         <ul id="elevator-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/elevator/elevator_home")?>">新增與編輯</a></li>    
@@ -16,6 +19,7 @@
         <ul id="customer-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/customer/customer_home")?>">新增與編輯</a></li>    
 		</ul>
+		
 		<?php
 			}
 			else if($_SESSION["permission"] == 3) {

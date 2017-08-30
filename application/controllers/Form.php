@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Form extends CI_Controller {
-	
+	//
 	var $data =array();
 	function __construct()
 	{
@@ -11,7 +11,7 @@ class Form extends CI_Controller {
 		$this->load->library('datamodel');
 	}
 	public function form_home() 
-	{	
+	{	$_SESSION["pagesheet"]=1;
 		$form_model = new Form_model();
 		$this->data = $form_model->getForm();	
 		$this->load->view('form_home', $this->data);
@@ -26,6 +26,19 @@ class Form extends CI_Controller {
 	{	
 		$this->load->view('create_form');
 	}
+	
+	public function pagesheet($id)
+			{
+			//echo $id;
+			//session_start(); 
+			//echo $kk;
+			
+			$_SESSION["pagesheet"]=$id;
+			$form_model = new Form_model();
+		$this->data = $form_model->getForm();	
+		$this->load->view('form_home', $this->data);
+			}
+
 	
 	public function form_create() 
 	{
@@ -133,4 +146,5 @@ class Form extends CI_Controller {
 		$this->data = $project_list->getProject_List($member_id);
 		$this->load->view('excel_home',$this->data);
 	}
+
 }

@@ -12,7 +12,7 @@ class Customer extends CI_Controller {
 	}
 	
 	public function customer_home() 
-	{	
+	{	$_SESSION["pagesheet"]=1;
 		$customer_model = new Customer_model();
 		$this->data = $customer_model->getCustomer();	
 		$this->load->view('customer_home', $this->data);
@@ -22,6 +22,15 @@ class Customer extends CI_Controller {
 	{	
 		$this->load->view('create_customer');
 	}
+		public function customer_sheet($id)
+			{
+
+			
+			$_SESSION["pagesheet"]=$id;
+			$customer_model = new Customer_model();
+			$this->data = $customer_model->getCustomer();	
+			$this->load->view('customer_home', $this->data);
+			}
 	
 	public function delete_customer() 
 	{

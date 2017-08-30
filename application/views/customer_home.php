@@ -42,9 +42,25 @@
 										</thead>
 										<tbody>
 										<?php
+										
+											$id=$_SESSION["pagesheet"];										
 											if ($this->data != 0) 
-											{										
-												foreach($this->data as $row):												
+											{					
+													$i=count($this->data);	
+													//echo "j=";
+													$j=($id-1)*10;
+													//echo "o=";
+													$o=$id*10;
+												foreach($this->data as $row)
+												{ 
+													 $k1234=$row->id;
+													if($k1234<=$j)
+														 $row->id;
+													else	
+														if($k1234<=$o)
+														{
+
+												
 										?>
 											<tr>
 												<td><?=$row->id;?></td>
@@ -58,8 +74,13 @@
 													<a href="<?=base_url("/Customer/delete_customer")?>/customer_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
 												</td>
 											</tr>
-											<?php endforeach;
-											}?>
+											<?php //endforeach;
+														}
+												}
+											}
+											
+											
+											?>
 										</tbody>
 									</table>
 								</div>
@@ -67,12 +88,66 @@
 							
 							<div class="pagination">
 								<ul>
-									<li><a href="#">Prev</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">Next</a></li>
+									<?php
+								if ($this->data != 0) 
+								{	
+									$k=count($this->data);
+									//$data123=$_SESSION;
+									if($k>=10)
+									{if($k%10!=0){
+										$l=$k/10+1;
+										$l= floor($l);
+									}else{
+									$l=$k/10;}
+									//echo $l;
+									if($l>1){
+										if($id>1){
+											$idprev=$id-1;
+										?>
+										<li><a href="<?=base_url("/Custome/customer_sheet/".$idprev)?>">Prev</a></li>
+								<?php	
+										}else{
+										?>
+									<li><a href="<?=base_url("/Custome/customer_sheet/".$id)?>">Prev</a></li>
+										<?php	}
+										$mn=ceil($id/10);
+										//$l=21;
+									if($l>10 )
+									{	
+										
+										$mnum=floor(($id-1)/10);
+										$m=$mnum*10;
+										$l2=($mnum+1)*10;
+										
+										if($l2>$l)
+											$l2=$l;
+
+									}
+									else
+									{
+										$l2=$l;
+										$m=0;
+									}
+										
+								for($m;$m<$l2;$m++){
+									$n=$m+1;
+								?>
+											
+									<li><a href="<?=base_url("/Custome/customer_sheet/".$n)?>"><?=$n?></a></li>
+									
+								<?
+									}
+									if($id==$l){
+									?>
+									<li><a href="<?=base_url("/Custome/customer_sheet/".$id)?>">Next</a></li>
+									<?}else{
+										$idNext=$id+1;
+										?>
+									<li><a href="<?=base_url("/Custome/customer_sheet/".$idNext)?>">Next</a></li>
+									<?}
+									}}
+								}
+								?>	
 								</ul>
 							</div>
 							<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

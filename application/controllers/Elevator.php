@@ -11,11 +11,19 @@ class Elevator extends CI_Controller {
 		$this->load->library('datamodel');
 	}
 	public function elevator_home() 
-	{	
+	{	$_SESSION["pagesheet"]=1;
 		$elevator_model = new Elevator_model();
 		$this->data = $elevator_model->getElevator();	
 		$this->load->view('elevator_home', $this->data);
 	}
+	
+	public function elevator_sheet($id)
+			{
+			$_SESSION["pagesheet"]=$id;
+			$elevator_model = new Elevator_model();
+			$this->data = $elevator_model->getElevator();	
+			$this->load->view('elevator_home', $this->data);
+			}
 	
 	
 	public function create_elevator() 
