@@ -8,12 +8,27 @@ class Form extends CI_Controller {
 		parent::__construct();
 		session_start();
 		$this->load->model('Form_model');
+		$this->load->model('Elevator_model');
+		$this->load->model('Customer_model');
 		$this->load->library('datamodel');
+		$this->load->library('common');
 	}
 	public function form_home() 
-	{	$_SESSION["pagesheet"]=1;
+	{	
+	
+		$_SESSION["pagesheet"]=1;
 		$form_model = new Form_model();
-		$this->data = $form_model->getForm();	
+		$common = new Common();
+		$this->data = $form_model->getForm();
+		
+		if ($this->data != 0) 
+		{										
+			foreach($this->data as $row):
+			$row->status = $common->conversionFormStatusByID($row->status);
+			$row->form_type = $common->conversionFormTypeByID($row->form_type);
+			endforeach;
+		}
+		
 		$this->load->view('form_home', $this->data);
 	}
 	
@@ -24,7 +39,12 @@ class Form extends CI_Controller {
 	
 	public function create_form() 
 	{	
-		$this->load->view('create_form');
+		$elevator_model = new Elevator_model();
+		$customer_model = new Customer_model();
+		$this->data['elevator'] = $elevator_model->getElevator();
+		$this->data['customer'] = $customer_model->getCustomer();
+
+		$this->load->view('create_form', $this->data);
 	}
 	
 	public function pagesheet($id)
@@ -44,7 +64,11 @@ class Form extends CI_Controller {
 	{
 		$form_model = new Form_model();
 		$data = New datamodel;
+		$type = $this->input->post("FormType"); 	
+		$status = $this->input->post("FormStatus"); 
+		$is_return = $this->input->post("IsReturn"); 
 		$elevator = $this->input->post("Elevator");  
+		$customer = $this->input->post("Customer"); 
 		$month = $this->input->post("Month");
 		$startDate = $this->input->post("Start_date");
 		$endDate = $this->input->post("End_date");
@@ -52,7 +76,10 @@ class Form extends CI_Controller {
 		$price = $this->input->post("Price");
 		$remind = $this->input->post("Remind");
 
-		
+		$data->type = $type;
+		$data->status = $status;
+		$data->return_back = $is_return;
+		$data->customer = $customer;
 		$data->elevator = $elevator;
 		$data->month = $month;
 		$data->startDate = $startDate;

@@ -4,6 +4,14 @@
 			include "head.php";
 		?> 
 		<body> 
+			<script type='text/javascript'>
+
+			function addOption(list, text, value){
+				var index=list.options.length;
+				list.options[index]=new Option(text, value);
+		
+			}
+			</script>
 			<?php
 				include "navbar.php";
 				include "sidebar-nav.php";
@@ -30,11 +38,66 @@
 								<a href=""<?=base_url("/form/form_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">
-								<label>電梯</label>
-								<select name="Elevator" id="Elevator" class="input-xlarge">
-									<option value = 1 selected="selected">單月</option>
-									<option value = 2>雙月</option>
+								<label>表單類型</label>
+								<select id="FormType" name="FormType" class="input-xlarge" >
+									<option value = 1 selected="selected">買賣合約書</option>
+									<option value = 2>保養合約書</option>
+									<option value = 3>保固合約書</option>
 								</select>
+								
+								<label>表單狀態</label>
+								<select id="FormStatus" name="FormStatus" class="input-xlarge" >
+									<option value = 0 selected="selected">請選擇表單狀態</option>
+									<option value = 1>已開發票</option>
+									<option value = 2>已送請款單</option>
+									<option value = 3>已送請款單/發票</option>
+									<option value = 4>尚未收款</option>
+									<option value = 5>已收款</option>
+								</select>
+															
+								<label>合約已回/未回</label>
+								<select id="IsReturn" name="IsReturn" class="input-xlarge" >
+									<option value = 1 selected="selected">未回</option>
+									<option value = 2>已回</option>
+								</select>							
+								
+								<label>電梯</label>
+								<select id="Elevator" name="Elevator" class="input-xlarge" >
+								<option value = 0 selected="selected">請選擇電梯型號</option>
+								</select>
+								<?php if ($this->data['elevator'] != 0)
+								   {
+									  
+										foreach($this->data['elevator'] as $row)
+										{										
+								?>
+									<script type='text/javascript'>
+									addOption(document.getElementById("Elevator"), "<?php  echo $row->model;?>", "<?php echo $row->id;?>");
+									
+									</script>								
+								<?php
+										}
+								   }
+								?>
+								
+								<label>客戶</label>
+								<select id="Customer" name="Customer" class="input-xlarge" >
+								<option value = 0 selected="selected">請選擇客戶</option>
+								</select>
+								<?php if ($this->data['customer'] != 0)
+								   {
+									  
+										foreach($this->data['customer'] as $row)
+										{										
+								?>
+									<script type='text/javascript'>
+									addOption(document.getElementById("Customer"), "<?php  echo $row->name;?>", "<?php echo $row->id;?>");
+									
+									</script>								
+								<?php
+										}
+								   }
+								?>	
 								<label>單雙月</label>
 								<select name="Month" id="Month" class="input-xlarge">
 									<option value = 1 selected="selected">單月</option>
@@ -75,39 +138,7 @@
 					</div>
 				</div>
 			</div>
-			<script type="text/javascript">
-				var count=1;
-				function OneClick() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick1() {
-					document.getElementById('test').disabled = false;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick2() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = true;
-				}
-				function checkall() {
-					checkboxes = document.getElementsByName('selected');
-					for(var i=0, n=checkboxes.length;i<=n;i++) 
-					{
-						if(i==n){
-							count=count+1;
-						}
-						if((count%2)==0)
-						{
-							checkboxes[i].checked = false;
-						}
-						elseSubjects
-						{
-							checkboxes[i].checked = true;
-						}
-						
-					}
-				}
-			</script>
+
 			<script src="lib/bootstrap/js/bootstrap.js"></script>
 			<script type="text/javascript">
 				$("[rel=tooltip]").tooltip();

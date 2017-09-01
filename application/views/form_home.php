@@ -36,8 +36,8 @@
 										<thead>
 											<tr>
 												<th><a href="#">#</a></th>
-												<th><a href="#">表單名稱</a></th>
-												<th><a href="#">單雙月</a></th>
+												<th><a href="#">表單類型</a></th>
+												<th><a href="#">狀態</a></th>
 												<th><a href="#">開始日期</a></th>
 												<th><a href="#">電梯型號</a></th>
 												<th class="sorttable_nosort">編輯</th>
@@ -70,12 +70,14 @@
 										?>
 											<tr>
 												<td><?=$row->id;?></td>
-												<td><?=$row->month;?></td>
+												<td><?=$row->form_type;?></td>
+												<td><?=$row->status;?></td>
 												<td><?=$row->start_date;?></td>
-												<td><?=$row->end_date;?></td>
-												<td><?=$row->permission_date;?></td>
+												<td><?=$row->elevator_id;?></td>
 												<td>
 													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
+												</td>
+												<td>
 													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
 												</td>
 											</tr>

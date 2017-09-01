@@ -13,7 +13,9 @@ class Form_model extends CI_Model
 	
 	public function insertForm($data)
 	{
-
+		$this->db->set('is_return',$data->return_back);
+		$this->db->set('status',$data->status);
+		$this->db->set('form_type',$data->type);
 		$this->db->set('month',$data->month);
 		$this->db->set('start_date',$data->startDate);
 		$this->db->set('end_date',$data->endDate);
@@ -21,6 +23,7 @@ class Form_model extends CI_Model
 		$this->db->set('price',$data->price);
 		$this->db->set('receipt_remind',$data->remind);
 		$this->db->set('elevator_id',$data->elevator);
+		$this->db->set('customer_id',$data->customer);
 		$this->db->insert('form');	
 	}
 	
