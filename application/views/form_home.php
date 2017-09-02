@@ -45,47 +45,30 @@
 											</tr>
 										</thead>
 										<tbody>
-										<?php
-										//echo $id1234=$_SESSION["pagesheet"];
-										//if($_SESSION["pagesheet"]!=null)
-											$id=$_SESSION["pagesheet"];
-										//else
-											//$id=1;
-										
-											if ($this->data != 0) 
-											{		
-													$i=count($this->data);	
-													$j=($id-1)*10;
-													$o=$id*10;
-													//echo $i;
-													
-												foreach($this->data as $row)
-												{ $k1234=$row->id;
-													//echo $k1234;
-													if($k1234<=$j)
-													 $row->id;
-												else	
-												if($k1234<=$o){
-													
-										?>
-											<tr>
-												<td><?=$row->id;?></td>
-												<td><?=$row->form_type;?></td>
-												<td><?=$row->status;?></td>
-												<td><?=$row->start_date;?></td>
-												<td><?=$row->elevator_id;?></td>
-												<td>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
-												</td>
-												<td>
-													<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
-												</td>
-											</tr>
-												<?php
-												}
-												//$j++;
-												}// endforeach;
-											}?>
+					<?php
+											$fristitem = $this->data[13];
+											$itemmax = $this->data[14];
+											$j=0;
+											for(; $fristitem < $itemmax;$fristitem++)
+											{
+												
+					?>							
+												<tr>
+													<td><?=$this->data[$j]->id;?></td>
+													<td><?=$this->data[$j]->form_type;?></td>
+													<td><?=$this->data[$j]->status;?></td>
+													<td><?=$this->data[$j]->start_date;?></td>
+													<td><?=$this->data[$j]->elevator_id;?></td>
+													<td>
+														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
+													</td>
+													<td>
+														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
+													</td>
+												</tr>
+					<?php						$j++;
+											}
+					?>
 										</tbody>
 									</table>
 								</div>
@@ -94,66 +77,49 @@
 							<div class="pagination">
 								<ul>
 								
-								<?php
-								if ($this->data != 0) 
-								{	
-									$k=count($this->data);
-									//$data123=$_SESSION;
-									if($k>=10)
-									{if($k%10!=0){
-										$l=$k/10+1;
-										$l= floor($l);
-									}else{
-									$l=$k/10;}
-									//echo $l;
-									if($l>1){
-										if($id>1){
-											$idprev=$id-1;
-										?>
-										<li><a href="<?=base_url("/Form/pagesheet/".$idprev)?>">Prev</a></li>
-								<?php	
-										}else{
-										?>
-									<li><a href="<?=base_url("/Form/pagesheet/".$id)?>">Prev</a></li>
-										<?php	}
-										$mn=ceil($id/10);
-										//$l=21;
-									if($l>10 )
-									{	
-										
-										$mnum=floor(($id-1)/10);
-										$m=$mnum*10;
-										$l2=($mnum+1)*10;
-										
-										if($l2>$l)
-											$l2=$l;
-
-									}
-									else
-									{
-										$l2=$l;
-										$m=0;
-									}
-										
-								for($m;$m<$l2;$m++){
-									$n=$m+1;
-								?>
-											
-									<li><a href="<?=base_url("/Form/pagesheet/".$n)?>"><?=$n?></a></li>
+					<?php
 									
-								<?
+									$pagefrist = $this->data[10];//第一頁
+									$pagetotal = $this->data[11];//共有幾頁
+									$pageid = $this->data[12];//第幾頁
+									if($pagetotal > 1 )
+									{
+										if($pageid > 1 )
+										{
+											$idprev = $pageid - 1 ;
+					?>
+											<li><a href="<?=base_url("/Form/switch_page/".$idprev)?>">Prev</a></li>
+					<?php	
+										}
+										else
+										{
+					?>
+											<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Prev</a></li>
+					<?php					
+										}
+										
+										for(;$pagefrist < $pagetotal;$pagefrist++)
+										{
+											$pageitemid = $pagefrist + 1 ;
+					?>
+											<li><a href="<?=base_url("/Form/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
+					<?php
+										}
+										if($pageid == $pagetotal)
+										{
+					?>
+											<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Next</a></li>
+					<?php
+										}
+										else
+										{
+											$idNext=$pageid+1;
+					?>
+											<li><a href="<?=base_url("/Form/switch_page/".$idNext)?>">Next</a></li>
+					<?php
+										}
 									}
-									if($id==$l){
-									?>
-									<li><a href="<?=base_url("/Form/pagesheet/".$id)?>">Next</a></li>
-									<?}else{
-										$idNext=$id+1;
-										?>
-									<li><a href="<?=base_url("/Form/pagesheet/".$idNext)?>">Next</a></li>
-									<?}
-									}}
-								}
-								?>									
+					?>									
 									
 								</ul>
 							</div>

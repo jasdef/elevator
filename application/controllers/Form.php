@@ -2,7 +2,7 @@
 
 class Form extends CI_Controller {
 	//
-	var $data =array();
+	var $data = array();
 	function __construct()
 	{
 		parent::__construct();
@@ -15,20 +15,137 @@ class Form extends CI_Controller {
 	}
 	public function form_home() 
 	{	
-	
-		$_SESSION["pagesheet"]=1;
 		$form_model = new Form_model();
 		$common = new Common();
-		$this->data = $form_model->getForm();
-		
-		if ($this->data != 0) 
-		{										
-			foreach($this->data as $row):
-			$row->status = $common->conversionFormStatusByID($row->status);
-			$row->form_type = $common->conversionFormTypeByID($row->form_type);
-			endforeach;
+		$temp = $form_model->getForm();
+		$fristitem = 0;
+		if ($temp != 0) 
+		{	
+			$totalitem = count($temp);	
+			if(10 > $totalitem)
+			{
+				$itemmax = $totalitem;
+			}
+			else
+			{
+				$itemmax = 10;		
+			}
+			$this->data[13] = $fristitem; 
+			$this->data[14] = $itemmax;	
+											
+			foreach($temp as $row):
+				$row->status = $common->conversionFormStatusByID($row->status);
+				$row->form_type = $common->conversionFormTypeByID($row->form_type);
+				if($fristitem < $itemmax)
+				{	
+					$this->data[$fristitem] = $row;
+				}
+				$fristitem++;
+			endforeach;			
+		}	
+		//資料筆數
+		if($totalitem >= 10)
+		{	 $totalitem;
+			if($totalitem % 10 != 0)
+			{
+				$pageitem = floor($totalitem / 10) + 1;
+			}
+			else
+			{
+				$pageitem = $totalitem / 10;
+			}		
 		}
+		//頁數
+		$pagefrist = 0;
+		if($pageitem > 10 )
+		{	
+			$pagetotal = 10;
+		}
+		else
+		{
+			$pagetotal = $pageitem;		
+		}
+		$this->data[10] = $pagefrist;
+		$this->data[11] = $pagetotal;		
+		$this->data[12] = 1;	
+		$this->load->view('form_home', $this->data);
+	}
+	/*
+	public function switch_page10(19) 
+	{
+		11~15 21~30
+		30
 		
+	->	21
+	->total	5
+	}*/
+	
+	public function switch_page($id)
+	{
+		$form_model = new Form_model();
+		$common = new Common();
+		$temp = $form_model->getForm();
+		$fristitem = 0;
+		$k=array();
+		if ($temp != 0) 
+		{	
+			$totalitem = count($temp);		
+			if(($id * 10) > $totalitem)
+			{
+				$itemmax = $totalitem;
+			}
+			else
+			{
+				$itemmax = ($id * 10);		
+			}
+			$j = 0;	
+			$i = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
+			$this->data[13] = ($id - 1) * 10;//丟往前端迴圈參數
+			$this->data[14] = $itemmax;//丟往前端迴圈參數
+			foreach($temp as $row):
+				$row->status = $common->conversionFormStatusByID($row->status);
+				$row->form_type = $common->conversionFormTypeByID($row->form_type);
+				if($fristitem>=$i)
+				{				
+					if($fristitem < $itemmax)
+					{	
+						$this->data[$j] = $row;
+						$j++;
+					}
+				}					
+				$fristitem++;				
+			endforeach;			
+		}	
+		//資料筆數
+		if($totalitem >= 10)
+		{	
+			if($totalitem % 10 != 0)
+			{
+				$pageitem = floor($totalitem / 10) + 1;
+			}
+			else
+			{
+				$pageitem = $totalitem / 10;
+			}		
+		}
+		//頁數		
+		if($id > 10 )
+		{	
+			$pagefrist = floor(($id - 1) / 10) * 10;
+			$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
+			if($pagelast > $sheetid)
+			{
+				$pagetotal = $sheetid;
+			}
+		}
+		else
+		{	
+			$pagefrist = 0;
+			$pagetotal = $pageitem;		
+		}
+		$this->data[10] = $pagefrist;
+		$this->data[11] = $pagetotal;		
+		$this->data[12] = $id;	
 		$this->load->view('form_home', $this->data);
 	}
 	
@@ -47,17 +164,7 @@ class Form extends CI_Controller {
 		$this->load->view('create_form', $this->data);
 	}
 	
-	public function pagesheet($id)
-			{
-			//echo $id;
-			//session_start(); 
-			//echo $kk;
-			
-			$_SESSION["pagesheet"]=$id;
-			$form_model = new Form_model();
-		$this->data = $form_model->getForm();	
-		$this->load->view('form_home', $this->data);
-			}
+
 
 	
 	public function form_create() 
