@@ -55,6 +55,10 @@ class Form extends CI_Controller {
 				$pageitem = $totalitem / 10;
 			}		
 		}
+		else
+		{
+			$pageitem=1;
+		}
 		//頁數
 		$pagefrist = 0;
 		if($pageitem > 10 )
