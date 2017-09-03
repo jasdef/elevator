@@ -45,7 +45,7 @@ class Form extends CI_Controller {
 		}	
 		//資料筆數
 		if($totalitem >= 10)
-		{	 $totalitem;
+		{	
 			if($totalitem % 10 != 0)
 			{
 				$pageitem = floor($totalitem / 10) + 1;
@@ -57,9 +57,9 @@ class Form extends CI_Controller {
 		}
 		else
 		{
-			$pageitem=1;
+			$pageitem = 1;
 		}
-		//頁數
+		//頁碼
 		$pagefrist = 0;
 		if($pageitem > 10 )
 		{	
@@ -69,9 +69,9 @@ class Form extends CI_Controller {
 		{
 			$pagetotal = $pageitem;		
 		}
-		$this->data[10] = $pagefrist;
-		$this->data[11] = $pagetotal;		
-		$this->data[12] = 1;	
+		$this->data[10] = $pagefrist;	//各10頁的第一頁
+		$this->data[11] = $pagetotal;	//各10頁的總筆數數		
+		$this->data[12] = 1;			//第幾頁
 		$this->load->view('form_home', $this->data);
 	}
 	/*
@@ -90,7 +90,6 @@ class Form extends CI_Controller {
 		$common = new Common();
 		$temp = $form_model->getForm();
 		$fristitem = 0;
-		$k=array();
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);		
@@ -103,13 +102,13 @@ class Form extends CI_Controller {
 				$itemmax = ($id * 10);		
 			}
 			$j = 0;	
-			$i = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
+			$i = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
 			$this->data[13] = ($id - 1) * 10;//丟往前端迴圈參數
 			$this->data[14] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
 				$row->status = $common->conversionFormStatusByID($row->status);
 				$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				if($fristitem>=$i)
+				if($fristitem >= $i)
 				{				
 					if($fristitem < $itemmax)
 					{	
@@ -132,7 +131,11 @@ class Form extends CI_Controller {
 				$pageitem = $totalitem / 10;
 			}		
 		}
-		//頁數		
+		else
+		{
+			$pageitem = 1;
+		}
+		//頁碼		
 		if($id > 10 )
 		{	
 			$pagefrist = floor(($id - 1) / 10) * 10;
@@ -147,9 +150,9 @@ class Form extends CI_Controller {
 			$pagefrist = 0;
 			$pagetotal = $pageitem;		
 		}
-		$this->data[10] = $pagefrist;
-		$this->data[11] = $pagetotal;		
-		$this->data[12] = $id;	
+		$this->data[10] = $pagefrist;//各10頁的第一頁
+		$this->data[11] = $pagetotal;//各10頁的總筆數數		
+		$this->data[12] = $id;	//第幾頁
 		$this->load->view('form_home', $this->data);
 	}
 	
