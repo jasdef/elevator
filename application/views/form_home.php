@@ -48,10 +48,8 @@
 					<?php
 											$fristitem = $this->data[13];
 											$itemmax = $this->data[14];
-											$j=0;
-											for(; $fristitem < $itemmax;$fristitem++)
+											for($j = 0; $fristitem < $itemmax;$j++)
 											{
-												
 					?>							
 												<tr>
 													<td><?=$this->data[$j]->id;?></td>
@@ -60,13 +58,13 @@
 													<td><?=$this->data[$j]->start_date;?></td>
 													<td><?=$this->data[$j]->elevator_id;?></td>
 													<td>
-														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 													</td>
 													<td>
-														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$row->id;?>" ><i class="icon-remove"></i></a>
+														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 													</td>
 												</tr>
-					<?php						$j++;
+					<?php						$fristitem++;
 											}
 					?>
 										</tbody>
@@ -78,7 +76,6 @@
 								<ul>
 								
 					<?php
-									
 									$pagefrist = $this->data[10];//第一頁
 									$pagetotal = $this->data[11];//共有幾頁
 									$pageid = $this->data[12];//第幾頁
@@ -97,7 +94,6 @@
 											<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Prev</a></li>
 					<?php					
 										}
-										
 										for(;$pagefrist < $pagetotal;$pagefrist++)
 										{
 											$pageitemid = $pagefrist + 1 ;
@@ -113,7 +109,7 @@
 										}
 										else
 										{
-											$idNext=$pageid+1;
+											$idNext = $pageid + 1;
 					?>
 											<li><a href="<?=base_url("/Form/switch_page/".$idNext)?>">Next</a></li>
 					<?php
