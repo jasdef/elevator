@@ -28,7 +28,7 @@
 					<div class="container-fluid">
 						<div class="row-fluid">
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/Form/create_form")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="<?=base_url("/Form/create_form/1")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
 							<form action="<?=base_url("/Form/form_borad")?>" method="post">
 								<div class="well">

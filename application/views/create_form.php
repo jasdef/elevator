@@ -6,11 +6,13 @@
 		<body> 
 			<script type='text/javascript'>
 
-			function addOption(list, text, value){
+			function addOption(list, text, value)
+			{
 				var index=list.options.length;
 				list.options[index]=new Option(text, value);
 		
-			}
+			}				
+			
 			</script>
 			<?php
 				include "navbar.php";
@@ -39,10 +41,10 @@
 							</div>
 							<div class="well">
 								<label>表單類型</label>
-								<select id="FormType" name="FormType" class="input-xlarge" >
-									<option value = 1 selected="selected">買賣合約書</option>
-									<option value = 2>保養合約書</option>
-									<option value = 3>保固合約書</option>
+								<select id="FormType" name="FormType" class="input-xlarge" onchange="location.href=<?php base_url("/form/create_form/")?>this.value">
+									<option value = 1 <?php if ($this->data['formType'] == 1)echo "selected=\"selected\"";?>>買賣合約書</option>
+									<option value = 2 <?php if ($this->data['formType'] == 2)echo "selected=\"selected\"";?>>保養合約書</option>
+									<option value = 3 <?php if ($this->data['formType'] == 3) echo "selected=\"selected\"";?>>保固合約書</option>
 								</select>
 								
 								<label>表單狀態</label>
@@ -84,7 +86,8 @@
 								<select id="Customer" name="Customer" class="input-xlarge" >
 								<option value = 0 selected="selected">請選擇客戶</option>
 								</select>
-								<?php if ($this->data['customer'] != 0)
+								<?php 
+								   if ($this->data['customer'] != 0)
 								   {
 									  
 										foreach($this->data['customer'] as $row)
@@ -98,11 +101,33 @@
 										}
 								   }
 								?>	
-								<label>單雙月</label>
-								<select name="Month" id="Month" class="input-xlarge">
-									<option value = 1 selected="selected">單月</option>
-									<option value = 2>雙月</option>
-								</select>
+								
+								<?php
+									if ($this->data['formType'] == 2) 
+									{									
+																			
+								?>
+										<label>單雙月</label>
+										<select name="Month" id="Month" class="input-xlarge">
+											<option value = 1 selected="selected">單月</option>
+											<option value = 2>雙月</option>
+										</select>
+								<?php 
+									}
+								?>
+								
+								
+								<?php
+									if ($this->data['formType'] == 3) 
+									{									
+																			
+								?>
+										<label>保固期限(月)</label>
+										<input type="text" name = "Warranty" value="12" class="input-xlarge">
+								<?php 
+									}
+								?>														
+								
 								<label>簽約日(西元yyyy/mm/dd)</label>
 								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
 								<label>到期日(西元yyyy/mm/dd)</label>

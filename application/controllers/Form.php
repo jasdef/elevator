@@ -90,7 +90,7 @@ class Form extends CI_Controller {
 		$common = new Common();
 		$temp = $form_model->getForm();
 		$fristitem = 0;
-		$k=array();
+		$k = array();
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);		
@@ -158,19 +158,16 @@ class Form extends CI_Controller {
 		$this->load->view('project_new_admin');
 	}
 	
-	public function create_form() 
+	public function create_form($formType) 
 	{	
 		$elevator_model = new Elevator_model();
 		$customer_model = new Customer_model();
 		$this->data['elevator'] = $elevator_model->getElevator();
 		$this->data['customer'] = $customer_model->getCustomer();
-
+		$this->data['formType'] = $formType;
 		$this->load->view('create_form', $this->data);
 	}
-	
-
-
-	
+		
 	public function form_create() 
 	{
 		$form_model = new Form_model();
@@ -180,7 +177,10 @@ class Form extends CI_Controller {
 		$is_return = $this->input->post("IsReturn"); 
 		$elevator = $this->input->post("Elevator");  
 		$customer = $this->input->post("Customer"); 
-		$month = $this->input->post("Month");
+		if ($type == 2)
+			$month = $this->input->post("Month");
+		if ($type == 3)
+			$warranty = $this->input->post("Warranty");
 		$startDate = $this->input->post("Start_date");
 		$endDate = $this->input->post("End_date");
 		$permissionDate = $this->input->post("Permission_date");
@@ -192,7 +192,10 @@ class Form extends CI_Controller {
 		$data->return_back = $is_return;
 		$data->customer = $customer;
 		$data->elevator = $elevator;
-		$data->month = $month;
+		if ($type == 2)
+			$data->month = $month;
+		if ($type == 3)
+			$data->warranty = $warranty;
 		$data->startDate = $startDate;
 		$data->endDate = $endDate;
 		$data->permissionDate = $permissionDate;

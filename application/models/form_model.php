@@ -16,7 +16,10 @@ class Form_model extends CI_Model
 		$this->db->set('is_return',$data->return_back);
 		$this->db->set('status',$data->status);
 		$this->db->set('form_type',$data->type);
-		$this->db->set('month',$data->month);
+		if ($data->type == 2)
+			$this->db->set('month',$data->month);
+		if ($data->type == 3)
+			$this->db->set('warranty',$data->warranty);
 		$this->db->set('start_date',$data->startDate);
 		$this->db->set('end_date',$data->endDate);
 		$this->db->set('permission_date',$data->permissionDate);
