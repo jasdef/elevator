@@ -41,7 +41,7 @@
 							</div>
 							<div class="well">
 								<label>表單類型</label>
-								<select id="FormType" name="FormType" class="input-xlarge" onchange="location.href=<?php base_url("/form/create_form/")?>this.value">
+								<select id="FormType" name="FormType" class="input-xlarge" onchange="href=<?=base_url("/form/create_form/")?>>
 									<option value = 1 <?php if ($this->data['formType'] == 1)echo "selected=\"selected\"";?>>買賣合約書</option>
 									<option value = 2 <?php if ($this->data['formType'] == 2)echo "selected=\"selected\"";?>>保養合約書</option>
 									<option value = 3 <?php if ($this->data['formType'] == 3) echo "selected=\"selected\"";?>>保固合約書</option>

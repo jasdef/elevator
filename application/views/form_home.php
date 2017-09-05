@@ -58,10 +58,10 @@
 													<td><?=$this->data[$j]->start_date;?></td>
 													<td><?=$this->data[$j]->elevator_id;?></td>
 													<td>
-														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/Form/edit_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 													</td>
 													<td>
-														<a href="<?=base_url("/projectview_admin/project_board")?>/project_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														<a href="<?=base_url("/Form/delete_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 													</td>
 												</tr>
 					<?php						$fristitem++;

@@ -167,7 +167,7 @@ class Form extends CI_Controller {
 		$this->data['formType'] = $formType;
 		$this->load->view('create_form', $this->data);
 	}
-		
+					
 	public function form_create() 
 	{
 		$form_model = new Form_model();
@@ -205,6 +205,87 @@ class Form extends CI_Controller {
 		$form_model->insertForm($data);
 		redirect(base_url("/form/form_home"));
 	}
+	
+	public function delete_form() 
+	{
+		$form_model = new Form_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["form_id"];
+		$form_model->deleteForm($id);
+		$this->form_home();
+		//$this->data = $form_model->getForm();	
+		//$this->load->view('form_home', $this->data);	
+	}	
+	
+	public function edit_form() 
+	{
+		$form_model = new Form_model();
+		$elevator_model = new Elevator_model();
+		$customer_model = new Customer_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["form_id"];
+		$this->data = $form_model->getFormByID($id);
+		$this->data['elevator'] = $elevator_model->getElevator();
+		$this->data['customer'] = $customer_model->getCustomer();				
+		
+		$this->load->view('edit_form', $this->data);
+	}
+	
+	public function form_change($type)//For 在編輯中切換表單類型 要對應的切換欄位用 
+	{
+	/*	$form_model = new Form_model();
+		$elevator_model = new Elevator_model();
+		$customer_model = new Customer_model();
+		//$this->data = $this->uri->uri_to_assoc(3);
+	//	$id = $this->data["type"];
+		/*$type = $this->data["type"];
+		$this->data = $form_model->getFormByID($id);
+		$this->data['form_type'] = $type;
+		$this->data['elevator'] = $elevator_model->getElevator();
+		$this->data['customer'] = $customer_model->getCustomer();				
+		
+		$this->load->view('edit_form', $this->data);*/
+	}
+	
+	public function form_edit() 
+	{
+		$form_model = new Form_model();
+		$data = New datamodel;
+		$id = $this->input->post("Id"); 
+		$type = $this->input->post("FormType"); 	
+		$status = $this->input->post("FormStatus"); 
+		$is_return = $this->input->post("IsReturn"); 
+		$elevator = $this->input->post("Elevator");  
+		$customer = $this->input->post("Customer"); 
+		if ($type == 2)
+			$month = $this->input->post("Month");
+		if ($type == 3)
+			$warranty = $this->input->post("Warranty");
+		$startDate = $this->input->post("Start_date");
+		$endDate = $this->input->post("End_date");
+		$permissionDate = $this->input->post("Permission_date");
+		$price = $this->input->post("Price");
+		$remind = $this->input->post("Remind");
+		
+		$data->id = $id;
+		$data->type = $type;
+		$data->status = $status;
+		$data->return_back = $is_return;
+		$data->customer = $customer;
+		$data->elevator = $elevator;
+		if ($type == 2)
+			$data->month = $month;
+		if ($type == 3)
+			$data->warranty = $warranty;
+		$data->startDate = $startDate;
+		$data->endDate = $endDate;
+		$data->permissionDate = $permissionDate;
+		$data->price = $price;
+		$data->remind = $remind;
+		$form_model->updateForm($data);
+		redirect(base_url("/form/form_home"));
+	}	
+	
 	
 	public function select_school_name(){
 		$schoolfuntion = new Project_model();
