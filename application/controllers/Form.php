@@ -12,7 +12,42 @@ class Form extends CI_Controller {
 		$this->load->model('Customer_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
+		
+		
+        $this->load->helper(array('form', 'url'));//
 	}
+	
+	public function upload()//////////////////////////
+    {
+        $this->load->view('upload_form');
+    }
+
+    public function do_upload()
+    {
+        $config['upload_path']      = './uploads/';//資料夾位置
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']     = 0;//檔案大小 0為不限制
+        $config['max_width']        = 0;//最大畫數 0為不限制
+        $config['max_height']       = 0;//最小畫數 0為不限制
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+            
+            $this->load->view('upload_success', $data);
+        }
+    }
+	
+	//////////////////////////////////////////////////
+	
+	
 	public function form_home() 
 	{	
 		$form_model = new Form_model();

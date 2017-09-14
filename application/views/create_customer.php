@@ -30,14 +30,28 @@
 								<a href=""<?=base_url("/customer/customer_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">
-								<label>負責人</label>
-								<input type="text" name = "Name" value="" class="input-xlarge">
+								<label>公司名稱</label>
+								<input type="text" name = "company" value="" class="input-xlarge">
+								
+								
+								<label>聯絡人</label>
+								<input type="text" name = "contacter_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('contacter_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('contacter_')"><i class="icon-remove"></i></a>	
+								<span id="contacter_"></span> 
+						
+								
+								
 								<label>地址</label>
-								<input type="text" name = "Address" value="" class="input-xlarge">
-								<label>電話</label>
-								<input type="text" name = "Tel" value="" class="input-xlarge">
+								<input type="text" name = "Address_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('Address_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Address_')"><i class="icon-remove"></i></a>
+								<span id="Address_"></span> 
+																
+								<label>電話</label>								
+								<input type="text" name = "Tel_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('Tel_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Tel_')"><i class="icon-remove"></i></a>
+								<span id="Tel_"></span> 
+								
+								
 								<label>傳真</label>
 								<input type="text" name = "Fax" value="" class="input-xlarge">
+								
 								<label>統一編號</label>
 								<input type="text" name = "Num" value="" class="input-xlarge">
 							</div>
@@ -105,6 +119,64 @@
 					$('.demo-cancel-click').click(function(){return false;});
 				});
 			</script>
+			
+			<script> //新增欄位 java script
+				var countMin = 1; 
+				var countMax = 3;
+				var contMin = 1;
+				var AddrMin = 1;
+				var TelMin = 1;
+				var commonName ;
+				function addField(name) { 
+					
+					if(name == "contacter_")
+					{	
+						var count = contMin;	
+						++contMin;
+						commonName	= "聯絡人";		
+					}
+					else if(name == "Address_")
+					{
+						var count = AddrMin;
+						++AddrMin;
+						commonName	= "地址";					
+					}
+					else if(name == "Tel_")
+					{
+						var count = TelMin;
+						++TelMin;
+						commonName	= "電話";						
+					}
+					if(count == countMax) 
+						alert("最多"+countMax+"個欄位"); 
+					else	 
+						document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
+				}
+				function delField(name) {
+					if(name	==	"contacter_")
+					{								
+						count = contMin;
+						contMin--;
+					}
+					else if(name == "Address_")
+					{
+						count = AddrMin;
+						AddrMin--;
+					}
+					else if(name == "Tel_")
+					{						
+						count = TelMin;
+						TelMin--;
+					}		
+					if (count > countMin) {
+						var fs = document.getElementById(name); 
+						fs.removeChild(fs.lastChild);
+					} else {
+						alert("無新增欄位可以刪除");
+					}	
+				}
+			</script>
+			
 		</body>
 	</html>
 

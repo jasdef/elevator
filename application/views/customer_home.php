@@ -33,7 +33,8 @@
 										<thead>
 											<tr>
 												<th><a href="#">客戶編號</a></th>
-												<th><a href="#">負責人</a></th>
+												<th><a href="#">公司名稱</a></th>
+												<th><a href="#">聯絡人</a></th>
 												<th><a href="#">地址</a></th>
 												<th><a href="#">電話</a></th>
 												<th class="sorttable_nosort">編輯</th>
@@ -44,13 +45,14 @@
 					<?php
 											$fristitem = $this->data[13];
 											$itemmax = $this->data[14];	
-											for($j = 0; $fristitem < $itemmax;$j++)
+											for($j = 0; $fristitem < $itemmax;$j++)	
 											{
 					?>	
 												<tr>
 													<td><?=$this->data[$j]->id;?></td>
 													<td><?=$this->data[$j]->name;?></td>
 													<td><?=$this->data[$j]->address;?></td>
+													<td><?=$this->data[$j]->tel;?></td>
 													<td><?=$this->data[$j]->tel;?></td>
 													<td>
 														<a href="<?=base_url("/Customer/edit_customer")?>/customer_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
