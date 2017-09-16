@@ -34,50 +34,6 @@
             <div class="row-fluid">
                     
 
-<div class="row-fluid">
-
-    <div class="alert alert-info">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Just a quick note:</strong> Hope you like the theme!
-    </div>
-
-    <div class="block">
-        <a href="#page-stats" class="block-heading" data-toggle="collapse">財報</a>
-        <div id="page-stats" class="block-body collapse in">
-
-            <div class="stat-widget-container">
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">2,500</p>
-                        <p class="detail">維修單</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">3,299</p>
-                        <p class="detail">買賣單</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">$1,500</p>
-                        <p class="detail">維修</p>
-                    </div>
-                </div>
-
-                <div class="stat-widget">
-                    <div class="stat-button">
-                        <p class="title">$12,675</p>
-                        <p class="detail">買賣</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row-fluid">
     <div class="block span6">
