@@ -131,42 +131,60 @@
 					
 					if(name == "contacter_")
 					{	
-						var count = contMin;	
-						++contMin;
+						var count = contMin;
+						if	(contMin < 3)
+						{						
+							++contMin;
+						}
 						commonName	= "聯絡人";		
 					}
 					else if(name == "Address_")
 					{
 						var count = AddrMin;
-						++AddrMin;
+						if	(AddrMin < 3)
+						{						
+							++AddrMin;
+						}
 						commonName	= "地址";					
 					}
 					else if(name == "Tel_")
 					{
 						var count = TelMin;
-						++TelMin;
+						if	(TelMin < 3)
+						{						
+							++TelMin;
+						}
 						commonName	= "電話";						
 					}
-					if(count == countMax) 
+					if(count >= countMax) 
 						alert("最多"+countMax+"個欄位"); 
 					else	 
 						document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
 				}
 				function delField(name) {
 					if(name	==	"contacter_")
-					{								
+					{	
 						count = contMin;
-						contMin--;
+						if(contMin > 1)
+						{
+							contMin--;
+						}
 					}
 					else if(name == "Address_")
 					{
 						count = AddrMin;
-						AddrMin--;
+						if(AddrMin > 1)
+						{
+							AddrMin--;
+						}
 					}
 					else if(name == "Tel_")
 					{						
 						count = TelMin;
-						TelMin--;
+						if(TelMin > 1)
+						{
+							TelMin--;
+						}
 					}		
 					if (count > countMin) {
 						var fs = document.getElementById(name); 

@@ -39,7 +39,7 @@
 								<label>聯絡人</label>
 								<input type="text" name = "Address" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('contacter_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('contacter_')"><i class="icon-remove"></i></a>
 								<span id="contacter_">
-								<?
+								<?php
 									if($this->data['contacter_2'] != null)
 									{
 										echo "<div>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['contacter_2']." class=input-xlarge></div>";
@@ -55,7 +55,7 @@
 								<label>地址</label>
 								<input type="text" name = "Address" value="<?php print($this->data['address_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('Address_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Address_')"><i class="icon-remove"></i></a>
 								<span id="Address_">
-								<?
+								<?php
 									if($this->data['address_2'] != null)
 									{
 										echo "<div>地址2</br> <input type=text name= address_2 value=".$this->data['address_2']." class=input-xlarge></div>";
@@ -70,7 +70,7 @@
 								<label>電話</label>
 								<input type="text" name = "Tel" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('Tel_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Tel_')"><i class="icon-remove"></i></a>
 								<span id="Tel_">
-								<?
+								<?php
 									if($this->data['tel_2'] != null)
 									{	
 										echo "<div>電話2</br> <input type=text name= tel_2 value=".$this->data['tel_2']." class=input-xlarge></div>";
@@ -155,9 +155,9 @@
 			<script> //新增欄位 java script
 				var countMin = 1; 
 				var countMax = 3;
-				var contMin =<?echo $this->data[14];?>;
-				var AddrMin = <?echo $this->data[15];?>;
-				var TelMin = <?echo $this->data[16];?>;
+				var contMin = <?php echo $this->data[14];?>;
+				var AddrMin = <?php echo $this->data[15];?>;
+				var TelMin = <?php echo $this->data[16];?>;
 				var commonName 
 												
 				function addField(name) { 
@@ -174,7 +174,7 @@
 					else if(name == "Address_")
 					{
 						var count = AddrMin;
-						if	(contMin < 3)
+						if	(AddrMin < 3)
 						{						
 							++AddrMin;
 						}
@@ -183,17 +183,12 @@
 					else if(name == "Tel_")
 					{
 						var count = TelMin;
-						if	(contMin < 3)
+						if	(TelMin < 3)
 						{						
 							++TelMin;
 						}
 						commonName	= "電話";						
 					}
-					if(count == countMax) 
-						alert("最多"+countMax+"個欄位"); 
-					else	 
-						document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
-				}
 				function delField(name) {
 					if(name	==	"contacter_")
 					{	
@@ -214,11 +209,11 @@
 					else if(name == "Tel_")
 					{						
 						count = TelMin;
-						if(AddrMin > 1)
+						if(TelMin > 1)
 						{
 							TelMin--;
 						}
-					}		
+					}	
 					if (count > countMin) {
 						var fs = document.getElementById(name); 
 						fs.removeChild(fs.childNodes[count-1]);
