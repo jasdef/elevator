@@ -32,12 +32,56 @@
 							<div class="well">			
 								<label>客戶編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
-								<label>負責人</label>
-								<input type="text" name = "Name" value="<?php print($this->data['name']);?>" class="input-xlarge">
+								<label>公司名稱</label>
+								<input type="text" name = "company" value="<?php print($this->data['company']);?>" class="input-xlarge">
+								
+								
+								<label>聯絡人</label>
+								<input type="text" name = "Address" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('contacter_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('contacter_')"><i class="icon-remove"></i></a>
+								<span id="contacter_">
+								<?
+									if($this->data['contacter_2'] != null)
+									{
+										echo "<div>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['contacter_2']." class=input-xlarge></div>";
+										if($this->data['contacter_3'] != null)
+										{
+											echo "<div>聯絡人3</br> <input type=text name= contacter_3 value=".$this->data['contacter_3']." class=input-xlarge></div>";
+										}
+									}
+								?>
+								</span> 
+								
+								
 								<label>地址</label>
-								<input type="text" name = "Address" value="<?php print($this->data['address']);?>" class="input-xlarge">
+								<input type="text" name = "Address" value="<?php print($this->data['address_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('Address_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Address_')"><i class="icon-remove"></i></a>
+								<span id="Address_">
+								<?
+									if($this->data['address_2'] != null)
+									{
+										echo "<div>地址2</br> <input type=text name= address_2 value=".$this->data['address_2']." class=input-xlarge></div>";
+										if($this->data['address_3'] != null)
+										{
+											echo "<div>地址3</br> <input type=text name= address_3 value=".$this->data['address_3']." class=input-xlarge></div>";
+										}
+									}
+								?>
+								</span>
+								
 								<label>電話</label>
-								<input type="text" name = "Tel" value="<?php print($this->data['tel']);?>" class="input-xlarge">
+								<input type="text" name = "Tel" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <a href="javascript:" onclick="addField('Tel_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Tel_')"><i class="icon-remove"></i></a>
+								<span id="Tel_">
+								<?
+									if($this->data['tel_2'] != null)
+									{	
+										echo "<div>電話2</br> <input type=text name= tel_2 value=".$this->data['tel_2']." class=input-xlarge></div>";
+										if($this->data['tel_3'] != null)
+										{
+											echo "<div>電話3</br> <input type=text name= tel_3 value=".$this->data['tel_3']." class=input-xlarge></div>";
+										}
+									}
+								?>
+								</span>
+								
 								<label>傳真</label>
 								<input type="text" name = "Fax" value="<?php print($this->data['fax']);?>" class="input-xlarge">
 								<label>統一編號</label>
@@ -83,12 +127,12 @@
 				}
 				function checkall() {
 					checkboxes = document.getElementsByName('selected');
-					for(var i=0, n=checkboxes.length;i<=n;i++) 
+					for(var i = 0, n=checkboxes.length;i <= n;i++) 
 					{
-						if(i==n){
-							count=count+1;
+						if(i == n){
+							count = count+1;
 						}
-						if((count%2)==0)
+						if((count%2) == 0)
 						{
 							checkboxes[i].checked = false;
 						}
@@ -107,7 +151,83 @@
 					$('.demo-cancel-click').click(function(){return false;});
 				});
 			</script>
+			
+			<script> //新增欄位 java script
+				var countMin = 1; 
+				var countMax = 3;
+				var contMin =<?echo $this->data[14];?>;
+				var AddrMin = <?echo $this->data[15];?>;
+				var TelMin = <?echo $this->data[16];?>;
+				var commonName 
+												
+				function addField(name) { 
+					
+					if(name == "contacter_")
+					{	
+						var count = contMin;
+						if	(contMin < 3)
+						{						
+							++contMin;
+						}
+						commonName	= "聯絡人";		
+					}
+					else if(name == "Address_")
+					{
+						var count = AddrMin;
+						if	(contMin < 3)
+						{						
+							++AddrMin;
+						}
+						commonName	= "地址";					
+					}
+					else if(name == "Tel_")
+					{
+						var count = TelMin;
+						if	(contMin < 3)
+						{						
+							++TelMin;
+						}
+						commonName	= "電話";						
+					}
+					if(count == countMax) 
+						alert("最多"+countMax+"個欄位"); 
+					else	 
+						document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
+				}
+				function delField(name) {
+					if(name	==	"contacter_")
+					{	
+						count = contMin;
+						if(contMin > 1)
+						{
+							contMin--;
+						}
+					}
+					else if(name == "Address_")
+					{
+						count = AddrMin;
+						if(AddrMin > 1)
+						{
+							AddrMin--;
+						}
+					}
+					else if(name == "Tel_")
+					{						
+						count = TelMin;
+						if(AddrMin > 1)
+						{
+							TelMin--;
+						}
+					}		
+					if (count > countMin) {
+						var fs = document.getElementById(name); 
+						fs.removeChild(fs.childNodes[count-1]);
+						//alert("已刪除最後一個欄位");
+					} else {
+						alert("無新增欄位可以刪除");
+					}	
+				}
+			</script>
 		</body>
 	</html>
-
 

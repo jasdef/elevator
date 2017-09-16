@@ -164,6 +164,50 @@ class Customer extends CI_Controller {
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["customer_id"];
 		$this->data = $customer_model->getCustomerByID($id);
+		if($this->data['contacter_3'] != null)
+		{
+			echo $this->data[14] = 3 ;
+		}
+		elseif($this->data['contacter_2'] != null)
+		{
+			$this->data[14] = 2 ;
+		}
+		else
+		{
+			$this->data[14] = 1 ;
+		}
+		
+		
+		
+		if($this->data['address_3'] != null)
+		{
+			echo $this->data[15] = 3 ;
+		}
+		elseif($this->data['address_2'] != null)
+		{
+			$this->data[15] = 2 ;
+		}
+		else
+		{
+			$this->data[15] = 1 ;
+		}
+				
+				
+				
+		if($this->data['tel_3'] != null)
+		{
+			echo $this->data[16] = 3 ;
+		}
+		elseif($this->data['tel_2'] != null)
+		{
+			$this->data[16] = 2 ;
+		}
+		else
+		{
+			$this->data[16] = 1 ;
+		}
+		
+		
 		$this->load->view('edit_customer', $this->data);
 	}
 	
