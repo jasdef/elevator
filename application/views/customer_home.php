@@ -42,27 +42,30 @@
 											</tr>
 										</thead>
 										<tbody>
-					<?php
-											$fristitem = $this->data[13];
-											$itemmax = $this->data[14];	
-											for($j = 0; $fristitem < $itemmax;$j++)	
+					<?php					if(count($this->data) != 0 )
 											{
+												$fristitem = $this->data[13];
+												$itemmax = $this->data[14];	
+												//echo count($this->data);
+												//echo $fristitem."=".$itemmax;
+												for($j = 0; $fristitem < $itemmax;$j++)	
+												{
 					?>	
-												<tr>
-													<td><?=$this->data[$j]->id;?></td>
-													<td><?=$this->data[$j]->name;?></td>
-													<td><?=$this->data[$j]->address;?></td>
-													<td><?=$this->data[$j]->tel;?></td>
-													<td><?=$this->data[$j]->tel;?></td>
-													<td>
-														<a href="<?=base_url("/Customer/edit_customer")?>/customer_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
-													</td>
-													<td>
-														<a href="<?=base_url("/Customer/delete_customer")?>/customer_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
-													</td>
-												</tr>
-					<?php						$fristitem++;
-											}
+													<tr>
+														<td><?=$this->data[$j]->id;?></td>
+														<td><?=$this->data[$j]->company;?></td>
+														<td><?=$this->data[$j]->contacter_1;?></td>
+														<td><?=$this->data[$j]->address_1;?></td>
+														<td><?=$this->data[$j]->tel_1;?></td>
+														<td>
+															<a href="<?=base_url("/Customer/edit_customer")?>/customer_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+														</td>
+														<td>
+															<a href="<?=base_url("/Customer/delete_customer")?>/customer_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														</td>
+													</tr>
+					<?php							$fristitem++;
+												}
 					?>
 										</tbody>
 									</table>
@@ -72,47 +75,48 @@
 							<div class="pagination">
 								<ul>
 					<?php
-									$pagefrist = $this->data[10];//第一頁
-									$pagetotal = $this->data[11];//共有幾頁
-									$pageid = $this->data[12];//第幾頁
-									if($pagetotal > 1 )
-									{
-										if($pageid > 1 )
-										{
-											$idprev = $pageid - 1 ;
+												$pagefrist = $this->data[10];//第一頁
+												$pagetotal = $this->data[11];//共有幾頁
+												$pageid = $this->data[12];//第幾頁
+												if($pagetotal > 1 )
+												{
+													if($pageid > 1 )
+													{
+														$idprev = $pageid - 1 ;
 					?>
-											<li><a href="<?=base_url("/Customer/switch_page/".$idprev)?>">Prev</a></li>
+														<li><a href="<?=base_url("/Customer/switch_page/".$idprev)?>">Prev</a></li>
 					<?php	
-										}
-										else
-										{
+													}
+													else
+													{
 					?>
-											<li><a href="<?=base_url("/Customer/switch_page/".$pageid)?>">Prev</a></li>
+														<li><a href="<?=base_url("/Customer/switch_page/".$pageid)?>">Prev</a></li>
 					<?php					
-										}
-										for(;$pagefrist < $pagetotal;$pagefrist++)
-										{
-											$pageitemid = $pagefrist + 1 ;
+													}
+													for(;$pagefrist < $pagetotal;$pagefrist++)
+													{
+														$pageitemid = $pagefrist + 1 ;
 					?>
 											
-											<li><a href="<?=base_url("/Customer/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
+														<li><a href="<?=base_url("/Customer/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
 									
 					<?php
-										}
-										if($pageid == $pagetotal)
-										{
+													}
+													if($pageid == $pagetotal)
+													{
 					?>
-											<li><a href="<?=base_url("/Customer/switch_page/".$pageid)?>">Next</a></li>
+														<li><a href="<?=base_url("/Customer/switch_page/".$pageid)?>">Next</a></li>
 					<?php
-										}
-										else
-										{
-											$idNext = $pageid + 1;
+													}
+													else
+													{
+														$idNext = $pageid + 1;
 					?>
-											<li><a href="<?=base_url("/Customer/switch_page	/".$idNext)?>">Next</a></li>
+														<li><a href="<?=base_url("/Customer/switch_page	/".$idNext)?>">Next</a></li>
 					<?php
-										}
-									}
+													}
+												}
+											}
 					?>	
 								</ul>
 							</div>

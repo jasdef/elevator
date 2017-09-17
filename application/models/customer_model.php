@@ -21,9 +21,16 @@ class Customer_model extends CI_Model
 	public function insertCustomer($data)
 	{
 
-		$this->db->set('name',$data->name);
-		$this->db->set('address',$data->address);
-		$this->db->set('tel',$data->tel);
+		$this->db->set('company',$data->company);
+		$this->db->set('contacter_1',$data->contacter_1);
+		$this->db->set('contacter_2',$data->contacter_2);
+		$this->db->set('contacter_3',$data->contacter_3);
+		$this->db->set('address_1',$data->address_1);
+		$this->db->set('address_2',$data->address_2);
+		$this->db->set('address_3',$data->address_3);
+		$this->db->set('tel_1',$data->tel_1);
+		$this->db->set('tel_2',$data->tel_2);
+		$this->db->set('tel_3',$data->tel_3);
 		$this->db->set('fax',$data->fax);
 		$this->db->set('num',$data->num);
 		$this->db->insert('customer');	
@@ -33,9 +40,16 @@ class Customer_model extends CI_Model
 	{
 		$this->db->where('id',$data->id);
 
-		$d['name'] = $data->name;
-		$d['address'] = $data->address;
-		$d['tel'] = $data->tel;
+		$d['company'] = $data->company;
+		$d['contacter_1'] = $data->contacter_1;
+		$d['contacter_2'] = $data->contacter_2;
+		$d['contacter_3'] = $data->contacter_3;
+		$d['address_1'] = $data->address_1;
+		$d['address_2'] = $data->address_2;
+		$d['address_3'] = $data->address_3;
+		$d['tel_1'] = $data->tel_1;
+		$d['tel_2'] = $data->tel_2;
+		$d['tel_3'] = $data->tel_3;
 		$d['fax'] = $data->fax;
 		$d['num'] = $data->num;
 		

@@ -38,36 +38,37 @@ class Customer extends CI_Controller {
 				}
 				$fristitem++;
 			endforeach;			
-		}	
-		//資料筆數
-		if($totalitem >= 10)
-		{	
-			if($totalitem % 10 != 0)
-			{
-				$pageitem = floor($totalitem / 10) + 1;
+			
+			//資料筆數
+			if($totalitem >= 10)
+			{	
+				if($totalitem % 10 != 0)
+				{
+					$pageitem = floor($totalitem / 10) + 1;
+				}
+				else
+				{
+					$pageitem = $totalitem / 10;
+				}		
 			}
 			else
 			{
-				$pageitem = $totalitem / 10;
-			}		
-		}
-		else
-		{
-			$pageitem = 1;
-		}
-		//頁碼
-		$pagefrist = 0;
-		if($pageitem > 10 )
-		{	
-			$pagetotal = 10;
-		}
-		else
-		{
-			$pagetotal = $pageitem;		
-		}
-		$this->data[10] = $pagefrist;	//各10頁的第一頁
-		$this->data[11] = $pagetotal;	//各10頁的總筆數數		
-		$this->data[12] = 1;			//第幾頁	
+				$pageitem = 1;
+			}
+			//頁碼
+			$pagefrist = 0;
+			if($pageitem > 10 )
+			{	
+				$pagetotal = 10;
+			}
+			else
+			{
+				$pagetotal = $pageitem;		
+			}
+			$this->data[10] = $pagefrist;	//各10頁的第一頁
+			$this->data[11] = $pagetotal;	//各10頁的總筆數數		
+			$this->data[12] = 1;			//第幾頁
+		}		
 		$this->load->view('customer_home', $this->data);
 	}
 	
@@ -110,41 +111,42 @@ class Customer extends CI_Controller {
 				}	
 				$fristitem++;				
 			endforeach;			
-		}	
-		//資料筆數
-		if($totalitem >= 10)
-		{	
-			if($totalitem % 10 != 0)
-			{
-				$pageitem = floor($totalitem / 10) + 1;
+			
+			//資料筆數
+			if($totalitem >= 10)
+			{	
+				if($totalitem % 10 != 0)
+				{
+					$pageitem = floor($totalitem / 10) + 1;
+				}
+				else
+				{
+					$pageitem = $totalitem / 10;
+				}		
 			}
 			else
 			{
-				$pageitem = $totalitem / 10;
-			}		
-		}
-		else
-		{
-			$pageitem = 1;
-		}
-		//頁數		
-		if($id > 10 )
-		{	
-			$pagefrist = floor(($id - 1) / 10) * 10;
-			$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
-			if($pagelast > $sheetid)
-			{
-				$pagetotal = $sheetid;
+				$pageitem = 1;
 			}
-		}
-		else
-		{	
-			$pagefrist = 0;
-			$pagetotal = $pageitem;		
-		}
-		$this->data[10] = $pagefrist;//各10頁的第一頁
-		$this->data[11] = $pagetotal;//各10頁的總筆數數		
-		$this->data[12] = $id;	//第幾頁		
+			//頁數		
+			if($id > 10 )
+			{	
+				$pagefrist = floor(($id - 1) / 10) * 10;
+				$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
+				if($pagelast > $sheetid)
+				{
+					$pagetotal = $sheetid;
+				}
+			}
+			else
+			{	
+				$pagefrist = 0;
+				$pagetotal = $pageitem;		
+			}
+			$this->data[10] = $pagefrist;//各10頁的第一頁
+			$this->data[11] = $pagetotal;//各10頁的總筆數數		
+			$this->data[12] = $id;	//第幾頁
+		}		
 		$this->load->view('customer_home', $this->data);
 	}
 	
@@ -155,7 +157,7 @@ class Customer extends CI_Controller {
 		$id = $this->data["customer_id"];
 		$customer_model->deleteCustomer($id);
 		$this->data = $customer_model->getCustomer();	
-		$this->load->view('customer_home', $this->data);	
+		redirect(base_url("/customer/customer_home"));	
 	}
 		
 	public function edit_customer() 
@@ -178,7 +180,6 @@ class Customer extends CI_Controller {
 		}
 		
 		
-		
 		if($this->data['address_3'] != null)
 		{
 			echo $this->data[15] = 3 ;
@@ -191,9 +192,8 @@ class Customer extends CI_Controller {
 		{
 			$this->data[15] = 1 ;
 		}
-				
-				
-				
+		
+		
 		if($this->data['tel_3'] != null)
 		{
 			echo $this->data[16] = 3 ;
@@ -206,8 +206,6 @@ class Customer extends CI_Controller {
 		{
 			$this->data[16] = 1 ;
 		}
-		
-		
 		$this->load->view('edit_customer', $this->data);
 	}
 	
@@ -217,15 +215,29 @@ class Customer extends CI_Controller {
 		$customer_model = new Customer_model();
 		$data = New datamodel;
 		$id = $this->input->post("Id");
-		$name = $this->input->post("Name");
-		$address = $this->input->post("Address");
-		$tel = $this->input->post("Tel");
+		$company = $this->input->post("company");
+		$contacter_1 = $this->input->post("contacter_1");
+		$contacter_2 = $this->input->post("contacter_2");
+		$contacter_3 = $this->input->post("contacter_3");
+		$address_1 = $this->input->post("address_1");
+		$address_2 = $this->input->post("address_2");
+		$address_3 = $this->input->post("address_3");
+		$tel_1 = $this->input->post("tel_1");
+		$tel_2 = $this->input->post("tel_2");
+		$tel_3 = $this->input->post("tel_3");	
 		$fax = $this->input->post("Fax");
 		$num = $this->input->post("Num");
 		$data->id = $id;
-		$data->name = $name;
-		$data->address = $address;
-		$data->tel = $tel;
+		$data->company = $company;
+		$data->contacter_1 = $contacter_1;
+		$data->contacter_2 = $contacter_2;
+		$data->contacter_3 = $contacter_3;
+		$data->address_1 = $address_1;
+		$data->address_2 = $address_2;
+		$data->address_3 = $address_3;
+		$data->tel_1 = $tel_1;
+		$data->tel_2 = $tel_2;
+		$data->tel_3 = $tel_3;
 		$data->fax = $fax;
 		$data->num = $num;
 		
@@ -237,18 +249,32 @@ class Customer extends CI_Controller {
 	{
 		$customer_model = new Customer_model();
 		$data = New datamodel;
-		$name = $this->input->post("Name");
-		$address = $this->input->post("Address");
-		$tel = $this->input->post("Tel");
+		$company = $this->input->post("company");
+		$contacter_1 = $this->input->post("contacter_1");
+		$contacter_2 = $this->input->post("contacter_2");
+		$contacter_3 = $this->input->post("contacter_3");
+		$address_1 = $this->input->post("address_1");
+		$address_2 = $this->input->post("address_2");
+		$address_3 = $this->input->post("address_3");
+		$tel_1 = $this->input->post("tel_1");
+		$tel_2 = $this->input->post("tel_2");
+		$tel_3 = $this->input->post("tel_3");	
 		$fax = $this->input->post("Fax");
 		$num = $this->input->post("Num");
-		$data->name = $name;
-		$data->address = $address;
-		$data->tel = $tel;
+		$data->company = $company;
+		$data->contacter_1 = $contacter_1;
+		$data->contacter_2 = $contacter_2;
+		$data->contacter_3 = $contacter_3;
+		$data->address_1 = $address_1;
+		$data->address_2 = $address_2;
+		$data->address_3 = $address_3;
+		$data->tel_1 = $tel_1;
+		$data->tel_2 = $tel_2;
+		$data->tel_3 = $tel_3;
 		$data->fax = $fax;
 		$data->num = $num;
 		$customer_model->insertCustomer($data);
-		redirect(base_url("/customer/customer_home"));
+		redirect(base_url("/customer/customer_home"));	
 	}
 	
 	public function select_school_name(){

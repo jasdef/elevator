@@ -24,7 +24,7 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/customer/customer_create")?>" method="post">
+						<form id="tab" name="create_custiner" action="<?=site_url("/customer/customer_create")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
 								<a href=""<?=base_url("/customer/customer_home")?>""><button class="btn ">取消</button></a>
@@ -35,18 +35,17 @@
 								
 								
 								<label>聯絡人</label>
-								<input type="text" name = "contacter_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('contacter_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('contacter_')"><i class="icon-remove"></i></a>	
-								<span id="contacter_"></span> 
-						
+								<input type="text" name = "contacter_1" value="" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
+								<div id="contacter_"></div>
 								
 								
 								<label>地址</label>
-								<input type="text" name = "Address_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('Address_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Address_')"><i class="icon-remove"></i></a>
-								<span id="Address_"></span> 
-																
+								<input type="text" name = "address_1" value="" class="input-xlarge"> <input type="button" id="addr_bnt" value="+"  /> <input type="button" onclick="delField('address_')" value="-" />
+								<div id="address_"></div>		
+								
 								<label>電話</label>								
-								<input type="text" name = "Tel_1" value="" class="input-xlarge">	<a href="javascript:" onclick="addField('Tel_')"><i class="icon-pencil"></i></a>	<a href="javascript:" onclick="delField('Tel_')"><i class="icon-remove"></i></a>
-								<span id="Tel_"></span> 
+								<input type="text" name = "tel_1" value="" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
+								<div id="tel_"></div>	
 								
 								
 								<label>傳真</label>
@@ -119,47 +118,244 @@
 					$('.demo-cancel-click').click(function(){return false;});
 				});
 			</script>
+			<script>
+				var countMin = 1;
+				var contMin = 1;
+				
+				var AddrMin = 1;
+				var TelMin = 1;
+				var divname;
+				$("#cont_bnt").click(function () //聯絡人欄位新增
+				{	var contname = "contacter_";
+					var Fieldvarle;
+					var insdivname = "" +contname+ contMin ;
+					if(create_custiner.contacter_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(create_custiner.contacter_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}
+					if(Fieldvarle != 0)
+					{
+						if(contMin < 3)
+						{
+						contMin++;
+						divname=""+contname+ contMin ;
+						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" class="input-xlarge" /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+				
+				$("#addr_bnt").click(function () //地址欄位新增
+				{	var addrname = "address_";
+					var Fieldvarle;
+					var insdivname = "" +addrname+ AddrMin ;
+					if(create_custiner.address_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(create_custiner.address_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}	
+					if(Fieldvarle != 0)
+					{
+						if(AddrMin < 3)
+						{
+						AddrMin++;
+						divname=""+addrname+ AddrMin ;
+						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" class="input-xlarge" /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+				
+				$("#tel_bnt").click(function () //電話欄位新增
+				{	var telname = "tel_";
+					var Fieldvarle;
+					var insdivname = "" +telname+ TelMin ;
+					if(create_custiner.tel_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(create_custiner.tel_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}
+					if(Fieldvarle != 0)
+					{
+						if(TelMin < 3)
+						{
+						TelMin++;
+						divname=""+telname+ TelMin ;
+						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" class="input-xlarge" /> </div>');
+						}																		
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+					
+				function delField(name) //刪除欄位
+				{
+					if(name	==	"contacter_")
+					{
+						count = contMin;
+						if(contMin > 1)
+						{
+							contMin--;
+						}
+					}
+					else if(name == "address_")
+					{
+						count = AddrMin;
+						if(AddrMin > 1)
+						{
+							AddrMin--;
+						}
+					}
+					else if(name == "tel_")
+					{						
+						count = TelMin;
+						if(TelMin > 1)
+						{
+							TelMin--;
+						}
+					}		
+					if (count > countMin) {
+						$("#"+name+count).remove();
+						
+					} 
+					else 
+					{
+						alert("無新增欄位可以刪除");
+					}	
+				}
+			</script> 
+			
 			
 			<script> //新增欄位 java script
-				var countMin = 1; 
+				/*var countMin = 1; 
 				var countMax = 3;
 				var contMin = 1;
 				var AddrMin = 1;
 				var TelMin = 1;
 				var commonName ;
+				var Fieldname;
 				function addField(name) { 
-					
 					if(name == "contacter_")
-					{	
-						var count = contMin;
-						if	(contMin < 3)
-						{						
-							++contMin;
-						}
-						commonName	= "聯絡人";		
-					}
-					else if(name == "Address_")
 					{
-						var count = AddrMin;
-						if	(AddrMin < 3)
-						{						
-							++AddrMin;
+						if(create.contacter_1.value == "") 
+						{
+							if(create.contacter_1.value == "") 
+							{
+								Fieldname = 1 ;
+							}
+							else
+							{
+								Fieldname = 2 ;
+							}
+							
 						}
-						commonName	= "地址";					
+						else 
+						{
+							Fieldname = 0 ;
+						}
+						
 					}
-					else if(name == "Tel_")
+					if(Fieldname == 0)
 					{
-						var count = TelMin;
-						if	(TelMin < 3)
-						{						
-							++TelMin;
+						if(name == "contacter_")
+						{	
+							var count = contMin;
+							if	(contMin < 3)
+							{						
+								++contMin;
+							}
+							commonName	= "聯絡人";		
 						}
-						commonName	= "電話";						
+						else if(name == "address_")
+						{
+							var count = AddrMin;
+							if	(AddrMin < 3)
+							{						
+								++AddrMin;
+							}
+							commonName	= "地址";					
+						}
+						else if(name == "tel_")
+						{
+							var count = TelMin;
+							if	(TelMin < 3)
+							{						
+								++TelMin;
+							}
+							commonName	= "電話";						
+						}
+						if(count >= countMax) 
+							alert("最多"+countMax+"個欄位"); 
+						else	 
+							document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
 					}
-					if(count >= countMax) 
-						alert("最多"+countMax+"個欄位"); 
-					else	 
-						document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
+					else
+					{
+						alert("欄位是空的");
+					}
 				}
 				function delField(name) {
 					if(name	==	"contacter_")
@@ -170,7 +366,7 @@
 							contMin--;
 						}
 					}
-					else if(name == "Address_")
+					else if(name == "address_")
 					{
 						count = AddrMin;
 						if(AddrMin > 1)
@@ -178,7 +374,7 @@
 							AddrMin--;
 						}
 					}
-					else if(name == "Tel_")
+					else if(name == "tel_")
 					{						
 						count = TelMin;
 						if(TelMin > 1)
@@ -192,7 +388,7 @@
 					} else {
 						alert("無新增欄位可以刪除");
 					}	
-				}
+				}*/
 			</script>
 			
 		</body>
