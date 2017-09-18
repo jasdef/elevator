@@ -66,6 +66,34 @@ class Form_model extends CI_Model
 		$this->db->delete('form');
 	}	
 	
+	public function getTransaction() 
+	{
+		$this->db->select('*');
+		$this->db->from('transaction');
+		
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$form_data[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					$form_data[$idx]->$k = $v;
+					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+				}
+				$idx++;
+			
+			}
+			return $form_data;
+		}
+		return 0;
+		
+	}
+		
+	
 	public function getForm() 
 	{
 		$this->db->select('*');
