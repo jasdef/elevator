@@ -109,6 +109,83 @@ class Form extends CI_Controller {
 		$this->data[12] = 1;	
 		$this->load->view('form_home', $this->data);
 	}
+	
+	public function transaction_home() 
+	{
+		$form_model = new Form_model();
+		$common = new Common();
+		$temp = $form_model->getTransaction();
+		$fristitem = 0;
+		if ($temp != 0) 
+		{	
+			$totalitem = count($temp);	
+			if(10 > $totalitem)
+			{
+				$itemmax = $totalitem;
+			}
+			else
+			{
+				$itemmax = 10;		
+			}
+			$this->data[13] = $fristitem; 
+			$this->data[14] = $itemmax;	
+											
+			foreach($temp as $row):
+			//	$row->status = $common->conversionFormStatusByID($row->status);
+			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
+				if($fristitem < $itemmax)
+				{	
+					$this->data[$fristitem] = $row;
+				}
+				$fristitem++;
+			endforeach;			
+		}	
+		//資料筆數
+		if($totalitem >= 10)
+		{	 $totalitem;
+			if($totalitem % 10 != 0)
+			{
+				$pageitem = floor($totalitem / 10) + 1;
+			}
+			else
+			{
+				$pageitem = $totalitem / 10;
+			}		
+		}
+		else
+		{
+			$pageitem=1;
+		}
+		//頁數
+		$pagefrist = 0;
+		if($pageitem > 10 )
+		{	
+			$pagetotal = 10;
+		}
+		else
+		{
+			$pagetotal = $pageitem;		
+		}
+		$this->data[10] = $pagefrist;
+		$this->data[11] = $pagetotal;		
+		$this->data[12] = 1;	
+		$this->load->view('form_home', $this->data);
+		
+	}
+	
+	public function create_transaction_view() 
+	{
+		
+		
+	}
+	
+	public function create_transaction_model() 
+	{
+		
+		
+	}
+	
+	
 	/*
 	public function switch_page10(19) 
 	{
