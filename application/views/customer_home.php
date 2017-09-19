@@ -46,8 +46,6 @@
 											{
 												$fristitem = $this->data[13];
 												$itemmax = $this->data[14];	
-												//echo count($this->data);
-												//echo $fristitem."=".$itemmax;
 												for($j = 0; $fristitem < $itemmax;$j++)	
 												{
 					?>	
@@ -66,6 +64,7 @@
 													</tr>
 					<?php							$fristitem++;
 												}
+											}	
 					?>
 										</tbody>
 									</table>
@@ -75,6 +74,8 @@
 							<div class="pagination">
 								<ul>
 					<?php
+											if(count($this->data) != 0 )
+											{
 												$pagefrist = $this->data[10];//第一頁
 												$pagetotal = $this->data[11];//共有幾頁
 												$pageid = $this->data[12];//第幾頁

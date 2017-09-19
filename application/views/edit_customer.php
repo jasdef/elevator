@@ -37,7 +37,7 @@
 								
 								
 								<label>聯絡人</label>
-								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"><input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
+								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
 								<div id="contacter_">
 								<?
 									if($this->data['contacter_2'] != null)
@@ -53,7 +53,7 @@
 								
 								
 								<label>地址</label>
-								<input type="text" name = "address_1" value="<?php print($this->data['address_1']);?>" class="input-xlarge"><input type="button" id="addr_bnt" value="+"  /> <input type="button" onclick="delField('address_')" value="-" />
+								<input type="text" name = "address_1" value="<?php print($this->data['address_1']);?>" class="input-xlarge"> <input type="button" id="addr_bnt" value="+"  /> <input type="button" onclick="delField('address_')" value="-" />
 								<div id="address_">
 								<?
 									if($this->data['address_2'] != null)

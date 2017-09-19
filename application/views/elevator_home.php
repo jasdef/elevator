@@ -39,23 +39,27 @@
 											</tr>
 										</thead>
 										<tbody>
-					<?php
-											$fristitem = $this->data[13];
-											$itemmax = $this->data[14];										
-											for($j = 0; $fristitem < $itemmax;$j++)
+					<?php				
+											if(count($this->data) != 0 )
 											{
+												echo count($this->data) ;
+												$fristitem = $this->data[13];
+												$itemmax = $this->data[14];										
+												for($j = 0; $fristitem < $itemmax;$j++)
+												{
 					?>	
-												<tr>
-													<td><?=$this->data[$j]->id;?></td>
-													<td><?=$this->data[$j]->model;?></td>
-													<td>
-														<a href="<?=base_url("/Elevator/edit_elevator")?>/elevator_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
-													</td>
-													<td>
-														<a href="<?=base_url("/Elevator/delete_elevator")?>/elevator_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
-													</td>
-												</tr>
+													<tr>
+														<td><?=$this->data[$j]->id;?></td>
+														<td><?=$this->data[$j]->model;?></td>
+														<td>
+															<a href="<?=base_url("/Elevator/edit_elevator")?>/elevator_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+														</td>
+														<td>
+															<a href="<?=base_url("/Elevator/delete_elevator")?>/elevator_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														</td>
+													</tr>
 					<?php						$fristitem++;
+												}
 											}
 					?>
 										</tbody>
@@ -66,46 +70,49 @@
 							<div class="pagination">
 								<ul>
 					<?php
-									$pagefrist = $this->data[10];//第一頁
-									$pagetotal = $this->data[11];//共有幾頁
-									$pageid = $this->data[12];//第幾頁
-									if($pagetotal > 1 )
+									if(count($this->data) != 0 )
 									{
-										if($pageid > 1 )
+										$pagefrist = $this->data[10];//第一頁
+										$pagetotal = $this->data[11];//共有幾頁
+										$pageid = $this->data[12];//第幾頁
+										if($pagetotal > 1 )
 										{
-											$idprev = $pageid - 1 ;
+											if($pageid > 1 )
+											{
+												$idprev = $pageid - 1 ;
 					?>
-											<li><a href="<?=base_url("/Elevator/switch_page/".$idprev)?>">Prev</a></li>
+												<li><a href="<?=base_url("/Elevator/switch_page/".$idprev)?>">Prev</a></li>
 					<?php	
-										}
-										else
-										{
+											}
+											else
+											{
 					?>
-											<li><a href="<?=base_url("/Elevator/switch_page/".$pageid)?>">Prev</a></li>
+												<li><a href="<?=base_url("/Elevator/switch_page/".$pageid)?>">Prev</a></li>
 					<?php					
-										}
-										
-										for(;$pagefrist < $pagetotal;$pagefrist++)
-										{
-											$pageitemid = $pagefrist + 1 ;
-					?>
+											}
 											
-											<li><a href="<?=base_url("/Elevator/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
-									
-					<?php
-										}
-										if($pageid == $pagetotal)
-										{
+											for(;$pagefrist < $pagetotal;$pagefrist++)
+											{
+												$pageitemid = $pagefrist + 1 ;
 					?>
-											<li><a href="<?=base_url("/Elevator/switch_page/".$pageid)?>">Next</a></li>
+												
+												<li><a href="<?=base_url("/Elevator/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
+										
 					<?php
-										}
-										else
-										{
-											$idNext = $pageid + 1;
+											}
+											if($pageid == $pagetotal)
+											{
 					?>
-											<li><a href="<?=base_url("/Elevator/switch_page/".$idNext)?>">Next</a></li>
+												<li><a href="<?=base_url("/Elevator/switch_page/".$pageid)?>">Next</a></li>
 					<?php
+											}
+											else
+											{
+												$idNext = $pageid + 1;
+					?>
+												<li><a href="<?=base_url("/Elevator/switch_page/".$idNext)?>">Next</a></li>
+					<?php
+											}
 										}
 									}
 					?>	
