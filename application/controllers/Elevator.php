@@ -36,36 +36,41 @@ class Elevator extends CI_Controller {
 				}
 				$fristitem++;
 			endforeach;			
-		}	
-		//資料筆數
-		if($totalitem >= 10)
-		{	 $totalitem;
-			if($totalitem % 10 != 0)
-			{
-				$pageitem = floor($totalitem / 10) + 1;
+			
+			//資料筆數
+			if($totalitem >= 10)
+			{	 $totalitem;
+				if($totalitem % 10 != 0)
+				{
+					$pageitem = floor($totalitem / 10) + 1;
+				}
+				else
+				{
+					$pageitem = $totalitem / 10;
+				}		
 			}
 			else
 			{
-				$pageitem = $totalitem / 10;
-			}		
+				$pageitem = 1;
+			}
+			//頁碼
+			$pagefrist = 0;
+			if($pageitem > 10 )
+			{	
+				$pagetotal = 10;
+			}
+			else
+			{
+				$pagetotal = $pageitem;		
+			}
+			$this->data[10] = $pagefrist;	//各10頁的第一頁
+			$this->data[11] = $pagetotal;	//各10頁的總筆數數		
+			$this->data[12] = 1;			//第幾頁
 		}
 		else
 		{
-			$pageitem = 1;
+			$this->data = null;
 		}
-		//頁碼
-		$pagefrist = 0;
-		if($pageitem > 10 )
-		{	
-			$pagetotal = 10;
-		}
-		else
-		{
-			$pagetotal = $pageitem;		
-		}
-		$this->data[10] = $pagefrist;	//各10頁的第一頁
-		$this->data[11] = $pagetotal;	//各10頁的總筆數數		
-		$this->data[12] = 1;			//第幾頁
 		$this->load->view('elevator_home', $this->data);
 	}
 	
@@ -100,41 +105,46 @@ class Elevator extends CI_Controller {
 				}	
 				$fristitem++;				
 			endforeach;			
-		}	
-		//資料筆數
-		if($totalitem >= 10)
-		{	
-			if($totalitem % 10 != 0)
-			{
-				$pageitem = floor($totalitem / 10) + 1;
+			
+			//資料筆數
+			if($totalitem >= 10)
+			{	
+				if($totalitem % 10 != 0)
+				{
+					$pageitem = floor($totalitem / 10) + 1;
+				}
+				else
+				{
+					$pageitem = $totalitem / 10;
+				}		
 			}
 			else
 			{
-				$pageitem = $totalitem / 10;
-			}		
+				$pageitem = 1;
+			}
+			//頁數		
+			if($id > 10 )
+			{	
+				$pagefrist = floor(($id - 1) / 10) * 10;
+				$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
+				if($pagelast > $sheetid)
+				{
+					$pagetotal = $sheetid;
+				}
+			}
+			else
+			{	
+				$pagefrist = 0;
+				$pagetotal = $pageitem;		
+			}
+			$this->data[10] = $pagefrist;//各10頁的第一頁
+			$this->data[11] = $pagetotal;//各10頁的總筆數數		
+			$this->data[12] = $id;	//第幾頁	
 		}
 		else
 		{
-			$pageitem = 1;
-		}
-		//頁數		
-		if($id > 10 )
-		{	
-			$pagefrist = floor(($id - 1) / 10) * 10;
-			$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
-			if($pagelast > $sheetid)
-			{
-				$pagetotal = $sheetid;
-			}
-		}
-		else
-		{	
-			$pagefrist = 0;
-			$pagetotal = $pageitem;		
-		}
-		$this->data[10] = $pagefrist;//各10頁的第一頁
-		$this->data[11] = $pagetotal;//各10頁的總筆數數		
-		$this->data[12] = $id;	//第幾頁		
+			$this->data = null;
+		}		
 		$this->load->view('elevator_home', $this->data);
 	}
 	

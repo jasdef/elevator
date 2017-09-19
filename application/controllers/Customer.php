@@ -68,6 +68,10 @@ class Customer extends CI_Controller {
 			$this->data[10] = $pagefrist;	//各10頁的第一頁
 			$this->data[11] = $pagetotal;	//各10頁的總筆數數		
 			$this->data[12] = 1;			//第幾頁
+		}
+		else
+		{
+			$this->data = null;
 		}		
 		$this->load->view('customer_home', $this->data);
 	}
@@ -146,6 +150,10 @@ class Customer extends CI_Controller {
 			$this->data[10] = $pagefrist;//各10頁的第一頁
 			$this->data[11] = $pagetotal;//各10頁的總筆數數		
 			$this->data[12] = $id;	//第幾頁
+		}
+		else
+		{
+			$this->data = null;
 		}		
 		$this->load->view('customer_home', $this->data);
 	}
