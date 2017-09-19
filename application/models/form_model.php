@@ -69,7 +69,7 @@ class Form_model extends CI_Model
 	public function getTransaction() 
 	{
 		$this->db->select('*');
-		$this->db->from('transaction');
+		$this->db->from('transaction_form');
 		
 		$result = $this->db->get();
 		

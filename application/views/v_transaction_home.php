@@ -36,10 +36,11 @@
 										<thead>
 											<tr>
 												<th><a href="#">#</a></th>
-												<th><a href="#">表單類型</a></th>
+												<th><a href="#">編號</a></th>
+												<th><a href="#">公司名稱</a></th>
 												<th><a href="#">狀態</a></th>
 												<th><a href="#">開始日期</a></th>
-												<th><a href="#">電梯型號</a></th>
+												<th><a href="#">總價</a></th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
@@ -53,15 +54,15 @@
 					?>							
 												<tr>
 													<td><?=$this->data[$j]->id;?></td>
-													<td><?=$this->data[$j]->form_type;?></td>
+													<td><?=$this->data[$j]->name;?></td>
 													<td><?=$this->data[$j]->status;?></td>
 													<td><?=$this->data[$j]->start_date;?></td>
-													<td><?=$this->data[$j]->elevator_id;?></td>
+													<td><?=$this->data[$j]->total_price;?></td>
 													<td>
-														<a href="<?=base_url("/Form/edit_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/Form/edit_transaction")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 													</td>
 													<td>
-														<a href="<?=base_url("/Form/delete_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														<a href="<?=base_url("/Form/delete_transaction")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 													</td>
 												</tr>
 					<?php						$fristitem++;

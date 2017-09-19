@@ -40,43 +40,21 @@
 								<a href=""<?=base_url("/form/transaction_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">
-								<label>表單類型</label>
-								<select id="FormType" name="FormType" class="input-xlarge" onchange="href=<?=base_url("/form/create_form/")?>">
-									<option value = 1 <?php if ($this->data['formType'] == 1)echo "selected=\"selected\"";?>>買賣合約書</option>
-									<option value = 2 <?php if ($this->data['formType'] == 2)echo "selected=\"selected\"";?>>保養合約書</option>
-									<option value = 3 <?php if ($this->data['formType'] == 3) echo "selected=\"selected\"";?>>保固合約書</option>
-								</select>
 								
-								<label>表單狀態</label>
-								<select id="FormStatus" name="FormStatus" class="input-xlarge" >
-									<option value = 0 selected="selected">請選擇表單狀態</option>
-									<option value = 1>已開發票</option>
-									<option value = 2>已送請款單</option>
-									<option value = 3>已送請款單/發票</option>
-									<option value = 4>尚未收款</option>
-									<option value = 5>已收款</option>
-								</select>
-															
+								<label>公司名稱</label>
+								<input type="text" name = "Company_name" value="" class="input-xlarge">
+								
+								<label>總價</label>
+								<input type="text" name = "Total_price" value="" class="input-xlarge">					
+								
+								<label>簽約日(西元yyyy/mm/dd)</label>
+								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
+								
 								<label>合約已回/未回</label>
 								<select id="IsReturn" name="IsReturn" class="input-xlarge" >
 									<option value = 1 selected="selected">未回</option>
 									<option value = 2>已回</option>
 								</select>							
-								
-								<table class="table sortable">
-									<tbody>
-										<tr>
-										<td><label>簽約日(西元yyyy/mm/dd)</label></td>					
-										<td><input type="text" name = "item1" value="0" class="input-xlarge"><label>%</label></td>
-										</tr>								
-								
-									</tbody>
-								</table>
-								
-								
-								
-								
-
 								
 								<label>客戶</label>
 								<select id="Customer" name="Customer" class="input-xlarge" >
@@ -97,16 +75,102 @@
 										}
 								   }
 								?>	
-								
-												
-								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
-
-								<label>價錢</label>
-								<input type="text" name = "Price" value="0" class="input-xlarge">
+																
 								<label>收款提醒(間隔幾個月)</label>
 								<input type="text" name = "Remind" value="0" class="input-xlarge">
+								
+								<table class="table sortable">
+									<tbody>
+										<tr>
+										<td><label>訂金</label></td>					
+										<td><input type="text" name = "Item1" value="0" class="input-xlarge"></td>
+										<td>
+											<select id="Item_status1" name="Item_status1" class="input-xlarge" >
+												<option value = 0 selected="selected">請選擇表單狀態</option>
+												<option value = 1>已開發票</option>
+												<option value = 2>已送請款單</option>
+												<option value = 3>已送請款單/發票</option>
+												<option value = 4>尚未收款</option>
+												<option value = 5>已收款</option>
+											</select>
+										</td>
+										</tr>								
+										<tr>
+											<td><label>貨到</label></td>					
+											<td><input type="text" name = "Item2" value="0" class="input-xlarge"></td>
+											<td>
+												<select id="Item_status2" name="Item_status2" class="input-xlarge" >
+													<option value = 0 selected="selected">請選擇品項狀態</option>
+													<option value = 1>已開發票</option>
+													<option value = 2>已送請款單</option>
+													<option value = 3>已送請款單/發票</option>
+													<option value = 4>尚未收款</option>
+													<option value = 5>已收款</option>
+												</select>
+											</td>
+										</tr>	
+																				<tr>
+											<td><label>安裝完成</label></td>					
+											<td><input type="text" name = "Item3" value="0" class="input-xlarge"></td>
+											<td>
+												<select id="Item_status3" name="Item_status3" class="input-xlarge" >
+													<option value = 0 selected="selected">請選擇品項狀態</option>
+													<option value = 1>已開發票</option>
+													<option value = 2>已送請款單</option>
+													<option value = 3>已送請款單/發票</option>
+													<option value = 4>尚未收款</option>
+													<option value = 5>已收款</option>
+												</select>
+											</td>
+										</tr>	
+																				<tr>
+											<td><label>試車完成</label></td>					
+											<td><input type="text" name = "Item4" value="0" class="input-xlarge"></td>
+											<td>
+												<select id="Item_status4" name="Item_status4" class="input-xlarge" >
+													<option value = 0 selected="selected">請選擇品項狀態</option>
+													<option value = 1>已開發票</option>
+													<option value = 2>已送請款單</option>
+													<option value = 3>已送請款單/發票</option>
+													<option value = 4>尚未收款</option>
+													<option value = 5>已收款</option>
+												</select>
+											</td>
+										</tr>	
+																				<tr>
+											<td><label>取得合格證</label></td>					
+											<td><input type="text" name = "Item5" value="0" class="input-xlarge"></td>
+											<td>
+												<select id="Item_status5" name="Item_status5" class="input-xlarge" >
+													<option value = 0 selected="selected">請選擇品項狀態</option>
+													<option value = 1>已開發票</option>
+													<option value = 2>已送請款單</option>
+													<option value = 3>已送請款單/發票</option>
+													<option value = 4>尚未收款</option>
+													<option value = 5>已收款</option>
+												</select>
+											</td>
+										</tr>	
+																				<tr>
+											<td><label>驗收完成</label></td>					
+											<td><input type="text" name = "Item6" value="0" class="input-xlarge"></td>
+											<td>
+												<select id="Item_status6" name="Item_status6" class="input-xlarge" >
+													<option value = 0 selected="selected">請選擇品項狀態</option>
+													<option value = 1>已開發票</option>
+													<option value = 2>已送請款單</option>
+													<option value = 3>已送請款單/發票</option>
+													<option value = 4>尚未收款</option>
+													<option value = 5>已收款</option>
+												</select>
+											</td>
+										</tr>	
+									</tbody>
+								</table>													
+								
+								<label>剩餘款項</label>
+								<input type="text" name = "Remind" value="0" class="input-xlarge">
+
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
