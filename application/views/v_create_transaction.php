@@ -13,22 +13,23 @@
 		
 			}				
 			
-			function calculate() 
+			function calculate(element) 
 			{
+				var items = new Array(6);
 				var price = document.getElementById('Total_price').value;
-				var item1 = document.getElementById('Item1').value;
-				var item2 = document.getElementById('Item2').value;
-				var item3 = document.getElementById('Item3').value;
-				var item4 = document.getElementById('Item4').value;
-				var item5 = document.getElementById('Item5').value;
-				var item6 = document.getElementById('Item6').value;
-				
-				
-				
+				var result = parseInt(price);
+			
+				for (i =0; i < 6; i++)
+				{
+					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
+					if (items[i] != 0)
+						result -= price *(items[i]*0.01);
+				}
+					
+				document.getElementById('Left_money').value = result;
 				
 			}
-			
-			
+					
 			
 			</script>
 			<?php
@@ -62,7 +63,7 @@
 								<input type="text" name = "Company_name" value="" class="input-xlarge">
 								
 								<label>總價</label>
-								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge">					
+								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
 								
 								<label>簽約日(西元yyyy/mm/dd)</label>
 								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
@@ -100,7 +101,7 @@
 									<tbody>
 										<tr>
 										<td><label>訂金</label></td>					
-										<td><input type="text" id="Item1" name="Item1" value="0" class="input-xlarge" onchange=""></td>
+										<td><input type="text" id="Item1" name="Item1" value="0" class="input-xlarge" onChange="calculate(this)"></td>
 										<td>
 											<select id="Item_status1" name="Item_status1" class="input-xlarge" >
 												<option value = 0 selected="selected">請選擇表單狀態</option>
@@ -114,7 +115,7 @@
 										</tr>								
 										<tr>
 											<td><label>貨到</label></td>					
-											<td><input type="text" id="Item2" name="Item2" value="0" class="input-xlarge"></td>
+											<td><input type="text" id="Item2" name="Item2" value="0" class="input-xlarge" onChange="calculate(this)"></td>
 											<td>
 												<select id="Item_status2" name="Item_status2" class="input-xlarge" >
 													<option value = 0 selected="selected">請選擇品項狀態</option>
@@ -128,7 +129,7 @@
 										</tr>	
 																				<tr>
 											<td><label>安裝完成</label></td>					
-											<td><input type="text" id="Item3" name="Item3" value="0" class="input-xlarge"></td>
+											<td><input type="text" id="Item3" name="Item3" value="0" class="input-xlarge" onChange="calculate(this)"></td>
 											<td>
 												<select id="Item_status3" name="Item_status3" class="input-xlarge" >
 													<option value = 0 selected="selected">請選擇品項狀態</option>
@@ -142,7 +143,7 @@
 										</tr>	
 																				<tr>
 											<td><label>試車完成</label></td>					
-											<td><input type="text" id="Item4" name="Item4" value="0" class="input-xlarge" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
+											<td><input type="text" id="Item4" name="Item4" value="0" class="input-xlarge" onChange="calculate(this)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
 											<td>
 												<select id="Item_status4" name="Item_status4" class="input-xlarge" >
 													<option value = 0 selected="selected">請選擇品項狀態</option>
@@ -156,7 +157,7 @@
 										</tr>	
 																				<tr>
 											<td><label>取得合格證</label></td>					
-											<td><input type="text" id="Item5" name="Item5" value="0" class="input-xlarge"></td>
+											<td><input type="text" id="Item5" name="Item5" value="0" class="input-xlarge" onChange="calculate(this)"></td>
 											<td>
 												<select id="Item_status5" name="Item_status5" class="input-xlarge" >
 													<option value = 0 selected="selected">請選擇品項狀態</option>
@@ -170,7 +171,7 @@
 										</tr>	
 																				<tr>
 											<td><label>驗收完成</label></td>					
-											<td><input type="text" id="Item6" name="Item6" value="0" class="input-xlarge"></td>
+											<td><input type="text" id="Item6" name="Item6" value="0" class="input-xlarge" onChange="calculate(this)"></td>
 											<td>
 												<select id="Item_status6" name="Item_status6" class="input-xlarge" >
 													<option value = 0 selected="selected">請選擇品項狀態</option>

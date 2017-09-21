@@ -37,48 +37,33 @@
 
 <div class="row-fluid">
     <div class="block span6">
-        <a href="#tablewidget" class="block-heading" data-toggle="collapse">維修<span class="label label-warning">+10</span></a>
+        <a href="#tablewidget" class="block-heading" data-toggle="collapse">買賣單提醒<span class="label label-warning">+10</span></a>
         <div id="tablewidget" class="block-body collapse in">
             <table class="table">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>公司名稱</th>
+                  <th>狀態</th>
+				  <th>動作</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Mark</td>
-                  <td>Tompson</td>
-                  <td>the_mark7</td>
+                  <td>利通電梯</td>
+                  <td>尚有款項未收</td>
+				  <td><a class="btn btn-primary">更動狀態</a></td>
                 </tr>
                 <tr>
-                  <td>Ashley</td>
-                  <td>Jacobs</td>
-                  <td>ash11927</td>
+                  <td>小羊電梯</td>
+                  <td>合約尚未回覆</td>
+				  <td><a class="btn btn-primary">更動狀態</a></td>
                 </tr>
                 <tr>
-                  <td>Audrey</td>
-                  <td>Ann</td>
-                  <td>audann84</td>
+                  <td>大戶電梯</td>
+                  <td>這個月該請款</td>
+				  <td><a class="btn btn-primary">更動狀態</a></td>
                 </tr>
-                <tr>
-                  <td>John</td>
-                  <td>Robinson</td>
-                  <td>jr5527</td>
-                </tr>
-                <tr>
-                  <td>Aaron</td>
-                  <td>Butler</td>
-                  <td>aaron_butler</td>
-                </tr>
-                <tr>
-                  <td>Chris</td>
-                  <td>Albert</td>
-                  <td>cab79</td>
-                </tr>
-              </tbody>
+               </tbody>
             </table>
             <p><a href="users.html">More...</a></p>
         </div>
