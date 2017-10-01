@@ -121,6 +121,7 @@ class Form extends CI_Controller {
 		$common = new Common();
 		$temp = $form_model->getTransaction();
 		$fristitem = 0;
+		$totalitem = 0;
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);	
@@ -179,14 +180,21 @@ class Form extends CI_Controller {
 		{
 			$this->data = null;
 		}
-		$this->load->view('form_home', $this->data);
+
+		$this->data[10] = $pagefrist;
+		$this->data[11] = $pagetotal;		
+		$this->data[12] = 1;	
+		$this->load->view('v_transaction_home', $this->data);
+
 		
 	}
 	
 	public function create_transaction_view() 
 	{
-		
-		
+		$customer_model = new Customer_model();
+		$this->data['customer'] = $customer_model->getCustomer();
+		//$this->data['formType'] = $formType;
+		$this->load->view('v_create_transaction', $this->data);	
 	}
 	
 	public function create_transaction_model() 
