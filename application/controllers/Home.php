@@ -169,9 +169,10 @@ class Home extends CI_Controller {
 		{
 			$person = $mem->getMemberData($account);
 			
+			
 			$_SESSION["permission"] = $person->permission; //SESSION 使用者身分
 			
-			if($_SESSION["permission"] == 0)
+			if($person->status == 1)
 			{
 				$this->load->view(  
 					"sign-in",  

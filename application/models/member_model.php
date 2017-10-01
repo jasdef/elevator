@@ -74,7 +74,7 @@ class Member_model extends CI_Model
 	public function getMemberData($account)
 	{
 		$person = new Personal_data();
-		$this->db->select('`id`,`account`,`password`,`permission`');
+		$this->db->select('`id`,`account`,`password`,`permission`,`status`');
 		$this->db->from('account');
 		$this->db->where('account',$account);
 		$data = $this->db->get();
