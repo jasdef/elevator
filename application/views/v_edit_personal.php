@@ -44,15 +44,15 @@
 
 								<label>權限</label><?//  後端判斷的值 傳送到前段data[1],data[2],data[3] ?>
 								<select name="permission">
-								<option value="1" <?print($this->data[1]);?>>系統管理員</option>
-								<option value="2" <?print($this->data[2]);?>>會計</option>
-								<option value="3" <?print($this->data[3]);?>>員工</option>
+								<option value="1" <?php print($this->data[1]);?>>系統管理員</option>
+								<option value="2" <?php print($this->data[2]);?>>會計</option>
+								<option value="3" <?php print($this->data[3]);?>>員工</option>
 								</select>
 							
 								<label>狀態</label>
 								<select name="status"><?//  後端判斷的值 傳送到前段data[4],data[5] ?>
-								<option value="0" <?print($this->data[4]);?>>未鎖定</option>
-								<option value="1" <?print($this->data[5]);?>>鎖定</option>
+								<option value="0" <?php print($this->data[4]);?>>未鎖定</option>
+								<option value="1" <?php print($this->data[5]);?>>鎖定</option>
 								</select>
 								
 							</div>
