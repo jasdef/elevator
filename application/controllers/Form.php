@@ -199,7 +199,38 @@ class Form extends CI_Controller {
 	
 	public function create_transaction_model() 
 	{
+		$form_model = new Form_model();
+		$data = New datamodel;
+		$name = $this->input->post("Company_name"); 	
+		$total_price = $this->input->post("Total_price"); 
+		$is_return = $this->input->post("IsReturn"); 
+		$start_date = $this->input->post("Start_date");  
+		$customer = $this->input->post("Customer"); 
+
+		$startDate = $this->input->post("Start_date");
 		
+		$remind = $this->input->post("Remind");
+		$item = array();
+		$item_status = array();
+		
+		for ($i = 0; $i < 6; $i++)
+		{
+			$item[$i] = $this->input->post("Item".($i+1));
+			$item_status[$i] = $this->input->post("Item_status".($i+1));			
+		}
+		
+		
+		$data->name = $name;
+		$data->total_price = $total_price;
+		$data->return_back = $is_return;
+		$data->customer = $customer;
+		$data->start_date = $start_date;
+		$data->item = $item;
+		$data->item_status = $item_status;
+		$data->remind = $remind;
+
+		$form_model->insertTransaction($data);
+		redirect(base_url("/form/transaction_home"));
 		
 	}
 	

@@ -58,10 +58,10 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" action="<?=site_url("/form/transaction_create")?>" method="post">
+						<form id="tab" action="<?=site_url("/form/create_transaction_model")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
-								<a href=""<?=base_url("/form/transaction_home")?>""><button class="btn ">取消</button></a>
+								<a href=""<?php=base_url("/form/transaction_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">
 								

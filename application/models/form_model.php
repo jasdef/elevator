@@ -11,6 +11,22 @@ class Form_model extends CI_Model
 		
 	}
 	
+	public function insertTransaction($data) 
+	{
+		$this->db->set('name', $data->name);
+		$this->db->set('total_price', $data->total_price);
+		$this->db->set('start_date', $data->start_date);
+		$this->db->set('is_return', $data->is_return);
+		$this->db->set('remind_month', $data->remind_month);
+		$this->db->set('receipt_status', $data->receipt_status);
+		for ($i = 0; $i < 6; $i++) 
+		{
+			$this->db->set('item'.($i+1), $data->item[$i]);
+			$this->db->set('item_status'.($i+1), $data->item[$i]);
+		}
+		$this->db->insert('transaction_form');			
+	}		
+	
 	public function insertForm($data)
 	{
 		$this->db->set('is_return',$data->return_back);
