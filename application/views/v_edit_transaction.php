@@ -62,7 +62,7 @@
 						<form id="tab" action="<?=site_url("/form/edit_transaction_model")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?php=base_url("/form/transaction_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
 								<label>編號</label>
