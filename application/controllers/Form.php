@@ -181,9 +181,6 @@ class Form extends CI_Controller {
 			$this->data = null;
 		}
 
-		$this->data[10] = $pagefrist;
-		$this->data[11] = $pagetotal;		
-		$this->data[12] = 1;	
 		$this->load->view('v_transaction_home', $this->data);
 
 		
