@@ -246,13 +246,50 @@ class Form extends CI_Controller {
 	
 	public function edit_transaction_view() 
 	{
-		
-		
+		$form_model = new Form_model();
+		$customer_model = new Customer_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["transaction_id"];
+		$this->data = $form_model->getTransactionByID($id);
+		$this->data['customer'] = $customer_model->getCustomer();						
+		$this->load->view('v_edit_transaction', $this->data);		
 	}
 	
 	public function edit_transaction_model() 
 	{
+		$form_model = new Form_model();
+		$data = New datamodel;
+		$id = $this->input->post("Id");
+		$name = $this->input->post("Company_name"); 	
+		$total_price = $this->input->post("Total_price"); 
+		$is_return = $this->input->post("IsReturn"); 
+		$start_date = $this->input->post("Start_date");  
+		$customer = $this->input->post("Customer"); 
+
+		$startDate = $this->input->post("Start_date");
 		
+		$remind = $this->input->post("Remind");
+		$item = array();
+		$item_status = array();
+		
+		for ($i = 0; $i < 6; $i++)
+		{
+			$item[$i] = $this->input->post("Item".($i+1));
+			$item_status[$i] = $this->input->post("Item_status".($i+1));			
+		}
+		
+		$data->id = $id;
+		$data->name = $name;
+		$data->total_price = $total_price;
+		$data->return_back = $is_return;
+		$data->customer = $customer;
+		$data->start_date = $start_date;
+		$data->item = $item;
+		$data->item_status = $item_status;
+		$data->remind = $remind;
+
+		$form_model->updateTransaction($data);
+		redirect(base_url("/form/transaction_home"));
 		
 	}
 	

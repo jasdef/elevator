@@ -61,10 +61,10 @@
 													<td><?=$this->data[$j]->start_date;?></td>
 													<td><?=$this->data[$j]->total_price;?></td>
 													<td>
-														<a href="<?=base_url("/Form/edit_transaction")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+														<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 													</td>
 													<td>
-														<a href="<?=base_url("/Form/delete_transaction")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														<a href="<?=base_url("/Form/delete_transaction_model")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 													</td>
 												</tr>
 
