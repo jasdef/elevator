@@ -49,7 +49,8 @@
 								
 								
 								<label>傳真</label>
-								<input type="text" name = "Fax" value="" class="input-xlarge">
+								<input type="text" name = "fax_1" value="" class="input-xlarge"> <input type="button" id="fax_bnt" value="+"  /> <input type="button" onclick="delField('fax_')" value="-" />
+								<div id="fax_"></div>	
 								
 								<label>統一編號</label>
 								<input type="text" name = "Num" value="" class="input-xlarge">
@@ -121,7 +122,7 @@
 			<script>
 				var countMin = 1;
 				var contMin = 1;
-				
+				var faxMin = 1;
 				var AddrMin = 1;
 				var TelMin = 1;
 				var divname;
@@ -250,6 +251,47 @@
 						alert("欄位為空值");
 					}
 				});
+				$("#fax_bnt").click(function () //傳真欄位新增
+				{	var faxname = "fax_";
+					var Fieldvarle;
+					var insdivname = "" +faxname+faxMin ;
+					if(create_custiner.fax_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(create_custiner.fax_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}
+					if(Fieldvarle != 0)
+					{
+						if(faxMin < 3)
+						{
+						faxMin++;
+						divname=""+faxname+ faxMin ;
+						$("#fax_").append('<div id="' +faxname+ faxMin + '">傳真'+faxMin+'<br><input type="text" name="fax_'+faxMin+'" value="" class="input-xlarge" /> </div>');
+						}																		
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
 					
 				function delField(name) //刪除欄位
 				{
@@ -276,7 +318,15 @@
 						{
 							TelMin--;
 						}
-					}		
+					}
+					else if(name == "fax_")	
+					{
+						count = faxMin;
+						if(faxMin > 1)
+						{
+							faxMin--;
+						}
+					}					
 					if (count > countMin) {
 						$("#"+name+count).remove();
 						

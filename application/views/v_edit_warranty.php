@@ -13,27 +13,27 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">編輯客戶</h1>
+					<h1 class="page-title">編輯保固單</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/customer/elevator_home")?>">客戶管理</a> <span class="divider">/</span></li>
-						<li class="active">編輯客戶</li>
+						<li><a href="<?=site_url("/warranty/elevator_home")?>">保固單管理</a> <span class="divider">/</span></li>
+						<li class="active">編輯保固單</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="edit_custiner" action="<?=site_url("/customer/customer_edit")?>" method="post">
+						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?=base_url("/customer/customer_home")?>""><button class="btn ">取消</button></a>
+								<a href=""<?=base_url("/warranty/warranty_home")?>""><button class="btn ">取消</button></a>
 							</div>
 							<div class="well">			
 								<label>客戶編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
-								<label>公司名稱</label>
-								<input type="text" name = "company" value="<?php print($this->data['company']);?>" class="input-xlarge">
+								<label>客戶名稱</label>
+								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">
 								
 								
 								<label>聯絡人</label>
@@ -51,21 +51,8 @@
 								?>
 								</div>
 								
-								
 								<label>地址</label>
-								<input type="text" name = "address_1" value="<?php print($this->data['address_1']);?>" class="input-xlarge"> <input type="button" id="addr_bnt" value="+"  /> <input type="button" onclick="delField('address_')" value="-" />
-								<div id="address_">
-								<?
-									if($this->data['address_2'] != null)
-									{
-										echo "<div id=address_2>地址2</br> <input type=text name= address_2 value=".$this->data['address_2']." class=input-xlarge></div>";
-										if($this->data['address_3'] != null)
-										{
-											echo "<div id=address_3>地址3</br> <input type=text name= address_3 value=".$this->data['address_3']." class=input-xlarge></div>";
-										}
-									}
-								?>
-								</div>
+								<input type="text" name = "address" value="<?php print($this->data['address']);?>" class="input-xlarge">
 								
 								<label>電話</label>
 								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
@@ -98,6 +85,7 @@
 								</div>	
 								<label>統一編號</label>
 								<input type="text" name = "Num" value="<?php print($this->data['num']);?>" class="input-xlarge">
+								
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -166,10 +154,9 @@
 			
 			<script> //新增欄位 java script
 				var countMin = 1; 
-				var contMin =<?print $this->data[14];?>;
-				var AddrMin = <?print $this->data[15];?>;
-				var TelMin = <?print $this->data[16];?>;
-				var faxMin = <?print $this->data[17];?>;
+				var contMin =<?echo $this->data[14];?>;
+				var TelMin = <?echo $this->data[15];?>;
+				var faxMin = <?echo $this->data[16];?>;
 				var divname;
 				$("#cont_bnt").click(function () //聯絡人欄位新增
 				{	var contname = "contacter_";
@@ -202,48 +189,6 @@
 						divname=""+contname+ contMin ;
 						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" class="input-xlarge" /> </div>');
 						}																		
-						else
-						{	
-							alert("最多3個欄位"); 
-						}
-					}
-					else
-					{
-						alert("欄位為空值");
-					}
-				});
-				
-				$("#addr_bnt").click(function () //地址欄位新增
-				{	var addrname = "address_";
-					var Fieldvarle;
-					var insdivname = "" +addrname+ AddrMin ;
-					if(edit_custiner.address_1.value != "")
-					{	
-						Fieldvarle = 1;	
-						if(divname == insdivname)
-						{	
-							if(edit_custiner.address_2.value != "")
-							{								
-								Fieldvarle = 1;
-							}
-							else
-							{								
-								Fieldvarle = 0;
-							}
-						}
-					}
-					else
-					{
-						Fieldvarle = 0;
-					}	
-					if(Fieldvarle != 0)
-					{
-						if(AddrMin < 3)
-						{
-						AddrMin++;
-						divname=""+addrname+ AddrMin ;
-						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" class="input-xlarge" /> </div>');
-						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
 						else
 						{	
 							alert("最多3個欄位"); 

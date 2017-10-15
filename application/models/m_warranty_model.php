@@ -1,7 +1,7 @@
 <?php
 
 
-class Customer_model extends CI_Model 
+class m_warranty_model extends CI_Model 
 {
 	function __construct() 
 	{
@@ -11,23 +11,20 @@ class Customer_model extends CI_Model
 		
 	}
 	
-	public function deleteCustomer($id) 
+	public function deletewarranty($id) 
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('customer');
-	}
+		$this->db->delete('warranty');
+	}	
 	
-	
-	public function insertCustomer($data)
+	public function insertwarranty($data)
 	{
 
-		$this->db->set('company',$data->company);
+		$this->db->set('customer',$data->customer);
 		$this->db->set('contacter_1',$data->contacter_1);
 		$this->db->set('contacter_2',$data->contacter_2);
 		$this->db->set('contacter_3',$data->contacter_3);
-		$this->db->set('address_1',$data->address_1);
-		$this->db->set('address_2',$data->address_2);
-		$this->db->set('address_3',$data->address_3);
+		$this->db->set('address',$data->address);
 		$this->db->set('tel_1',$data->tel_1);
 		$this->db->set('tel_2',$data->tel_2);
 		$this->db->set('tel_3',$data->tel_3);
@@ -35,20 +32,18 @@ class Customer_model extends CI_Model
 		$this->db->set('fax_2',$data->fax_2);
 		$this->db->set('fax_3',$data->fax_3);
 		$this->db->set('num',$data->num);
-		$this->db->insert('customer');	
+		$this->db->insert('warranty');	
 	}
 	
-	public function updateCustomer($data) 
+	public function updatewarranty($data) 
 	{
 		$this->db->where('id',$data->id);
 
-		$d['company'] = $data->company;
+		$d['customer'] = $data->customer;
 		$d['contacter_1'] = $data->contacter_1;
 		$d['contacter_2'] = $data->contacter_2;
 		$d['contacter_3'] = $data->contacter_3;
-		$d['address_1'] = $data->address_1;
-		$d['address_2'] = $data->address_2;
-		$d['address_3'] = $data->address_3;
+		$d['address'] = $data->address;
 		$d['tel_1'] = $data->tel_1;
 		$d['tel_2'] = $data->tel_2;
 		$d['tel_3'] = $data->tel_3;
@@ -57,14 +52,14 @@ class Customer_model extends CI_Model
 		$d['fax_3'] = $data->fax_3;
 		$d['num'] = $data->num;
 		
-		$this->db->update('customer',$d);
+		$this->db->update('warranty',$d);
 		
 	}
 	
-	public function getCustomerByID($id) 
+	public function getwarrantyByID($id) 
 	{
 		$this->db->select('*');
-		$this->db->from('customer');
+		$this->db->from('warranty');
 		$this->db->where('id', $id);
 		$result = $this->db->get();
 		
@@ -72,23 +67,22 @@ class Customer_model extends CI_Model
 		{
 			foreach ($result->result() as $row)
 			{
-				$customer_data = array();
+				$warranty_data = array();
 				foreach ($row as $k => $v)
 				{
-					$customer_data[$k] = $v;
+					$warranty_data[$k] = $v;
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}	
 			}
-			return $customer_data;
+			return $warranty_data;
 		}
 		return 0;
-		
 	}
 	
-	public function getCustomer() 
+	public function getwarranty() 
 	{
 		$this->db->select('*');
-		$this->db->from('customer');
+		$this->db->from('warranty');
 		
 		$result = $this->db->get();
 		
@@ -97,53 +91,18 @@ class Customer_model extends CI_Model
 			$idx = 0;
 			foreach ($result->result() as $row)
 			{
-				$customer_data[$idx] = new Datamodel();
+				$warranty_data[$idx] = new Datamodel();
 				foreach ($row as $k => $v)
 				{
-					$customer_data[$idx]->$k = $v;
+					$warranty_data[$idx]->$k = $v;
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
 				$idx++;
-			
 			}
-			return $customer_data;
+			return $warranty_data;
 		}
 		return 0;
 		
-	}
-	
-	
-/*	public function getForm() 
-	{
-		$data = new Datamodel();
-		$this->db->select('*');
-		$this->db->from('form');
-		//$this->db->where('account',$account);
-		$result = $this->db->get();
-
-		if ($result->num_rows() > 0)
-		{
-			$r = $result->result();
-			
-			$params = (array)$r[0];
-			
-			foreach ($params as $k => $v)
-			{
-				
-				$data->$k = $v;
-			
-			}
-			
-			return $data;
-		}
-		else
-		{
-			return 0;
-		}
-		
-	}
-		*/
-	
-	
-	
+	}	
 }
+?>
