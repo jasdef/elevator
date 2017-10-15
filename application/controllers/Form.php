@@ -234,6 +234,30 @@ class Form extends CI_Controller {
 		
 	}
 	
+	public function delete_transaction_model() 
+	{
+		$form_model = new Form_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["transaction_id"];
+		$form_model->deleteTransaction($id);
+		$this->transaction_home();	
+	}
+	
+	
+	public function edit_transaction_view() 
+	{
+		
+		
+	}
+	
+	public function edit_transaction_model() 
+	{
+		
+		
+	}
+	
+	
+	
 	public function switch_page($id)
 	{
 		$form_model = new Form_model();

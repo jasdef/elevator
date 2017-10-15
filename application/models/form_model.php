@@ -22,10 +22,29 @@ class Form_model extends CI_Model
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$this->db->set('item'.($i+1), $data->item[$i]);
-			$this->db->set('item_status'.($i+1), $data->item[$i]);
+			$this->db->set('item_status'.($i+1), $data->item_status[$i]);
 		}
 		$this->db->insert('transaction_form');			
 	}		
+	
+	public function updateTransaction($data) 
+	{
+		$this->db->where('id',$data->id);
+		$d['name'] = $data->name;
+		$d['total_price'] = $data->total_price;
+		$d['start_date'] = $data->start_date;
+		$d['is_return'] = $data->is_return;
+		$d['remind_month'] = $data->remind_month;
+		$d['receipt_status'] = $data->receipt_status;
+
+		for ($i = 0; $i < 6; $i++) 
+		{
+			$d['item'.($i+1)] = $data->item[$i];
+			$d['item_status'.($i+1)] = $data->item_status[$i];
+		}
+		$this->db->update('transaction_form',$d);	
+		
+	}	
 	
 	public function insertForm($data)
 	{
@@ -82,6 +101,12 @@ class Form_model extends CI_Model
 		$this->db->delete('form');
 	}	
 	
+	public function deleteTransaction($id) 
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('transaction_form');
+	}	
+	
 	public function getTransaction() 
 	{
 		$this->db->select('*');
@@ -108,7 +133,33 @@ class Form_model extends CI_Model
 		return 0;
 		
 	}
+	
+	public function getTransactionByID($id) 
+	{
+		$this->db->select('*');
+		$this->db->from('transaction_form');
+		$this->db->where('id', $id);
+		$result = $this->db->get();
 		
+		if ($result->num_rows() > 0)
+		{
+			foreach ($result->result() as $row)
+			{
+				$form_data = array();
+				foreach ($row as $k => $v)
+				{
+					$form_data[$k] = $v;
+					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+				}	
+			}
+			return $form_data;
+		}
+		return 0;
+		
+	}
+
+
+	
 	
 	public function getForm() 
 	{
