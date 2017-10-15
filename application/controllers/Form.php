@@ -296,7 +296,7 @@ class Form extends CI_Controller {
 	{
 		$form_model = new Form_model();
 		$common = new Common();
-		$temp = $form_model->getForm();
+		$temp = $form_model->getTransaction();
 		$fristitem = 0;
 		$k = array();
 		if ($temp != 0) 
@@ -363,7 +363,7 @@ class Form extends CI_Controller {
 		{
 			$this->data = null;
 		}
-		$this->load->view('form_home', $this->data);
+		$this->load->view('v_transaction_home', $this->data);
 	}
 	
 	public function project_new_admin()
