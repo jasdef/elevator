@@ -117,14 +117,34 @@ class Form_model extends CI_Model
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;
+			$item = array();
+			$item_status = array();
 			foreach ($result->result() as $row)
 			{
 				$form_data[$idx] = new Datamodel();
+				$idx2 = 0;
+				$idx3 = 0;
 				foreach ($row as $k => $v)
 				{
-					$form_data[$idx]->$k = $v;
+										
+					if (preg_match("/\item_status/i", $k)) 
+					{
+						$item_status[$idx3] = $v;
+						$idx3++;						
+					}
+					else if (preg_match("/\item/i", $k)) 
+					{
+						$item[$idx2] = $v;
+						$idx2++;
+					}
+					else 
+					{
+						$form_data[$idx]->$k = $v;						
+					}
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
+				$form_data[$idx]->item = $item;
+				$form_data[$idx]->item_status = $item_status;
 				$idx++;
 			
 			}

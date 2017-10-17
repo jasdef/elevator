@@ -122,6 +122,7 @@ class Form extends CI_Controller {
 		$temp = $form_model->getTransaction();
 		$fristitem = 0;
 		$totalitem = 0;
+		
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);	
@@ -141,6 +142,21 @@ class Form extends CI_Controller {
 			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
 				if($fristitem < $itemmax)
 				{	
+			print_r($row->item);
+					for ($i = 0; $i < 6; $i++)
+					{
+						
+						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+						{
+							$row->status = "尚未收款完成";
+							break;
+						}
+						else 
+						{
+							$row->status = "已完成收款";
+						}
+					}
+			
 					$this->data[$fristitem] = $row;
 				}
 				$fristitem++;

@@ -35,8 +35,7 @@
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">編號</a></th>
+												<th><a href="#">#</a></th>												
 												<th><a href="#">公司名稱</a></th>
 												<th><a href="#">狀態</a></th>
 												<th><a href="#">開始日期</a></th>
