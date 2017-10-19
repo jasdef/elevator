@@ -142,7 +142,6 @@ class Form extends CI_Controller {
 			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
 				if($fristitem < $itemmax)
 				{	
-			print_r($row->item);
 					for ($i = 0; $i < 6; $i++)
 					{
 						
@@ -150,6 +149,7 @@ class Form extends CI_Controller {
 						{
 							$row->status = "尚未收款完成";
 							break;
+							
 						}
 						else 
 						{
