@@ -22,14 +22,17 @@
 				for (i =0; i < 6; i++)
 				{
 					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
-					
+					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
 					if (items[i] != 0) 
 					{
-						document.getElementById('Item'+(i+1)+"_price").value = parseInt(price *(items[i]*0.01));
-						result -= price *(items[i]*0.01);
+						document.getElementById('Item'+(i+1)+"_price").value = parseInt(price *(items[i]*0.01));					
 						
 					}
-						
+					
+					if (status == 5)
+					{
+						result -= price *(items[i]*0.01);						
+					}
 				}
 					
 				document.getElementById('Left_money').value = result;
@@ -52,7 +55,7 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/form/transaction_home")?>">表單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/form/transaction_home")?>">買賣單管理</a> <span class="divider">/</span></li>
 						<li class="active">新增買賣單</li>
 					</ul>
 
@@ -65,8 +68,11 @@
 							</div>
 							<div class="well">
 								
-								<label>公司名稱</label>
+								<label>表單名稱</label>
 								<input type="text" name = "Company_name" value="" class="input-xlarge">
+								
+								<label>電梯台數</label>
+								<input type="text" id="Elevator_num" name="Elevator_num" value="0" class="input-xlarge" onChange="calculate(this)">	
 								
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
@@ -92,14 +98,14 @@
 										{										
 								?>
 									<script type='text/javascript'>
-									addOption(document.getElementById("Customer"), "<?php  echo $row->name;?>", "<?php echo $row->id;?>");
+									addOption(document.getElementById("Customer"), "<?php echo $row->company;?>", "<?php echo $row->id;?>");
 									
 									</script>								
 								<?php
 										}
 								   }
 								?>	
-																
+									-->							
 								<label>收款提醒(間隔幾個月)</label>
 								<input type="text" name = "Remind" value="0" class="input-xlarge">
 								
@@ -109,9 +115,11 @@
 										<td><input type="text" id="Item_name1" name="Item_name1" value="" class="input" onChange="calculate(this)"></td>					
 										<td><input type="text" id="Item1" name="Item1" value="0" class="input" onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" onChange="calculate(this)"  disabled></td>
+
+										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input-xlarge" disabled></td>
 										<td>
-											<select id="Item_status1" name="Item_status1" class="input" >
+											<select id="Item_status1" name="Item_status1" class="input-xlarge" onChange="calculate(this)">
+
 												<option value = 0 selected="selected">請選擇表單狀態</option>
 												<option value = 1>已開發票</option>
 												<option value = 2>已送請款單</option>

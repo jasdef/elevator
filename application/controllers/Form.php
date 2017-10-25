@@ -122,6 +122,7 @@ class Form extends CI_Controller {
 		$temp = $form_model->getTransaction();
 		$fristitem = 0;
 		$totalitem = 0;
+		
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);	
@@ -139,8 +140,23 @@ class Form extends CI_Controller {
 			foreach($temp as $row):
 			//	$row->status = $common->conversionFormStatusByID($row->status);
 			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
+				$row->status = "已完成收款";
+				$row->left_money = $row->total_price;
 				if($fristitem < $itemmax)
 				{	
+					for ($i = 0; $i < 6; $i++)
+					{
+						
+						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+						{
+							$row->status = "尚未收款完成";													
+						}
+						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
+						{
+							$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
+						}
+					}
+			
 					$this->data[$fristitem] = $row;
 				}
 				$fristitem++;
@@ -202,6 +218,7 @@ class Form extends CI_Controller {
 		$total_price = $this->input->post("Total_price"); 
 		$is_return = $this->input->post("IsReturn"); 
 		$start_date = $this->input->post("Start_date");  
+		$elevator_num = $this->input->post("Elevator_num");
 		$customer = $this->input->post("Customer"); 
 
 		$startDate = $this->input->post("Start_date");
@@ -221,13 +238,14 @@ class Form extends CI_Controller {
 		$data->name = $name;
 		$data->total_price = $total_price;
 		$data->return_back = $is_return;
-		$data->customer = $customer;
+		$data->customer_id = $customer;
 		$data->start_date = $start_date;
 		$data->item = $item;
 		$data->item_status = $item_status;
 		$data->item_name = $item_name;
 		$data->remind = $remind;
-
+		$data->elevator_num = $elevator_num;
+		
 		$form_model->insertTransaction($data);
 		redirect(base_url("/form/transaction_home"));
 		
@@ -259,11 +277,27 @@ class Form extends CI_Controller {
 				$j++;//計算item_name欄位有幾個被使用
 				$this->data[1]=$j;
 			}
+			else
+			{
+				$this->data[1] = 0 ;
+			}
 		}
 		$this->data['customer'] = $customer_model->getCustomer();						
 		$this->load->view('v_edit_transaction', $this->data);		
 	}
 	
+	public function view_transaction_view() 
+	{
+		$form_model = new Form_model();
+		$customer_model = new Customer_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["transaction_id"];	
+		$this->data = $form_model->getTransactionByID($id);
+		$customer_id = $this->data['customer_id'];
+		$this->data['customer'] = $customer_model->getCustomerByID($customer_id);		
+		$this->load->view('v_view_transaction', $this->data);			
+	}
+		
 	public function edit_transaction_model() 
 	{
 		$form_model = new Form_model();
@@ -292,7 +326,7 @@ class Form extends CI_Controller {
 		$data->name = $name;
 		$data->total_price = $total_price;
 		$data->return_back = $is_return;
-		$data->customer = $customer;
+		$data->customer_id = $customer;
 		$data->start_date = $start_date;
 		$data->item = $item;
 		$data->item_status = $item_status;

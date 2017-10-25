@@ -20,7 +20,7 @@
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">買賣單</li>
+					<li class="active">買賣單管理</li>
 				</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">
@@ -35,12 +35,13 @@
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">編號</a></th>
-												<th><a href="#">公司名稱</a></th>
+												<th><a href="#">#</a></th>												
+												<th><a href="#">表單名稱</a></th>
 												<th><a href="#">狀態</a></th>
 												<th><a href="#">開始日期</a></th>
 												<th><a href="#">總價</a></th>
+												<th><a href="#">剩餘款項</a></th>
+												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
@@ -60,6 +61,10 @@
 													<td><?=$this->data[$j]->status;?></td>
 													<td><?=$this->data[$j]->start_date;?></td>
 													<td><?=$this->data[$j]->total_price;?></td>
+													<td><?=$this->data[$j]->left_money;?></td>
+													<td>
+														<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
+													</td>
 													<td>
 														<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 													</td>

@@ -23,14 +23,16 @@
 				for (i =0; i < 6; i++)
 				{
 					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
-					
+					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
 					if (items[i] != 0) 
 					{
-						document.getElementById('Item'+(i+1)+"_price").value = parseInt(price *(items[i]*0.01));
-						result -= price *(items[i]*0.01);
-						
+						document.getElementById('Item'+(i+1)+"_price").value = parseInt(price *(items[i]*0.01));												
 					}
-						
+					
+					if (status == 5) 
+					{
+						result -= price *(items[i]*0.01);						
+					}						
 				}
 					
 				document.getElementById('Left_money').value = result;
@@ -53,7 +55,7 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/form/transaction_home")?>">表單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/form/transaction_home")?>">買賣單管理</a> <span class="divider">/</span></li>
 						<li class="active">編輯買賣單</li>
 					</ul>
 
@@ -62,13 +64,13 @@
 						<form id="tab" name="fomr1" action="<?=site_url("/form/edit_transaction_model")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?php=base_url("/form/transaction_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
 								<label>編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
 								
-								<label>公司名稱</label>
+								<label>表單名稱</label>
 								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>" class="input-xlarge">
 								
 								<label>總價</label>
@@ -82,10 +84,10 @@
 									<option value = 1 <?php if ($this->data['is_return'] == 1)echo "selected=\"selected\"";?>>未回</option>
 									<option value = 2 <?php if ($this->data['is_return'] == 2)echo "selected=\"selected\"";?>>已回</option>
 								</select>							
-								
+																
 								<label>客戶</label>
 								<select id="Customer" name="Customer" class="input-xlarge" >
-								<option value = 0 selected="selected">請選擇客戶</option>
+									<option value = 0 selected="selected">請選擇客戶</option>
 								</select>
 								<?php 
 								   if ($this->data['customer'] != 0)
@@ -98,8 +100,7 @@
 												$selectIndex = $row->id;										
 								?>
 									<script type='text/javascript'>
-									addOption(document.getElementById("Customer"), "<?php  echo $row->name;?>", "<?php echo $row->id;?>", "<?php echo $selectIndex;?>");
-									
+										addOption(document.getElementById("Customer"), "<?php echo $row->company;?>", "<?php echo $row->id;?>", "<?php echo $selectIndex;?>");
 									</script>								
 								<?php
 										}
@@ -115,9 +116,11 @@
 										<td><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" class="input" onChange="calculate(this)"></td>			
 										<td><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" class="input" onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" onChange="calculate(this)"  disabled></td>
+
+										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
 										<td>
-											<select id="Item_status1" name="Item_status1" class="input" >
+											<select id="Item_status1" name="Item_status1" class="input" onChange="calculate(this)">
+
 												<option value = 0 <?php if ($this->data['item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
 												<option value = 1 <?php if ($this->data['item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
 												<option value = 2 <?php if ($this->data['item_status1'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
@@ -126,9 +129,11 @@
 												<option value = 5 <?php if ($this->data['item_status1'] == 5)echo "selected=\"selected\"";?>>已收款</option>
 											</select>
 										</td>
+
 										<td>
 											<input type="button" value="+" onclick="add_new_data()"> <input type="button" value="-" onclick="remove_data()">
 										</td>
+
 										</tr>	
 								<?php
 										$j=$this->data[1];
@@ -162,6 +167,9 @@
 
 							</div>
 						</form>
+						<script type='text/javascript'>
+							calculate(this);
+						</script>	
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

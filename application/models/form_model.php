@@ -16,9 +16,11 @@ class Form_model extends CI_Model
 		$this->db->set('name', $data->name);
 		$this->db->set('total_price', $data->total_price);
 		$this->db->set('start_date', $data->start_date);
-		$this->db->set('is_return', $data->is_return);
-		$this->db->set('remind_month', $data->remind_month);
+		$this->db->set('is_return', $data->return_back);
+		$this->db->set('remind_month', $data->remind);
+		$this->db->set('elevator_num', $data->elevator_num);
 		$this->db->set('receipt_status', $data->receipt_status);
+		$this->db->set('customer_id', $data->customer_id);
 		for ($i = 0; $i < 6; $i++) 
 		{
 			//echo Item_name[$i]."<br>";
@@ -38,7 +40,7 @@ class Form_model extends CI_Model
 		$d['is_return'] = $data->is_return;
 		$d['remind_month'] = $data->remind_month;
 		$d['receipt_status'] = $data->receipt_status;
-
+		$d['customer_id'] = $data->customer_id;
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$this->db->set('item_name'.($i+1), $data->item_name[$i]);
@@ -120,14 +122,34 @@ class Form_model extends CI_Model
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;
+			$item = array();
+			$item_status = array();
 			foreach ($result->result() as $row)
 			{
 				$form_data[$idx] = new Datamodel();
+				$idx2 = 0;
+				$idx3 = 0;
 				foreach ($row as $k => $v)
 				{
-					$form_data[$idx]->$k = $v;
+										
+					if (preg_match("/\item_status/i", $k)) 
+					{
+						$item_status[$idx3] = $v;
+						$idx3++;						
+					}
+					else if (preg_match("/\item/i", $k)) 
+					{
+						$item[$idx2] = $v;
+						$idx2++;
+					}
+					else 
+					{
+						$form_data[$idx]->$k = $v;						
+					}
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
+				$form_data[$idx]->item = $item;
+				$form_data[$idx]->item_status = $item_status;
 				$idx++;
 			
 			}
