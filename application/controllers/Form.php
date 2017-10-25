@@ -211,7 +211,8 @@ class Form extends CI_Controller {
 		$item_status = array();
 		
 		for ($i = 0; $i < 6; $i++)
-		{
+		{	
+			$item_name[$i] = $this->input->post("Item_name".($i+1));
 			$item[$i] = $this->input->post("Item".($i+1));
 			$item_status[$i] = $this->input->post("Item_status".($i+1));			
 		}
@@ -224,6 +225,7 @@ class Form extends CI_Controller {
 		$data->start_date = $start_date;
 		$data->item = $item;
 		$data->item_status = $item_status;
+		$data->item_name = $item_name;
 		$data->remind = $remind;
 
 		$form_model->insertTransaction($data);
@@ -243,11 +245,21 @@ class Form extends CI_Controller {
 	
 	public function edit_transaction_view() 
 	{
+		$j=0;
 		$form_model = new Form_model();
 		$customer_model = new Customer_model();
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["transaction_id"];
 		$this->data = $form_model->getTransactionByID($id);
+		for($i=0;$i<6;$i++)
+		{//echo $i;
+			//echo $this->data["item_name1"];
+			if($this->data["item_name".($i+1)] != null)
+			{	
+				$j++;//計算item_name欄位有幾個被使用
+				$this->data[1]=$j;
+			}
+		}
 		$this->data['customer'] = $customer_model->getCustomer();						
 		$this->load->view('v_edit_transaction', $this->data);		
 	}
@@ -271,6 +283,7 @@ class Form extends CI_Controller {
 		
 		for ($i = 0; $i < 6; $i++)
 		{
+			$item_name[$i] = $this->input->post("Item_name".($i+1));
 			$item[$i] = $this->input->post("Item".($i+1));
 			$item_status[$i] = $this->input->post("Item_status".($i+1));			
 		}
@@ -283,6 +296,7 @@ class Form extends CI_Controller {
 		$data->start_date = $start_date;
 		$data->item = $item;
 		$data->item_status = $item_status;
+		$data->item_name = $item_name;
 		$data->remind = $remind;
 
 		$form_model->updateTransaction($data);

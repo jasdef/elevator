@@ -21,6 +21,8 @@ class Form_model extends CI_Model
 		$this->db->set('receipt_status', $data->receipt_status);
 		for ($i = 0; $i < 6; $i++) 
 		{
+			//echo Item_name[$i]."<br>";
+			$this->db->set('item_name'.($i+1), $data->item_name[$i]);
 			$this->db->set('item'.($i+1), $data->item[$i]);
 			$this->db->set('item_status'.($i+1), $data->item_status[$i]);
 		}
@@ -39,6 +41,7 @@ class Form_model extends CI_Model
 
 		for ($i = 0; $i < 6; $i++) 
 		{
+			$this->db->set('item_name'.($i+1), $data->item_name[$i]);
 			$d['item'.($i+1)] = $data->item[$i];
 			$d['item_status'.($i+1)] = $data->item_status[$i];
 		}
