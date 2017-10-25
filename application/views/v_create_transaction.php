@@ -68,8 +68,11 @@
 							</div>
 							<div class="well">
 								
-								<label>公司名稱</label>
+								<label>表單名稱</label>
 								<input type="text" name = "Company_name" value="" class="input-xlarge">
+								
+								<label>電梯台數</label>
+								<input type="text" id="Elevator_num" name="Elevator_num" value="0" class="input-xlarge" onChange="calculate(this)">	
 								
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
@@ -95,14 +98,14 @@
 										{										
 								?>
 									<script type='text/javascript'>
-									addOption(document.getElementById("Customer"), "<?php  echo $row->name;?>", "<?php echo $row->id;?>");
+									addOption(document.getElementById("Customer"), "<?php echo $row->company;?>", "<?php echo $row->id;?>");
 									
 									</script>								
 								<?php
 										}
 								   }
 								?>	
-																
+									-->							
 								<label>收款提醒(間隔幾個月)</label>
 								<input type="text" name = "Remind" value="0" class="input-xlarge">
 								

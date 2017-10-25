@@ -16,9 +16,11 @@ class Form_model extends CI_Model
 		$this->db->set('name', $data->name);
 		$this->db->set('total_price', $data->total_price);
 		$this->db->set('start_date', $data->start_date);
-		$this->db->set('is_return', $data->is_return);
-		$this->db->set('remind_month', $data->remind_month);
+		$this->db->set('is_return', $data->return_back);
+		$this->db->set('remind_month', $data->remind);
+		$this->db->set('elevator_num', $data->elevator_num);
 		$this->db->set('receipt_status', $data->receipt_status);
+		$this->db->set('customer_id', $data->customer_id);
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$this->db->set('item'.($i+1), $data->item[$i]);
@@ -36,7 +38,7 @@ class Form_model extends CI_Model
 		$d['is_return'] = $data->is_return;
 		$d['remind_month'] = $data->remind_month;
 		$d['receipt_status'] = $data->receipt_status;
-
+		$d['customer_id'] = $data->customer_id;
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$d['item'.($i+1)] = $data->item[$i];

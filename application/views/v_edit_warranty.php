@@ -39,7 +39,7 @@
 								<label>聯絡人</label>
 								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
 								<div id="contacter_">
-								<?
+								<?php
 									if($this->data['contacter_2'] != null)
 									{
 										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['contacter_2']." class=input-xlarge></div>";
@@ -57,7 +57,7 @@
 								<label>電話</label>
 								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
 								<div id="tel_">
-								<?
+								<?php
 									if($this->data['tel_2'] != null)
 									{	
 										echo "<div id=tel_2>電話2</br> <input type=text name= tel_2 value=".$this->data['tel_2']." class=input-xlarge></div>";
@@ -72,7 +72,7 @@
 								<label>傳真</label>
 								<input type="text" name = "fax_1" value="<?php print($this->data['fax_1']);?>" class="input-xlarge"> <input type="button" id="fax_bnt" value="+"  /> <input type="button" onclick="delField('fax_')" value="-" />
 								<div id="fax_">
-								<?
+								<?php
 									if($this->data['fax_2'] != null)
 									{	
 										echo "<div id=fax_2>電話2</br> <input type=text name= fax_2 value=".$this->data['fax_2']." class=input-xlarge></div>";
