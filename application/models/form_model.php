@@ -182,9 +182,6 @@ class Form_model extends CI_Model
 		return 0;
 		
 	}
-
-
-	
 	
 	public function getForm() 
 	{

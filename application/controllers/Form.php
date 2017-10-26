@@ -229,11 +229,10 @@ class Form extends CI_Controller {
 		
 		for ($i = 0; $i < 6; $i++)
 		{	
-			$item_name[$i] = $this->input->post("Item_name".($i+1));
-			$item[$i] = $this->input->post("Item".($i+1));
-			$item_status[$i] = $this->input->post("Item_status".($i+1));			
+			$item_name[$i] = $this->input->post("Item_name".($i+1)) == Null ? "" : $this->input->post("Item_name".($i+1));
+			$item[$i] = $this->input->post("Item".($i+1)) == Null ? 0 : $this->input->post("Item".($i+1));
+			$item_status[$i] = $this->input->post("Item_status".($i+1)) == Null ? 0 : $this->input->post("Item_status".($i+1));			
 		}
-		
 		
 		$data->name = $name;
 		$data->total_price = $total_price;
@@ -269,19 +268,19 @@ class Form extends CI_Controller {
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["transaction_id"];
 		$this->data = $form_model->getTransactionByID($id);
-		for($i=0;$i<6;$i++)
+		$this->data['item_count'] = 0 ;
+		for ($i = 0; $i < 6; $i++)
 		{//echo $i;
 			//echo $this->data["item_name1"];
-			if($this->data["item_name".($i+1)] != null)
+			
+			if($this->data["item_name".($i+1)] != "")
 			{	
 				$j++;//計算item_name欄位有幾個被使用
-				$this->data[1]=$j;
+				$this->data['item_count']=$j;
 			}
-			else
-			{
-				$this->data[1] = 0 ;
-			}
+
 		}
+	
 		$this->data['customer'] = $customer_model->getCustomer();						
 		$this->load->view('v_edit_transaction', $this->data);		
 	}

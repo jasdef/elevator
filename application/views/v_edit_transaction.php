@@ -16,11 +16,24 @@
 			
 			function calculate(element) 
 			{
-				var items = new Array(6);
 				var price = document.getElementById('Total_price').value;
 				var result = parseInt(price);
 				
-				for (i =0; i < 6; i++)
+				var count = 0;				
+				for (; count < 6; count++)
+				{
+					var temp = document.getElementById('Item'+(count+1));
+					
+					if (temp == null) 
+					{
+						break;						
+					}
+					
+				}
+				
+				var items = new Array(count);						
+				
+				for (i =0; i < count; i++)
 				{
 					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
 					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
@@ -136,22 +149,23 @@
 
 										</tr>	
 								<?php
-										$j=$this->data[1];
-										for($i=1;$i<$j;$i++)
-										{										
+										$item_count = $this->data['item_count'];
+										for ($i = 1; $i < $item_count; $i++)
+										{				
 											echo '<tr>';
 											echo '<td><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" class="input" onChange="calculate(this)"></td>';		
 											echo '<td><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" class="input" onChange="calculate(this)"></td>';
 											echo '<td><label>金額</label></td>';					
 											echo '<td><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" class="input" onChange="calculate(this)"  disabled></td>';
 											echo '<td>';
-												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" class="input" >';
-													echo '<option value = 0 "'; if ($this->data["item_status".($i+1)] == 0) echo "selected=\"selected\""; echo '">請選擇表單狀態</option>';
-													echo '<option value = 1 "'; if ($this->data["item_status".($i+1)] == 1) echo "selected=\"selected\""; echo '">已開發票</option>';
-													echo '<option value = 2 "'; if ($this->data["item_status".($i+1)] == 2) echo "selected=\"selected\""; echo '">已送請款單</option>';
-													echo '<option value = 3 "'; if ($this->data["item_status".($i+1)] == 3) echo "selected=\"selected\""; echo '">已送請款單/發票</option>';
-													echo '<option value = 4 "'; if ($this->data["item_status".($i+1)] == 4) echo "selected=\"selected\""; echo '">尚未收款</option>';
-													echo '<option value = 5 "'; if ($this->data["item_status".($i+1)] == 5) echo "selected=\"selected\""; echo '">已收款</option>';
+												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" class="input" onChange="calculate(this)">';
+													
+													echo '<option value = 0 '; if ($this->data["item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
+													echo '<option value = 1 '; if ($this->data["item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
+													echo '<option value = 2 '; if ($this->data["item_status".($i+1)] == 2) echo 'selected=\"selected\"'; echo '">已送請款單</option>';
+													echo '<option value = 3 '; if ($this->data["item_status".($i+1)] == 3) echo 'selected=\"selected\"'; echo '">已送請款單/發票</option>';
+													echo '<option value = 4 '; if ($this->data["item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
+													echo '<option value = 5 '; if ($this->data["item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
 												echo '</select>';
 											echo '</td>';
 											echo '<td>';

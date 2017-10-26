@@ -15,11 +15,25 @@
 			
 			function calculate(element) 
 			{
-				var items = new Array(6);
-				var price = document.getElementById('Total_price').value;
-				var result = parseInt(price);
 				
-				for (i =0; i < 6; i++)
+				var price = document.getElementById('Total_price').value;
+				var result = parseInt(price);				
+				var count = 0;
+				
+				for (; count < 6; count++)
+				{
+					var temp = document.getElementById('Item'+(count+1));
+					
+					if (temp == null) 
+					{
+						break;						
+					}
+					
+				}
+				
+				var items = new Array(count);
+				
+				for (i =0; i < count; i++)
 				{
 					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
 					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
@@ -104,8 +118,7 @@
 								<?php
 										}
 								   }
-								?>	
-									-->							
+								?>															
 								<label>收款提醒(間隔幾個月)</label>
 								<input type="text" name = "Remind" value="0" class="input-xlarge">
 								
@@ -253,7 +266,7 @@
 							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" class="input" onChange="calculate(this)"  disabled>';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" class="input"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
+							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" class="input" onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
 							 //這樣就好囉 記得td數目要一樣 不然會亂掉~
 
 						}
