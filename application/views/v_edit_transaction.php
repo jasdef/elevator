@@ -218,7 +218,7 @@
 			
 			
 			<script type="text/javascript">
-				var min=<?php echo $this->data[1];?>;已顯示欄位
+				var min=<?php echo $this->data['item_count'];?>;已顯示欄位
 				//var kk=0;
 				var tdunm;//判斷新增到第幾個欄位
 				function add_new_data() {
