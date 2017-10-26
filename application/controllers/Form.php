@@ -144,6 +144,7 @@ class Form extends CI_Controller {
 				$row->left_money = $row->total_price;
 				if($fristitem < $itemmax)
 				{	
+
 					for ($i = 0; $i < 6; $i++)
 					{
 						

@@ -123,12 +123,14 @@ class Form_model extends CI_Model
 		{
 			$idx = 0;
 			$item = array();
+			$item_name = array();
 			$item_status = array();
 			foreach ($result->result() as $row)
 			{
 				$form_data[$idx] = new Datamodel();
 				$idx2 = 0;
 				$idx3 = 0;
+				$idx4 = 0;
 				foreach ($row as $k => $v)
 				{
 										
@@ -136,6 +138,11 @@ class Form_model extends CI_Model
 					{
 						$item_status[$idx3] = $v;
 						$idx3++;						
+					}
+					else if (preg_match("/\item_name/i", $k)) 
+					{
+						$item_name[$idx4] = $v;
+						$idx4++;
 					}
 					else if (preg_match("/\item/i", $k)) 
 					{
@@ -149,6 +156,7 @@ class Form_model extends CI_Model
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
 				$form_data[$idx]->item = $item;
+				$form_data[$idx]->item_name = $item_name;
 				$form_data[$idx]->item_status = $item_status;
 				$idx++;
 			
