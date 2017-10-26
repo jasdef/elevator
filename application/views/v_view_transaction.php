@@ -97,10 +97,10 @@
 								<?php
 									if($this->data['customer']['contacter_2'] != null)
 									{
-										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['customer']['contacter_2']." class=input-xlarge></div>";
+										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['customer']['contacter_2']." disabled class=input-xlarge></div>";
 										if($this->data['customer']['contacter_3'] != null)
 										{
-											echo "<div id=contacter_3>聯絡人3</br> <input type=text name= contacter_3 value=".$this->data['customer']['contacter_3']." class=input-xlarge></div>";
+											echo "<div id=contacter_3>聯絡人3</br> <input type=text name= contacter_3 value=".$this->data['customer']['contacter_3']." disabled class=input-xlarge></div>";
 										}
 									}
 								?>
@@ -161,12 +161,12 @@
 								<table class="table sortable">
 									<tbody>
 										<tr>
-										<td><label>訂金</label></td>					
-										<td><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" disabled class="input-xlarge" onChange="calculate(this)"></td>
+										<td><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" disabled class="input" onChange="calculate(this)"></td>						
+										<td><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" disabled class="input" onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input-xlarge" disabled></td>
+										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
 										<td>
-											<select id="Item_status1" name="Item_status1" class="input-xlarge" onChange="calculate(this)" disabled>
+											<select id="Item_status1" name="Item_status1" class="input" onChange="calculate(this)" disabled>
 												<option value = 0 <?php if ($this->data['item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
 												<option value = 1 <?php if ($this->data['item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
 												<option value = 2 <?php if ($this->data['item_status1'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
@@ -176,86 +176,31 @@
 											</select>
 										</td>
 										</tr>								
-										<tr>
-											<td><label>貨到</label></td>					
-											<td><input type="text" id="Item2" name="Item2" value="<?php print($this->data['item2']);?>" disabled class="input-xlarge" onChange="calculate(this)"></td>
-											<td><label>金額</label></td>					
-											<td><input type="text" id="Item2_price" name="Item2_price" value="0" class="input-xlarge" disabled></td>
-											<td>
-												<select id="Item_status2" name="Item_status2" class="input-xlarge" onChange="calculate(this)" disabled>
-												<option value = 0 <?php if ($this->data['item_status2'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status2'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status2'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status2'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status2'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status2'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-												</select>
-											</td>
-										</tr>	
-										<tr>
-											<td><label>安裝完成</label></td>					
-											<td><input type="text" id="Item3" name="Item3" value="<?php print($this->data['item3']);?>" disabled class="input-xlarge" onChange="calculate(this)"></td>
-											<td><label>金額</label></td>					
-											<td><input type="text" id="Item3_price" name="Item3_price" value="0" class="input-xlarge" disabled></td>
-											<td>
-												<select id="Item_status3" name="Item_status3" class="input-xlarge" onChange="calculate(this)" disabled>
-												<option value = 0 <?php if ($this->data['item_status3'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status3'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status3'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status3'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status3'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status3'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-												</select>
-											</td>
-										</tr>	
-										<tr>
-											<td><label>試車完成</label></td>					
-											<td><input type="text" id="Item4" name="Item4" value="<?php print($this->data['item4']);?>" disabled class="input-xlarge" onChange="calculate(this)" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
-											<td><label>金額</label></td>					
-											<td><input type="text" id="Item4_price" name="Item4_price" value="0" class="input-xlarge" disabled></td>
-											<td>
-												<select id="Item_status4" name="Item_status4" class="input-xlarge" onChange="calculate(this)" disabled>
-												<option value = 0 <?php if ($this->data['item_status4'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status4'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status4'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status4'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status4'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status4'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-												</select>
-											</td>
-										</tr>	
-										<tr>
-											<td><label>取得合格證</label></td>					
-											<td><input type="text" id="Item5" name="Item5" value="<?php print($this->data['item5']);?>" disabled class="input-xlarge" onChange="calculate(this)"></td>
-											<td><label>金額</label></td>					
-											<td><input type="text" id="Item5_price" name="Item5_price" value="0" class="input-xlarge" disabled></td>
-											<td>
-												<select id="Item_status5" name="Item_status5" class="input-xlarge" onChange="calculate(this)" disabled>
-												<option value = 0 <?php if ($this->data['item_status5'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status5'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status5'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status5'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status5'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status5'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-												</select>
-											</td>
-										</tr>	
-										<tr>
-											<td><label>驗收完成</label></td>					
-											<td><input type="text" id="Item6" name="Item6" value="<?php print($this->data['item6']);?>" disabled class="input-xlarge" onChange="calculate(this)"></td>
-											<td><label>金額</label></td>					
-											<td><input type="text" id="Item6_price" name="Item6_price" value="0" class="input-xlarge" disabled></td>
-											<td>
-												<select id="Item_status6" name="Item_status6" class="input-xlarge" onChange="calculate(this)" disabled>
-												<option value = 0 <?php if ($this->data['item_status6'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status6'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status6'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status6'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status6'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status6'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-												</select>
-											</td>
-										</tr>	
+										<?php
+										$item_count = $this->data['item_count'];
+										for ($i = 1; $i < $item_count; $i++)
+										{				
+											echo '<tr>';
+											echo '<td><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" disabled class="input" onChange="calculate(this)"></td>';		
+											echo '<td><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" disabled class="input" onChange="calculate(this)"></td>';
+											echo '<td><label>金額</label></td>';					
+											echo '<td><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" disabled class="input" onChange="calculate(this)"  disabled></td>';
+											echo '<td>';
+												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" disabled class="input" onChange="calculate(this)">';
+													
+													echo '<option value = 0 '; if ($this->data["item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
+													echo '<option value = 1 '; if ($this->data["item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
+													echo '<option value = 2 '; if ($this->data["item_status".($i+1)] == 2) echo 'selected=\"selected\"'; echo '">已送請款單</option>';
+													echo '<option value = 3 '; if ($this->data["item_status".($i+1)] == 3) echo 'selected=\"selected\"'; echo '">已送請款單/發票</option>';
+													echo '<option value = 4 '; if ($this->data["item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
+													echo '<option value = 5 '; if ($this->data["item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
+												echo '</select>';
+											echo '</td>';
+											echo '<td>';
+											echo '</td>';
+											echo '</tr>	';										
+										}
+								?>	
 									</tbody>
 								</table>													
 								

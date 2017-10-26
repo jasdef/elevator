@@ -27,8 +27,8 @@ class Elevator extends CI_Controller {
 			{
 				$itemmax = 10;		
 			}
-			$this->data[13] = $fristitem; 			
-			$this->data[14] = $itemmax;			
+			$this->data['fristitem'] = $fristitem; 			
+			$this->data['itemmax'] = $itemmax;			
 			foreach($temp as $row):				
 				if($fristitem < $itemmax)
 				{	
@@ -63,9 +63,9 @@ class Elevator extends CI_Controller {
 			{
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;	//各10頁的第一頁
-			$this->data[11] = $pagetotal;	//各10頁的總筆數數		
-			$this->data[12] = 1;			//第幾頁
+			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
+			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
+			$this->data['pageid'] = 1;			//第幾頁
 		}
 		else
 		{
@@ -92,8 +92,8 @@ class Elevator extends CI_Controller {
 			}
 			$j = 0;	
 			$i = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
-			$this->data[13] = ($id - 1) * 10;//丟往前端迴圈參數
-			$this->data[14] = $itemmax;//丟往前端迴圈參數
+			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
+			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
 				if($fristitem >= $i)
 				{				
@@ -137,9 +137,9 @@ class Elevator extends CI_Controller {
 				$pagefrist = 0;
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;//各10頁的第一頁
-			$this->data[11] = $pagetotal;//各10頁的總筆數數		
-			$this->data[12] = $id;	//第幾頁	
+			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
+			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
+			$this->data['pageid'] = $id;			//第幾頁	
 		}
 		else
 		{

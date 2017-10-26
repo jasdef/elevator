@@ -25,7 +25,8 @@
 				<div class="container-fluid">
 					<div class="row-fluid">
 						<form id="tab" name="create_custiner" action="<?=site_url("/Personal/personal_create")?>" method="post">
-
+								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							<div class="well">
 							
 								<label>帳號</label>
@@ -55,14 +56,11 @@
 							</div>
 							<table><tr><td>
 							<!--div class="btn-toolbar"-->
-								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
+								
 								
 							<!--/div-->
 
 							</td>
-						</form>
-						<form id="tab" name="create_custiner" action="<?=site_url("/Personal/personal_home")?>" method="post">
-							<td><button class="btn">取消</button></td>
 						</form>
 								</tr></table>
 							

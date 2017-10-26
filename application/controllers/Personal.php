@@ -29,8 +29,8 @@ class Personal extends CI_Controller
 			{
 				$itemmax = 10;		
 			}
-			$this->data[13] = $fristitem; 
-			$this->data[14] = $itemmax;	
+			$this->data['fristitem'] = $fristitem; 
+			$this->data['itemmax'] = $itemmax;	
 											
 			foreach($temp as $row):
 				if($fristitem < $itemmax)
@@ -87,9 +87,9 @@ class Personal extends CI_Controller
 			{
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;
-			$this->data[11] = $pagetotal;		
-			$this->data[12] = 1;	
+			$this->data['pagefrist'] = $pagefrist;
+			$this->data['pagetotal'] = $pagetotal;		
+			$this->data['pageid'] = 1;	
 		}
 		else
 		{
@@ -117,8 +117,8 @@ class Personal extends CI_Controller
 			}
 			$j = 0;	
 			$i = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
-			$this->data[13] = ($id - 1) * 10;//丟往前端迴圈參數
-			$this->data[14] = $itemmax;//丟往前端迴圈參數
+			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
+			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
 				if($fristitem>=$i)
 				{				
@@ -180,9 +180,9 @@ class Personal extends CI_Controller
 				$pagefrist = 0;
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;
-			$this->data[11] = $pagetotal;		
-			$this->data[12] = $id;	
+			$this->data['pagefrist'] = $pagefrist;
+			$this->data['pagetotal'] = $pagetotal;		
+			$this->data['pageid'] = $id;	
 		}
 		else
 		{
@@ -282,38 +282,7 @@ class Personal extends CI_Controller
 		$this->data = $m_personal_model->getpersonalByID($id);
 		$permission = $this->data['permission'];
 		$status = $this->data['status'];
-		$permission1 = "";//permission1,permission2,permission3判斷權限送至前端判斷何者被選取
-		$permission2 = "";
-		$permission3 = "";
-		if($permission == 1)
-		{
-			$permission1 = "selected";
-		}
-		elseif($permission == 2)
-		{
-			$permission2 = "selected";
-		}
-		elseif($permission == 3)
-		{
-			$permission3 = "selected";
-		}
-		
-		$status1 = "";//status1,status2判斷狀態送至前端判斷何者被選取
-		$status2 = "";
-		if($status == 0)
-		{
-			$status1 = "selected";
-		}
-		elseif($status == 1)
-		{
-			$status2 = "selected";
-		}
-		
-		$this->data[1] = $permission1;
-		$this->data[2] = $permission2;
-		$this->data[3] = $permission3;
-		$this->data[4] = $status1;
-		$this->data[5] = $status2;
+
 		
 		$this->load->view('v_edit_personal', $this->data);
 	}	

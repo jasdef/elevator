@@ -27,7 +27,7 @@
 						<form id="tab" action="<?=site_url("/elevator/elevator_create")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
-								<a href=""<?=base_url("/elevator/elevator_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
 								<label>型號</label>

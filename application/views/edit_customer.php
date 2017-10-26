@@ -27,7 +27,7 @@
 						<form id="tab" name="edit_custiner" action="<?=site_url("/customer/customer_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?=base_url("/customer/customer_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">			
 								<label>客戶編號</label>
@@ -39,7 +39,7 @@
 								<label>聯絡人</label>
 								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
 								<div id="contacter_">
-								<?
+								<?php
 									if($this->data['contacter_2'] != null)
 									{
 										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['contacter_2']." class=input-xlarge></div>";
@@ -55,7 +55,7 @@
 								<label>地址</label>
 								<input type="text" name = "address_1" value="<?php print($this->data['address_1']);?>" class="input-xlarge"> <input type="button" id="addr_bnt" value="+"  /> <input type="button" onclick="delField('address_')" value="-" />
 								<div id="address_">
-								<?
+								<?php
 									if($this->data['address_2'] != null)
 									{
 										echo "<div id=address_2>地址2</br> <input type=text name= address_2 value=".$this->data['address_2']." class=input-xlarge></div>";
@@ -70,7 +70,7 @@
 								<label>電話</label>
 								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
 								<div id="tel_">
-								<?
+								<?php
 									if($this->data['tel_2'] != null)
 									{	
 										echo "<div id=tel_2>電話2</br> <input type=text name= tel_2 value=".$this->data['tel_2']." class=input-xlarge></div>";
@@ -85,7 +85,7 @@
 								<label>傳真</label>
 								<input type="text" name = "fax_1" value="<?php print($this->data['fax_1']);?>" class="input-xlarge"> <input type="button" id="fax_bnt" value="+"  /> <input type="button" onclick="delField('fax_')" value="-" />
 								<div id="fax_">
-								<?
+								<?php
 									if($this->data['fax_2'] != null)
 									{	
 										echo "<div id=fax_2>電話2</br> <input type=text name= fax_2 value=".$this->data['fax_2']." class=input-xlarge></div>";
@@ -166,10 +166,10 @@
 			
 			<script> //新增欄位 java script
 				var countMin = 1; 
-				var contMin =<?print $this->data[14];?>;
-				var AddrMin = <?print $this->data[15];?>;
-				var TelMin = <?print $this->data[16];?>;
-				var faxMin = <?print $this->data[17];?>;
+				var contMin =<?php print $this->data[14];?>;
+				var AddrMin = <?php print $this->data[15];?>;
+				var TelMin = <?php print $this->data[16];?>;
+				var faxMin = <?php print $this->data[17];?>;
 				var divname;
 				$("#cont_bnt").click(function () //聯絡人欄位新增
 				{	var contname = "contacter_";

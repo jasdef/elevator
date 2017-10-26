@@ -27,7 +27,7 @@
 						<form id="tab" name="edit_custiner" action="<?=site_url("/Personal/personal_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?=base_url("/Personal/personal_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">			
 								<label>人員編號</label>
@@ -44,15 +44,15 @@
 
 								<label>權限</label><?//  後端判斷的值 傳送到前段data[1],data[2],data[3] ?>
 								<select name="permission">
-								<option value="1" <?php print($this->data[1]);?>>系統管理員</option>
-								<option value="2" <?php print($this->data[2]);?>>會計</option>
-								<option value="3" <?php print($this->data[3]);?>>員工</option>
+								<option value="1" <?php if ($this->data['permission'] == 1)echo "selected=\"selected\"";?>>系統管理員</option>
+								<option value="2" <?php if ($this->data['permission'] == 2)echo "selected=\"selected\"";?>>會計</option>
+								<option value="3" <?php if ($this->data['permission'] == 3)echo "selected=\"selected\"";?>>員工</option>
 								</select>
 							
 								<label>狀態</label>
 								<select name="status"><?//  後端判斷的值 傳送到前段data[4],data[5] ?>
-								<option value="0" <?php print($this->data[4]);?>>未鎖定</option>
-								<option value="1" <?php print($this->data[5]);?>>鎖定</option>
+								<option value="0" <?php if ($this->data['status'] == 0)echo "selected=\"selected\"";?>>未鎖定</option>
+								<option value="1" <?php if ($this->data['status'] == 1)echo "selected=\"selected\"";?>>鎖定</option>
 								</select>
 								
 							</div>

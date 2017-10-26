@@ -49,8 +49,8 @@
 					<?php
 											if(count($this->data) != 0 )
 											{
-												$fristitem = $this->data[13];
-												$itemmax = $this->data[14];
+												$fristitem = $this->data['fristitem'];
+												$itemmax = $this->data['itemmax'];
 												for($j = 0; $fristitem < $itemmax;$j++)
 												{
 					?>							
@@ -83,9 +83,9 @@
 					<?php
 									if(count($this->data) != 0 )
 									{
-										$pagefrist = $this->data[10];//第一頁
-										$pagetotal = $this->data[11];//共有幾頁
-										$pageid = $this->data[12];//第幾頁
+										$pagefrist = $this->data['pagefrist'];//第一頁
+										$pagetotal = $this->data['pagetotal'];//共有幾頁
+										$pageid = $this->data['pageid'];//第幾頁
 										if($pagetotal > 1 )
 										{
 											if($pageid > 1 )

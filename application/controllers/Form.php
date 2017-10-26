@@ -263,24 +263,24 @@ class Form extends CI_Controller {
 	
 	public function edit_transaction_view() 
 	{
-		$j=0;
+		$count=0;
 		$form_model = new Form_model();
 		$customer_model = new Customer_model();
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["transaction_id"];
 		$this->data = $form_model->getTransactionByID($id);
-		$this->data['item_count'] = 0 ;
+		
 		for ($i = 0; $i < 6; $i++)
 		{//echo $i;
 			//echo $this->data["item_name1"];
 			
 			if($this->data["item_name".($i+1)] != "")
 			{	
-				$j++;//計算item_name欄位有幾個被使用
-				$this->data['item_count']=$j;
+				$count++;//計算item_name欄位有幾個被使用				
 			}
 
 		}
+		$this->data['item_count']=$count;
 	
 		$this->data['customer'] = $customer_model->getCustomer();						
 		$this->load->view('v_edit_transaction', $this->data);		
@@ -294,6 +294,19 @@ class Form extends CI_Controller {
 		$id = $this->data["transaction_id"];	
 		$this->data = $form_model->getTransactionByID($id);
 		$customer_id = $this->data['customer_id'];
+		$count = 0;
+		for ($i = 0; $i < 6; $i++)
+		{//echo $i;
+			//echo $this->data["item_name1"];
+			
+			if($this->data["item_name".($i+1)] != "")
+			{	
+				$count++;//計算item_name欄位有幾個被使用				
+			}
+
+		}
+		
+		$this->data['item_count']=$count;
 		$this->data['customer'] = $customer_model->getCustomerByID($customer_id);		
 		$this->load->view('v_view_transaction', $this->data);			
 	}
