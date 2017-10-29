@@ -15,13 +15,13 @@
 			 $(function() {
 				$( "#datepicker" ).datepicker({
 				  showOn: "button",
-				  buttonImage: "images/calendar.png",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",
 				  buttonImageOnly: true
 
 				   
 				});
 				$( "#datepicker" ).change(function() {
-				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
+				$( "#datepicker" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });		
 
 			function addOption(list, text, value)
@@ -109,7 +109,7 @@
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
 								
-								<label>簽約日(西元yyyy-mm-dd)</label>
+								<label>簽約日(西元yyyy/mm/dd)</label>
 								<input type="text" id="datepicker" name = "Start_date" value="1990/05/01" class="input-xlarge">
 								
 								<label>合約已回/未回</label>

@@ -19,7 +19,7 @@
 				   
 				});
 				$( "#datepicker" ).change(function() {
-				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
+				$( "#datepicker" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
 
 			function addOption(list, text, value, selectIndex)
@@ -105,7 +105,7 @@
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" class="input-xlarge" onChange="calculate(this)">					
 								
-								<label>簽約日(西元yyyy-mm-dd)</label>
+								<label>簽約日(西元yyyy/mm/dd)</label>
 								<input type="text" id="datepicker" name = "Start_date" value="<?php print($this->data['start_date']);?>" class="input-xlarge">
 								
 								<label>合約已回/未回</label>

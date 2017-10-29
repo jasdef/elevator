@@ -24,7 +24,7 @@
 				   
 				});
 				$( "#datepicker" ).change(function() {
-				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
+				$( "#datepicker" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
 			</script> 			
 		
@@ -60,7 +60,7 @@
 								<label>免費保養</label>
 								<input type="text" name = "free_maintenance" value="<?php print($this->data['free_maintenance']);?>" class="input-xlarge"> 年
 								
-								<label>有效日期(西元yyyy-mm-dd)</label>
+								<label>有效日期(西元yyyy/mm/dd)</label>
 								<input type="text" id="datepicker" name = "effective_date" value="<?php print($this->data['effective_date']);?>" class="input-xlarge">
 								
 								
