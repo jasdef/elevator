@@ -166,10 +166,10 @@
 			
 			<script> //新增欄位 java script
 				var countMin = 1; 
-				var contMin =<?php print $this->data[14];?>;
-				var AddrMin = <?php print $this->data[15];?>;
-				var TelMin = <?php print $this->data[16];?>;
-				var faxMin = <?php print $this->data[17];?>;
+				var contMin =<?php print $this->data['contacter_count'];?>;
+				var AddrMin = <?php print $this->data['address_count'];?>;
+				var TelMin = <?php print $this->data['tel_count'];?>;
+				var faxMin = <?php print $this->data['fax_count'];?>;
 				var divname;
 				$("#cont_bnt").click(function () //聯絡人欄位新增
 				{	var contname = "contacter_";

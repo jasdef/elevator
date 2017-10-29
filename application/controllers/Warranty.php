@@ -30,8 +30,8 @@ class Warranty extends CI_Controller {
 			{
 				$itemmax = 10;		
 			}
-			$this->data[13] = $fristitem; 			
-			$this->data[14] = $itemmax;			
+			$this->data['fristitem'] = $fristitem; 			
+			$this->data['itemmax'] = $itemmax;			
 			foreach($temp as $row):				
 				if($fristitem < $itemmax)
 				{	
@@ -66,9 +66,9 @@ class Warranty extends CI_Controller {
 			{
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;	//各10頁的第一頁
-			$this->data[11] = $pagetotal;	//各10頁的總筆數數		
-			$this->data[12] = 1;			//第幾頁
+			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
+			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
+			$this->data['pageid'] = 1;			//第幾頁
 		}
 		else
 		{
@@ -97,8 +97,8 @@ class Warranty extends CI_Controller {
 			}
 			$j = 0;	
 			$i = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
-			$this->data[13] = ($id - 1) * 10;//丟往前端迴圈參數
-			$this->data[14] = $itemmax;//丟往前端迴圈參數
+			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
+			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
 				
 				if($fristitem >= $i)
@@ -143,9 +143,9 @@ class Warranty extends CI_Controller {
 				$pagefrist = 0;
 				$pagetotal = $pageitem;		
 			}
-			$this->data[10] = $pagefrist;//各10頁的第一頁
-			$this->data[11] = $pagetotal;//各10頁的總筆數數		
-			$this->data[12] = $id;	//第幾頁
+			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
+			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
+			$this->data['pageid'] = $id;			//第幾頁
 		}
 		else
 		{
@@ -172,42 +172,42 @@ class Warranty extends CI_Controller {
 		$this->data = $warranty_model->getwarrantyByID($id);
 		if($this->data['contacter_3'] != null)
 		{
-			 $this->data[14] = 3 ;
+			 $this->data['contacter_count'] = 3 ;
 		}
 		elseif($this->data['contacter_2'] != null)
 		{
-			$this->data[14] = 2 ;
+			$this->data['contacter_count'] = 2 ;
 		}
 		else
 		{
-			$this->data[14] = 1 ;
+			$this->data['contacter_count'] = 1 ;
 		}
 				
 		if($this->data['tel_3'] != null)
 		{
-			 $this->data[15] = 3 ;
+			 $this->data['tel_count'] = 3 ;
 		}
 		elseif($this->data['tel_2'] != null)
 		{
-			$this->data[15] = 2 ;
+			$this->data['tel_count'] = 2 ;
 		}
 		else
 		{
-			$this->data[15] = 1 ;
+			$this->data['tel_count'] = 1 ;
 		}
 		
 		
 		if($this->data['fax_3'] != null)
 		{
-			$this->data[16] = 3 ;
+			$this->data['fax_count'] = 3 ;
 		}
 		elseif($this->data['fax_2'] != null)
 		{
-			$this->data[16] = 2 ;
+			$this->data['fax_count'] = 2 ;
 		}
 		else
 		{
-			$this->data[16] = 1 ;
+			$this->data['fax_count'] = 1 ;
 		}
 		
 		$this->load->view('v_edit_warranty', $this->data);
@@ -220,6 +220,9 @@ class Warranty extends CI_Controller {
 		$data = New datamodel;
 		$id = $this->input->post("Id");
 		$customer = $this->input->post("customer");
+		$mechanical_warranty = $this->input->post("mechanical_warranty");
+		$free_maintenance = $this->input->post("free_maintenance");
+		$effective_date = $this->input->post("effective_date");
 		$contacter_1 = $this->input->post("contacter_1");
 		$contacter_2 = $this->input->post("contacter_2");
 		$contacter_3 = $this->input->post("contacter_3");
@@ -231,8 +234,12 @@ class Warranty extends CI_Controller {
 		$fax_2 = $this->input->post("fax_2");
 		$fax_3 = $this->input->post("fax_3");
 		$num = $this->input->post("Num");
+		
 		$data->id = $id;
 		$data->customer = $customer;
+		$data->mechanical_warranty = $mechanical_warranty;
+		$data->free_maintenance = $free_maintenance;
+		$data->effective_date = $effective_date;
 		$data->contacter_1 = $contacter_1;	
 		$data->contacter_2 = $contacter_2;
 		$data->contacter_3 = $contacter_3;
@@ -261,6 +268,9 @@ class Warranty extends CI_Controller {
 		$warranty_model = new m_warranty_model();
 		$data = New datamodel;
 		$customer = $this->input->post("customer");
+		$mechanical_warranty = $this->input->post("mechanical_warranty");
+		$free_maintenance = $this->input->post("free_maintenance");
+		$effective_date = $this->input->post("effective_date");
 		$contacter_1 = $this->input->post("contacter_1");
 		$contacter_2 = $this->input->post("contacter_2");
 		$contacter_3 = $this->input->post("contacter_3");
@@ -272,7 +282,11 @@ class Warranty extends CI_Controller {
 		$fax_2 = $this->input->post("fax_2");
 		$fax_3 = $this->input->post("fax_3");
 		$num = $this->input->post("Num");
+		
 		$data->customer = $customer;
+		$data->mechanical_warranty = $mechanical_warranty;
+		$data->free_maintenance = $free_maintenance;
+		$data->effective_date = $effective_date;
 		$data->contacter_1 = $contacter_1;
 		$data->contacter_2 = $contacter_2;
 		$data->contacter_3 = $contacter_3;

@@ -8,7 +8,25 @@
 				include "navbar.php";
 				include "sidebar-nav.php";
 			?>
-		
+			
+			<link rel="stylesheet" href="<?=base_url("js/jquery/jquery-ui.min.css");?>">
+			<script src="<?=base_url("js/jquery/jquery.min.js");?>"></script>
+			<script src="<?=base_url("js/jquery/jquery-ui.min.js");?>"></script>
+			<link rel="stylesheet" href="jqueryui/style.css">
+			
+			<script>
+				$(function() {
+				$( "#datepicker" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+				  buttonImageOnly: true
+
+				   
+				});
+				$( "#datepicker" ).change(function() {
+			 });
+			</script> 
+	
 			<div class="content">
 				
 				<div class="header">
@@ -27,12 +45,21 @@
 						<form id="tab" name="create_custiner" action="<?=site_url("/warranty/warranty_create")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>新增</button>
-								<a href=""<?=base_url("/warranty/warranty_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
+
+							
+							
 								<label>客戶名稱</label>
 								<input type="text" name = "customer" value="" class="input-xlarge">
 								
+								<label>機件保固</label>
+								
+								<label>免費保養</label>
+								
+								<label>有效日期(西元yyyy-mm-dd)</label>
+								<input type="text" id="datepicker" name = "effective_date" value="" class="input-xlarge"> 
 								
 								<label>聯絡人</label>
 								<input type="text" name = "contacter_1" value="" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
@@ -295,109 +322,6 @@
 					}	
 				}
 			</script> 
-			
-			
-			<script> //新增欄位 java script
-				/*var countMin = 1; 
-				var countMax = 3;
-				var contMin = 1;
-				var AddrMin = 1;
-				var TelMin = 1;
-				var commonName ;
-				var Fieldname;
-				function addField(name) { 
-					if(name == "contacter_")
-					{
-						if(create.contacter_1.value == "") 
-						{
-							if(create.contacter_1.value == "") 
-							{
-								Fieldname = 1 ;
-							}
-							else
-							{
-								Fieldname = 2 ;
-							}
-							
-						}
-						else 
-						{
-							Fieldname = 0 ;
-						}
-						
-					}
-					if(Fieldname == 0)
-					{
-						if(name == "contacter_")
-						{	
-							var count = contMin;
-							if	(contMin < 3)
-							{						
-								++contMin;
-							}
-							commonName	= "聯絡人";		
-						}
-						else if(name == "address_")
-						{
-							var count = AddrMin;
-							if	(AddrMin < 3)
-							{						
-								++AddrMin;
-							}
-							commonName	= "地址";					
-						}
-						else if(name == "tel_")
-						{
-							var count = TelMin;
-							if	(TelMin < 3)
-							{						
-								++TelMin;
-							}
-							commonName	= "電話";						
-						}
-						if(count >= countMax) 
-							alert("最多"+countMax+"個欄位"); 
-						else	 
-							document.getElementById(name).innerHTML += "<div>" + commonName+(++count) +"</br>"+ '<input type="text" name="' + name + count + '"class="input-xlarge"></div>';	 
-					}
-					else
-					{
-						alert("欄位是空的");
-					}
-				}
-				function delField(name) {
-					if(name	==	"contacter_")
-					{	
-						count = contMin;
-						if(contMin > 1)
-						{
-							contMin--;
-						}
-					}
-					else if(name == "address_")
-					{
-						count = AddrMin;
-						if(AddrMin > 1)
-						{
-							AddrMin--;
-						}
-					}
-					else if(name == "tel_")
-					{						
-						count = TelMin;
-						if(TelMin > 1)
-						{
-							TelMin--;
-						}
-					}		
-					if (count > countMin) {
-						var fs = document.getElementById(name); 
-						fs.removeChild(fs.lastChild);
-					} else {
-						alert("無新增欄位可以刪除");
-					}	
-				}*/
-			</script>
 			
 		</body>
 	</html>

@@ -8,6 +8,24 @@
 				include "navbar.php";
 				include "sidebar-nav.php";
 			?>
+			
+			<link rel="stylesheet" href="<?=base_url("js/jquery/jquery-ui.min.css");?>">
+			<script src="<?=base_url("js/jquery/jquery.min.js");?>"></script>
+			<script src="<?=base_url("js/jquery/jquery-ui.min.js");?>"></script>
+			<link rel="stylesheet" href="jqueryui/style.css">
+			
+			<script>
+			 $(function() {
+				$( "#datepicker" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+				  buttonImageOnly: true
+
+				   
+				});
+				$( "#datepicker" ).change(function() {
+			 });
+			</script> 			
 		
 			<div class="content">
 				
@@ -34,6 +52,13 @@
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
 								<label>客戶名稱</label>
 								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">
+								
+								<label>機件保固</label>
+								
+								<label>免費保養</label>
+								
+								<label>有效日期(西元yyyy-mm-dd)</label>
+								<input type="text" id="datepicker" name = "effective_date" value="<?php print($this->data['effective_date']);?>" class="input-xlarge">
 								
 								
 								<label>聯絡人</label>
@@ -154,9 +179,9 @@
 			
 			<script> //新增欄位 java script
 				var countMin = 1; 
-				var contMin =<?echo $this->data[14];?>;
-				var TelMin = <?echo $this->data[15];?>;
-				var faxMin = <?echo $this->data[16];?>;
+				var contMin =<?php echo $this->data['contacter_count'];?>;
+				var TelMin = <?php echo $this->data['tel_count'];?>;
+				var faxMin = <?php echo $this->data['fax_count'];?>;
 				var divname;
 				$("#cont_bnt").click(function () //聯絡人欄位新增
 				{	var contname = "contacter_";

@@ -76,7 +76,7 @@
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" disabled class="input-xlarge" onChange="calculate(this)">					
 								
-								<label>簽約日(西元yyyy/mm/dd)</label>
+								<label>簽約日(西元yyyy-mm-dd)</label>
 								<input type="text" name = "Start_date" value="<?php print($this->data['start_date']);?>" disabled class="input-xlarge">
 								
 								<label>合約已回/未回</label>

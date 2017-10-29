@@ -21,6 +21,9 @@ class m_warranty_model extends CI_Model
 	{
 
 		$this->db->set('customer',$data->customer);
+		$this->db->set('mechanical_warranty',$data->mechanical_warranty);
+		$this->db->set('free_maintenance',$data->free_maintenance);
+		$this->db->set('effective_date',$data->effective_date);
 		$this->db->set('contacter_1',$data->contacter_1);
 		$this->db->set('contacter_2',$data->contacter_2);
 		$this->db->set('contacter_3',$data->contacter_3);
@@ -40,6 +43,9 @@ class m_warranty_model extends CI_Model
 		$this->db->where('id',$data->id);
 
 		$d['customer'] = $data->customer;
+		$d['mechanical_warranty'] = $data->mechanical_warranty;
+		$d['free_maintenance'] = $data->free_maintenance;
+		$d['effective_date'] = $data->effective_date;
 		$d['contacter_1'] = $data->contacter_1;
 		$d['contacter_2'] = $data->contacter_2;
 		$d['contacter_3'] = $data->contacter_3;

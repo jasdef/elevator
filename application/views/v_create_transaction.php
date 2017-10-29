@@ -4,7 +4,24 @@
 			include "head.php";
 		?> 
 		<body> 
+			
+			<link rel="stylesheet" href="<?=base_url("js/jquery/jquery-ui.min.css");?>">
+			<script src="<?=base_url("js/jquery/jquery.min.js");?>"></script>
+			<script src="<?=base_url("js/jquery/jquery-ui.min.js");?>"></script>
+			<link rel="stylesheet" href="jqueryui/style.css">
+			
 			<script type='text/javascript'>
+
+			 $(function() {
+				$( "#datepicker" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "images/calendar.png",
+				  buttonImageOnly: true
+
+				   
+				});
+				$( "#datepicker" ).change(function() {
+			 });		
 
 			function addOption(list, text, value)
 			{
@@ -91,8 +108,8 @@
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
 								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "Start_date" value="1990/05/01" class="input-xlarge">
+								<label>簽約日(西元yyyy-mm-dd)</label>
+								<input type="text" id="datepicker" name = "Start_date" value="1990/05/01" class="input-xlarge">
 								
 								<label>合約已回/未回</label>
 								<select id="IsReturn" name="IsReturn" class="input-xlarge" >
