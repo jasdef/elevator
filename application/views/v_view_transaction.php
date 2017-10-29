@@ -16,11 +16,24 @@
 			
 			function calculate(element) 
 			{
-				var items = new Array(6);
 				var price = document.getElementById('Total_price').value;
 				var result = parseInt(price);
 				
-				for (i =0; i < 6; i++)
+				var count = 0;				
+				for (; count < 6; count++)
+				{
+					var temp = document.getElementById('Item'+(count+1));
+					
+					if (temp == null) 
+					{
+						break;						
+					}
+					
+				}
+				
+				var items = new Array(count);						
+				
+				for (i =0; i < count; i++)
 				{
 					items[i] = parseInt(document.getElementById('Item'+(i+1)).value);
 					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
@@ -50,7 +63,7 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">編輯買賣單</h1>
+					<h1 class="page-title">檢視買賣單</h1>
 				</div>
 				
 					<ul class="breadcrumb">
