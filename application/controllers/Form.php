@@ -198,9 +198,7 @@ class Form extends CI_Controller {
 			$this->data = null;
 		}
 
-		$this->load->view('v_transaction_home', $this->data);
-
-		
+		$this->load->view('v_transaction_home', $this->data);	
 	}
 	
 	public function create_transaction_view() 
