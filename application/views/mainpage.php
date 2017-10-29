@@ -39,32 +39,48 @@
     <div class="block span6">
         <a href="#tablewidget" class="block-heading" data-toggle="collapse">買賣單提醒<span class="label label-warning">+10</span></a>
         <div id="tablewidget" class="block-body collapse in">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>公司名稱</th>
-                  <th>狀態</th>
-				  <th>動作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>利通電梯</td>
-                  <td>尚有款項未收</td>
-				  <td><a class="btn btn-primary">更動狀態</a></td>
-                </tr>
-                <tr>
-                  <td>小羊電梯</td>
-                  <td>合約尚未回覆</td>
-				  <td><a class="btn btn-primary">更動狀態</a></td>
-                </tr>
-                <tr>
-                  <td>大戶電梯</td>
-                  <td>這個月該請款</td>
-				  <td><a class="btn btn-primary">更動狀態</a></td>
-                </tr>
-               </tbody>
-            </table>
+            <table class="table sortable">
+				<thead>
+					<tr>
+						<th><a href="#">#</a></th>												
+						<th><a href="#">表單名稱</a></th>
+						<th><a href="#">狀態</a></th>
+						<th><a href="#">開始日期</a></th>
+						<th><a href="#">總價</a></th>
+						<th><a href="#">剩餘款項</a></th>
+						<th class="sorttable_nosort">檢視</th>
+						<th class="sorttable_nosort">編輯</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
+					if(count($this->data) != 0 )
+					{
+
+						for($j = 0; $j < count($this->data['transaction']); $j++)
+						{
+?>							
+						<tr>
+							<td><?=$this->data['transaction'][$j]->id;?></td>
+							<td><?=$this->data['transaction'][$j]->name;?></td>
+							<td><?=$this->data['transaction'][$j]->status;?></td>
+							<td><?=$this->data['transaction'][$j]->start_date;?></td>
+							<td><?=$this->data['transaction'][$j]->total_price;?></td>
+							<td><?=$this->data['transaction'][$j]->left_money;?></td>
+							<td>
+								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+							</td>
+							<td>
+								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+							</td>
+						</tr>
+
+<?php				
+						}
+					}
+?>
+				</tbody>
+			</table>
             <p><a href="users.html">More...</a></p>
         </div>
     </div>

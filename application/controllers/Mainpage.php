@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Mainpage extends CI_Controller {
-	
+	var $data = array();
 	function __construct()
 	{
 		parent::__construct();
@@ -15,23 +15,47 @@ class Mainpage extends CI_Controller {
 	
 	public function index()
 	{					
-		$data=$_SESSION;
-		if(isset($_SESSION["account"]) && $_SESSION["account"] != null){ //¤w¸gµn¤Jªº¸Üª½±µ¦^­º­¶  
+		$this->data['session']=$_SESSION;
+		if(isset($_SESSION["account"]) && $_SESSION["account"] != null){ //å·²ç¶“ç™»å…¥çš„è©±ç›´æŽ¥å›žé¦–é   
 			$form_model = new Form_model();
 			$temp = $form_model->getTransaction();
-			
+			$temp_array = array();
+			$index = 0;
+			$isAdd = false;
 			if ($temp != 0) 
 			{
 				foreach ($temp as $row) 
 				{
+					$row->status = "å·²å®Œæˆæ”¶æ¬¾";
+					$row->left_money = $row->total_price;	
+
+					for ($i = 0; $i < 6; $i++)
+					{
+						
+						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+						{
+							$row->status = "å°šæœªæ”¶æ¬¾å®Œæˆ";	
+							$isAdd = true;
+						}
+						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
+						{
+							$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
+						}
+					}
 					
+					if ($isAdd) 
+					{
+						$temp_array[$index] = $row;
+						$index++;
+						$isAdd = false;
+					}
 					
 				}
-				
+				$this->data['transaction'] = $temp_array;
 			}
 			
 			
-			$this->load->view('mainpage',$data);  
+			$this->load->view('mainpage', $this->data);  
 		}
 		else {
 			$this->load->view('sign-in'); 
