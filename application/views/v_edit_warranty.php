@@ -24,6 +24,7 @@
 				   
 				});
 				$( "#datepicker" ).change(function() {
+				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
 			 });
 			</script> 			
 		
@@ -54,8 +55,10 @@
 								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">
 								
 								<label>機件保固</label>
+								<input type="text" name = "mechanical_warranty" value="<?php print($this->data['mechanical_warranty']);?>" class="input-xlarge"> 年
 								
 								<label>免費保養</label>
+								<input type="text" name = "free_maintenance" value="<?php print($this->data['free_maintenance']);?>" class="input-xlarge"> 年
 								
 								<label>有效日期(西元yyyy-mm-dd)</label>
 								<input type="text" id="datepicker" name = "effective_date" value="<?php print($this->data['effective_date']);?>" class="input-xlarge">

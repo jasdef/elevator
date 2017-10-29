@@ -10,6 +10,7 @@
 			<link rel="stylesheet" href="jqueryui/style.css">
 			
 			<script type='text/javascript'>
+			 $(function() {//小日曆執行
 				$( "#datepicker" ).datepicker({
 				  showOn: "button",
 				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
@@ -18,6 +19,7 @@
 				   
 				});
 				$( "#datepicker" ).change(function() {
+				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
 			 });
 
 			function addOption(list, text, value, selectIndex)

@@ -21,6 +21,7 @@
 				   
 				});
 				$( "#datepicker" ).change(function() {
+				$( "#datepicker" ).datepicker( "", "dateFormat", "yy-mm-dd" );});
 			 });		
 
 			function addOption(list, text, value)
