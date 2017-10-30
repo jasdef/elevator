@@ -141,6 +141,7 @@ class Form extends CI_Controller {
 			//	$row->status = $common->conversionFormStatusByID($row->status);
 			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
 				$row->status = "已完成收款";
+				$row->is_complete = true;
 				$row->left_money = $row->total_price;
 				if($fristitem < $itemmax)
 				{	
@@ -150,7 +151,8 @@ class Form extends CI_Controller {
 						
 						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
 						{
-							$row->status = "尚未收款完成";													
+							$row->status = "尚未收款完成";	
+							$row->is_complete = false;
 						}
 						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
 						{

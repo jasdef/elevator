@@ -44,6 +44,7 @@
 												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
+												<th class="sorttable_nosort">動作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -70,6 +71,9 @@
 													</td>
 													<td>
 														<a href="<?=base_url("/Form/delete_transaction_model")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+													</td>
+													<td>
+														<a href="<?=base_url("/Form/")?>/transaction_id/<?=$this->data[$j]->id;?>" <?php if(!$this->data[$j]->is_complete)echo 'hidden';?> >結單</a>
 													</td>
 												</tr>
 
