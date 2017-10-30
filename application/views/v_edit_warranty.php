@@ -48,9 +48,14 @@
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<a href=""<?=base_url("/warranty/warranty_home")?>""><button class="btn ">取消</button></a>
 							</div>
-							<div class="well">			
-								<label>客戶編號</label>
+							<div class="well">		
+								
+								<label>買賣單編號</label>
+								<input type="text" name = "transaction_id" value="<?php print($this->data['transaction_id']);?>" class="input-xlarge">
+							
+								<label>保固單編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
+								
 								<label>客戶名稱</label>
 								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">
 								

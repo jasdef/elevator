@@ -35,6 +35,7 @@ class m_warranty_model extends CI_Model
 		$this->db->set('fax_2',$data->fax_2);
 		$this->db->set('fax_3',$data->fax_3);
 		$this->db->set('num',$data->num);
+		$this->db->set('transaction_id', $data->transaction_id);
 		$this->db->insert('warranty');	
 	}
 	
@@ -57,7 +58,7 @@ class m_warranty_model extends CI_Model
 		$d['fax_2'] = $data->fax_2;
 		$d['fax_3'] = $data->fax_3;
 		$d['num'] = $data->num;
-		
+		$d['transaction_id'] = $data->transaction_id;
 		$this->db->update('warranty',$d);
 		
 	}

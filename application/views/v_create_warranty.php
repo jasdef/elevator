@@ -37,7 +37,7 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/warranty/warranty_home")?>">新增保固單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/warranty/warranty_home")?>">保固單管理</a> <span class="divider">/</span></li>
 						<li class="active">新增保固單</li>
 					</ul>
 
@@ -50,7 +50,8 @@
 							</div>
 							<div class="well">
 
-							
+								<label>買賣單編號</label>
+								<input type="text" name = "transaction_id" value="" class="input-xlarge">
 							
 								<label>客戶名稱</label>
 								<input type="text" name = "customer" value="" class="input-xlarge">

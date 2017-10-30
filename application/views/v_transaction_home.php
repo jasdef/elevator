@@ -15,7 +15,7 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">買賣單</h1>
+				<h1 class="page-title">買賣單管理</h1>
 			</div>
 			
 				<ul class="breadcrumb">

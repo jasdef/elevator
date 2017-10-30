@@ -234,6 +234,7 @@ class Warranty extends CI_Controller {
 		$fax_2 = $this->input->post("fax_2");
 		$fax_3 = $this->input->post("fax_3");
 		$num = $this->input->post("Num");
+		$transaction_id = $this->input->post("transaction_id");
 		
 		$data->id = $id;
 		$data->customer = $customer;
@@ -251,6 +252,7 @@ class Warranty extends CI_Controller {
 		$data->fax_2 = $fax_2;
 		$data->fax_3 = $fax_3;
 		$data->num = $num;
+		$data->transaction_id = $transaction_id;
 		
 		$warranty_model->updatewarranty($data);
 		redirect(base_url("/warranty/warranty_home"));
@@ -282,7 +284,7 @@ class Warranty extends CI_Controller {
 		$fax_2 = $this->input->post("fax_2");
 		$fax_3 = $this->input->post("fax_3");
 		$num = $this->input->post("Num");
-		
+		$transaction_id = $this->input->post("transaction_id");
 		$data->customer = $customer;
 		$data->mechanical_warranty = $mechanical_warranty;
 		$data->free_maintenance = $free_maintenance;
@@ -298,6 +300,7 @@ class Warranty extends CI_Controller {
 		$data->fax_2 = $fax_2;
 		$data->fax_3 = $fax_3;;
 		$data->num = $num;
+		$data->transaction_id = $transaction_id;
 		$warranty_model->insertwarranty($data);
 		redirect(base_url("/warranty/warranty_home"));	
 	}
