@@ -73,7 +73,7 @@
 														<a href="<?=base_url("/Form/delete_transaction_model")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 													</td>
 													<td>
-														<a href="<?=base_url("/Form/")?>/transaction_id/<?=$this->data[$j]->id;?>" <?php if(!$this->data[$j]->is_complete)echo 'hidden';?> >結單</a>
+														<a href="<?=base_url("/Warranty/warranty_create_by_transaction/".$this->data[$j]->id."/".$this->data[$j]->elevator_num."")?>" <?php if(!$this->data[$j]->is_complete)echo 'hidden';?> >結單</a>
 													</td>
 												</tr>
 

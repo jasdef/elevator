@@ -264,7 +264,17 @@ class Warranty extends CI_Controller {
 		$this->load->view('v_create_warranty');
 	}
 	
-	
+	public function warranty_create_by_transaction($transaction_id, $nums) 
+	{
+		$warranty_model = new m_warranty_model();
+		$data = New datamodel;
+		$data->transaction_id = $transaction_id;
+		
+		for ($i = 0; $i < $nums; $i++)
+			$warranty_model->insertwarranty($data);
+		redirect(base_url("/warranty/warranty_home"));
+	}
+		
 	public function warranty_create() 
 	{
 		$warranty_model = new m_warranty_model();
