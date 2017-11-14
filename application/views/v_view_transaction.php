@@ -80,97 +80,161 @@
 								<button class="btn" type="button" onclick="history.back()">返回</button>
 							</div>
 							<div class="well">
-								<label>編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" disabled class="input-xlarge">
+							<table class="table sortable">
+								<tr>
+								<th colspan="4">
+								編號<br>
+								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" disabled class="input">
+								</th></tr>
+								<tr><th>
+								表單名稱<br>
+								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>"  disabled class="input">
+								</th>
+								<th>
+								總價<br>
+								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" disabled class="input" onChange="calculate(this)">					
+								</th>
 								
-								<label>表單名稱</label>
-								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>"  disabled class="input-xlarge">
+								<th>
+								簽約日(西元yyyy/mm/dd)<br>
+								<input type="text" name = "Start_date" value="<?php print($this->data['start_date']);?>" disabled class="input">
+								</th>							
 								
-								<label>總價</label>
-								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" disabled class="input-xlarge" onChange="calculate(this)">					
-								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" name = "Start_date" value="<?php print($this->data['start_date']);?>" disabled class="input-xlarge">
-								
-								<label>合約已回/未回</label>
-								<select id="IsReturn" name="IsReturn" class="input-xlarge" disabled>
+								<th>
+								合約已回/未回<br>
+								<select id="IsReturn" name="IsReturn" class="input" disabled>
 									<option value = 1 <?php if ($this->data['is_return'] == 1)echo "selected=\"selected\"";?>>未回</option>
 									<option value = 2 <?php if ($this->data['is_return'] == 2)echo "selected=\"selected\"";?>>已回</option>
-								</select>							
+								</select>
+								</th>
+								</tr>
+							</table>
+							<table class="table sortable">
+								<tr>
+								<th colspan="3">
+								客戶編號<br>
+								<input type="text" name = "Id" value="<?php print($this->data['customer']['id']);?>" disabled class="input">
+								</th>
+								</tr>
 								
-								<label>客戶編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['customer']['id']);?>" disabled class="input-xlarge">
-								<label>公司名稱</label>
-								<input type="text" name = "company" value="<?php print($this->data['customer']['company']);?>" disabled class="input-xlarge">
+								<tr>
+								<th colspan="3">
+								公司名稱<br>
+								<input type="text" name = "company" value="<?php print($this->data['customer']['company']);?>" disabled class="input">
+								</th>
+								</tr>
 								
+								<tr>
+								<th>								
+								聯絡人<br>
+								<input type="text" name = "contacter_1" value="<?php print($this->data['customer']['contacter_1']);?>" disabled class="input"> 
+								</th>
 								
-								<label>聯絡人</label>
-								<input type="text" name = "contacter_1" value="<?php print($this->data['customer']['contacter_1']);?>" disabled class="input-xlarge"> 
-								<div id="contacter_">
 								<?php
 									if($this->data['customer']['contacter_2'] != null)
 									{
-										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['customer']['contacter_2']." disabled class=input-xlarge></div>";
+										echo "<th>聯絡人2<br> <input type=text name= contacter_2 value=".$this->data['customer']['contacter_2']." disabled class=input></th>";
 										if($this->data['customer']['contacter_3'] != null)
 										{
-											echo "<div id=contacter_3>聯絡人3</br> <input type=text name= contacter_3 value=".$this->data['customer']['contacter_3']." disabled class=input-xlarge></div>";
+											echo "<th>聯絡人3<br> <input type=text name= contacter_3 value=".$this->data['customer']['contacter_3']." disabled class=input></th>";
+										}
+										else
+										{
+											echo"<th></th>";
 										}
 									}
+									else
+									{
+										echo"<th></th>";
+									}
 								?>
-								</div>
-								
-								
-								<label>地址</label>
-								<input type="text" name = "address_1" value="<?php print($this->data['customer']['address_1']);?>" disabled class="input-xlarge"> 
-								<div id="address_">
+								</tr>
+								<tr>
+								<th>
+								地址<br>
+								<input type="text" name = "address_1" value="<?php print($this->data['customer']['address_1']);?>" disabled class="input"> 
+								</th>
 								<?php
 									if($this->data['customer']['address_2'] != null)
 									{
-										echo "<div id=address_2>地址2</br> <input type=text name= address_2 value=".$this->data['customer']['address_2']." disabled class=input-xlarge></div>";
+										echo "<th>地址2<br> <input type=text name= address_2 value=".$this->data['customer']['address_2']." disabled class=input></th>";
 										if($this->data['customer']['address_3'] != null)
 										{
-											echo "<div id=address_3>地址3</br> <input type=text name= address_3 value=".$this->data['customer']['address_3']." disabled class=input-xlarge></div>";
+											echo "<th>地址3<br> <input type=text name= address_3 value=".$this->data['customer']['address_3']." disabled class=input></th>";
+										}
+										else
+										{
+											echo"<th></th>";
 										}
 									}
+									else
+									{
+										echo"<th></th>";
+									}
 								?>
-								</div>
-								
-								<label>電話</label>
-								<input type="text" name = "tel_1" value="<?php print($this->data['customer']['tel_1']);?>" disabled class="input-xlarge"> 
-								<div id="tel_">
+								</tr>
+								<tr>
+								<th>
+								電話<br>
+								<input type="text" name = "tel_1" value="<?php print($this->data['customer']['tel_1']);?>" disabled class="input"> 
+								</th>
 								<?php
 									if($this->data['customer']['tel_2'] != null)
 									{	
-										echo "<div id=tel_2>電話2</br> <input type=text name= tel_2 value=".$this->data['customer']['tel_2']." disabled class=input-xlarge></div>";
+										echo "<th>電話2<br> <input type=text name= tel_2 value=".$this->data['customer']['tel_2']." disabled class=input></th>";
 										if($this->data['customer']['tel_3'] != null)
 										{
-											echo "<div id=tel_3>電話3</br> <input type=text name= tel_3 value=".$this->data['customer']['tel_3']." disabled class=input-xlarge></div>";
+											echo "<th>電話3<br> <input type=text name= tel_3 value=".$this->data['customer']['tel_3']." disabled class=input></th>";
+										}
+										else
+										{
+											echo"<th></th>";
 										}
 									}
+									else
+									{
+										echo"<th></th>";
+									}
 								?>
-								</div>	
-								
-								<label>傳真</label>
-								<input type="text" name = "fax_1" value="<?php print($this->data['customer']['fax_1']);?>" disabled class="input-xlarge"> 
-								<div id="fax_">
+								</tr>
+
+								<tr>
+								<th>								
+								傳真<br>
+								<input type="text" name = "fax_1" value="<?php print($this->data['customer']['fax_1']);?>" disabled class="input"> 
+								</th>
 								<?php
 									if($this->data['customer']['fax_2'] != null)
 									{	
-										echo "<div id=fax_2>電話2</br> <input type=text name= fax_2 value=".$this->data['customer']['fax_2']." disabled class=input-xlarge></div>";
+										echo "<th>電話2<br> <input type=text name= fax_2 value=".$this->data['customer']['fax_2']." disabled class=input></th>";
 										if($this->data['customer']['fax_3'] != null)
 										{
-											echo "<div id=fax_3>電話3</br> <input type=text name= fax_3 value=".$this->data['customer']['fax_3']." disabled class=input-xlarge></div>";
+											echo "<th>電話3<br> <input type=text name= fax_3 value=".$this->data['customer']['fax_3']." disabled class=input></th>";
+										}
+										else
+										{
+											echo"<th></th>";
 										}
 									}
+									else
+									{
+										echo"<th></th>";
+									}
 								?>
-								</div>	
-								<label>統一編號</label>
-								<input type="text" name = "Num" value="<?php print($this->data['customer']['num']);?>" disabled class="input-xlarge">
-
-																
-								<label>收款提醒(間隔幾個月)</label>
-								<input type="text" name = "Remind" value="<?php print($this->data['remind_month']);?>" disabled class="input-xlarge">
-								
+								</tr>
+								<tr>
+								<th colspan="3">
+								統一編號<br>
+								<input type="text" name = "Num" value="<?php print($this->data['customer']['num']);?>" disabled class="input">
+								</th>
+								</tr>
+								<tr>
+								<th colspan="3">								
+								收款提醒(間隔幾個月)<br>
+								<input type="text" name = "Remind" value="<?php print($this->data['remind_month']);?>" disabled class="input">
+								<th>
+								<tr>
+								</table>
 								<table class="table sortable">
 									<tbody>
 										<tr>

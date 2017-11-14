@@ -133,7 +133,7 @@ class Form_model extends CI_Model
 				$idx4 = 0;
 				foreach ($row as $k => $v)
 				{
-										
+						//echo $v;				
 					if (preg_match("/\item_status/i", $k)) 
 					{
 						$item_status[$idx3] = $v;
@@ -184,6 +184,84 @@ class Form_model extends CI_Model
 					$form_data[$k] = $v;
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}	
+			}
+			return $form_data;
+		}
+		return 0;
+		
+	}
+	public function getTransactionBySearch($value) 
+	{
+		$this->db->select('*');
+		$this->db->from('transaction_form');
+		$this->db->or_like('id',$value,'both');
+		$this->db->or_like('name',$value,'both');
+		$this->db->or_like('total_price',$value,'both');
+		$this->db->or_like('start_date',$value,'both');
+		$this->db->or_like('is_return',$value,'both');
+		$this->db->or_like('remind_month',$value,'both');
+		$this->db->or_like('receipt_status',$value,'both');
+		$this->db->or_like('item_name1',$value,'both');
+		$this->db->or_like('item_name2',$value,'both');
+		$this->db->or_like('item_name3',$value,'both');
+		$this->db->or_like('item_name4',$value,'both');
+		$this->db->or_like('item_name5',$value,'both');
+		$this->db->or_like('item_name6',$value,'both');
+		$this->db->or_like('item1',$value,'both');
+		$this->db->or_like('item2',$value,'both');
+		$this->db->or_like('item3',$value,'both');
+		$this->db->or_like('item4',$value,'both');
+		$this->db->or_like('item5',$value,'both');
+		$this->db->or_like('item6',$value,'both');
+		$this->db->or_like('item_status1',$value,'both');
+		$this->db->or_like('item_status2',$value,'both');
+		$this->db->or_like('item_status3',$value,'both');
+		$this->db->or_like('item_status4',$value,'both');
+		$this->db->or_like('item_status5',$value,'both');
+		$this->db->or_like('item_status6',$value,'both');
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			$item = array();
+			$item_name = array();
+			$item_status = array();
+			foreach ($result->result() as $row)
+			{
+				$form_data[$idx] = new Datamodel();
+				$idx2 = 0;
+				$idx3 = 0;
+				$idx4 = 0;
+				foreach ($row as $k => $v)
+				{
+						//echo $v;				
+					if (preg_match("/\item_status/i", $k)) 
+					{
+						$item_status[$idx3] = $v;
+						$idx3++;						
+					}
+					else if (preg_match("/\item_name/i", $k)) 
+					{
+						$item_name[$idx4] = $v;
+						$idx4++;
+					}
+					else if (preg_match("/\item/i", $k)) 
+					{
+						$item[$idx2] = $v;
+						$idx2++;
+					}
+					else 
+					{
+						$form_data[$idx]->$k = $v;						
+					}
+					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+				}
+				$form_data[$idx]->item = $item;
+				$form_data[$idx]->item_name = $item_name;
+				$form_data[$idx]->item_status = $item_status;
+				$idx++;
+			
 			}
 			return $form_data;
 		}

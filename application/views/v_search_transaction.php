@@ -15,57 +15,72 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">表單管理</h1>
+				<h1 class="page-title">買賣單</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">表單管理</li>
+					<li class="active">買賣單管理</li>
 				</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
+						<form action="<?=base_url("/Form/transaction_Search")?>" method="post">
+								<table>
+									<tr>
+										<td><input type="text" name = "Search" value=""  class="input-xlarge"></td><td><button class="btn btn-primary" >搜尋</button></td>
+									</tr>
+								</table>
+						</form>
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/Form/create_form/1")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="<?=base_url("/Form/create_transaction_view")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
 							<form action="<?=base_url("/Form/form_borad")?>" method="post">
 								<div class="well">
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">表單類型</a></th>
+												<th><a href="#">#</a></th>												
+												<th><a href="#">表單名稱</a></th>
 												<th><a href="#">狀態</a></th>
 												<th><a href="#">開始日期</a></th>
-												<th><a href="#">電梯型號</a></th>
+												<th><a href="#">總價</a></th>
+												<th><a href="#">剩餘款項</a></th>
+												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
 										</thead>
 										<tbody>
-					<?php
+					<?php					
 											if(count($this->data) != 0 )
-											{
+											{	
+												$searchvalue=$this->data['search'];												
 												$fristitem = $this->data['fristitem'];
 												$itemmax = $this->data['itemmax'];
 												for($j = 0; $fristitem < $itemmax;$j++)
 												{
 					?>							
-													<tr>
-														<td><?=$this->data[$j]->id;?></td>
-														<td><?=$this->data[$j]->form_type;?></td>
-														<td><?=$this->data[$j]->status;?></td>
-														<td><?=$this->data[$j]->start_date;?></td>
-														<td><?=$this->data[$j]->elevator_id;?></td>
-														<td>
-															<a href="<?=base_url("/Form/edit_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
-														</td>
-														<td>
-															<a href="<?=base_url("/Form/delete_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
-														</td>
-													</tr>
+												<tr>
+													<td><?=$this->data[$j]->id;?></td>
+													<td><?=$this->data[$j]->name;?></td>
+													<td><?=$this->data[$j]->status;?></td>
+													<td><?=$this->data[$j]->start_date;?></td>
+													<td><?=$this->data[$j]->total_price;?></td>
+													<td><?=$this->data[$j]->left_money;?></td>
+													<td>
+														<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
+													</td>
+													<td>
+														<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+													</td>
+													<td>
+														<a href="<?=base_url("/Form/delete_transaction_model")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+													</td>
+												</tr>
+
 					<?php						$fristitem++;
 												}
 											}
@@ -78,45 +93,45 @@
 							<div class="pagination">
 								<ul>
 								
-					<?php
-									if(count($this->data) != 0 )
-									{
+					<?php			if(count($this->data) != 0 )
+									{  
 										$pagefrist = $this->data['pagefrist'];//第一頁
 										$pagetotal = $this->data['pagetotal'];//共有幾頁
 										$pageid = $this->data['pageid'];//第幾頁
+										
 										if($pagetotal > 1 )
 										{
 											if($pageid > 1 )
 											{
 												$idprev = $pageid - 1 ;
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$idprev)?>">Prev</a></li>
+												<li><a href="<?=base_url("/Form/search_switchpage/".$idprev."/".$searchvalue)?>">Prev</a></li>
 					<?php	
 											}
 											else
 											{
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Prev</a></li>
+												<li><a href="<?=base_url("/Form/search_switchpage/".$pageid."/".$searchvalue)?>">Prev</a></li>
 					<?php					
 											}
 											for(;$pagefrist < $pagetotal;$pagefrist++)
 											{
 												$pageitemid = $pagefrist + 1 ;
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
+												<li><a href="<?=base_url("/Form/search_switchpage/".$pageitemid."/".$searchvalue)?>"><?=$pageitemid?></a></li>
 					<?php
 											}
 											if($pageid == $pagetotal)
 											{
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Next</a></li>
+												<li><a href="<?=base_url("/Form/search_switchpage/".$pageid."/".$searchvalue)?>">Next</a></li>
 					<?php
 											}
 											else
 											{
 												$idNext = $pageid + 1;
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$idNext)?>">Next</a></li>
+												<li><a href="<?=base_url("/Form/search_switchpage/".$idNext."/".$searchvalue)?>">Next</a></li>
 					<?php
 											}
 										}

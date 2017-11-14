@@ -2,73 +2,77 @@
 <html lang="en">
 	<?php
 		include "head.php";
-		
 	?> 
 	<body> 
 		<?php
 			include "navbar.php";
 			include "sidebar-nav.php";
-			
-	
 		?>
 		<div class="content">
 			
 			<div class="header">
 				
-				<h1 class="page-title">表單管理</h1>
+				<h1 class="page-title">保固單管理</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">表單管理</li>
+					<li class="active">保固單管理</li>
 				</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
+						<form action="<?=base_url("/Warranty/warranty_Search")?>" method="post">
+								<table>
+									<tr>
+										<td><input type="text" name = "Search" value=""  class="input-xlarge"></td><td><button class="btn btn-primary" >搜尋</button></td>
+									</tr>
+								</table>
+						</form>
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/Form/create_form/1")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="<?=base_url("/Warranty/create_warranty")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
 							<form action="<?=base_url("/Form/form_borad")?>" method="post">
 								<div class="well">
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>
-												<th><a href="#">表單類型</a></th>
-												<th><a href="#">狀態</a></th>
-												<th><a href="#">開始日期</a></th>
-												<th><a href="#">電梯型號</a></th>
+												<th><a href="#">客戶編號</a></th>
+												<th><a href="#">客戶名稱</a></th>
+												<th><a href="#">聯絡人</a></th>
+												<th><a href="#">地址</a></th>
+												<th><a href="#">電話</a></th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
 										</thead>
 										<tbody>
-					<?php
-											if(count($this->data) != 0 )
+					<?php					if(count($this->data) != 0 )
 											{
+												$searchvalue=$this->data['search'];
 												$fristitem = $this->data['fristitem'];
-												$itemmax = $this->data['itemmax'];
-												for($j = 0; $fristitem < $itemmax;$j++)
+												$itemmax = $this->data['itemmax'];	
+												for($j = 0; $fristitem < $itemmax;$j++)	
 												{
-					?>							
+					?>	
 													<tr>
 														<td><?=$this->data[$j]->id;?></td>
-														<td><?=$this->data[$j]->form_type;?></td>
-														<td><?=$this->data[$j]->status;?></td>
-														<td><?=$this->data[$j]->start_date;?></td>
-														<td><?=$this->data[$j]->elevator_id;?></td>
+														<td><?=$this->data[$j]->customer;?></td>
+														<td><?=$this->data[$j]->contacter_1;?></td>
+														<td><?=$this->data[$j]->address;?></td>
+														<td><?=$this->data[$j]->tel_1;?></td>
 														<td>
-															<a href="<?=base_url("/Form/edit_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
+															<a href="<?=base_url("/Warranty/edit_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 														</td>
 														<td>
-															<a href="<?=base_url("/Form/delete_form")?>/form_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+															<a href="<?=base_url("/Warranty/delete_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 														</td>
 													</tr>
-					<?php						$fristitem++;
+					<?php							$fristitem++;
 												}
-											}
+											}	
 					?>
 										</tbody>
 									</table>
@@ -77,52 +81,52 @@
 							
 							<div class="pagination">
 								<ul>
-								
 					<?php
-									if(count($this->data) != 0 )
-									{
-										$pagefrist = $this->data['pagefrist'];//第一頁
-										$pagetotal = $this->data['pagetotal'];//共有幾頁
-										$pageid = $this->data['pageid'];//第幾頁
-										if($pagetotal > 1 )
-										{
-											if($pageid > 1 )
+											if(count($this->data) != 0 )
 											{
-												$idprev = $pageid - 1 ;
+												$pagefrist = $this->data['pagefrist'];//第一頁
+												$pagetotal = $this->data['pagetotal'];//共有幾頁
+												$pageid = $this->data['pageid'];//第幾頁
+												if($pagetotal > 1 )
+												{
+													if($pageid > 1 )
+													{
+														$idprev = $pageid - 1 ;
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$idprev)?>">Prev</a></li>
+														<li><a href="<?=base_url("/Warranty/search_switchpage/".$idprev."/".$searchvalue)?>">Prev</a></li>
 					<?php	
-											}
-											else
-											{
+													}
+													else
+													{
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Prev</a></li>
+														<li><a href="<?=base_url("/Warranty/search_switchpage/".$pageid."/".$searchvalue)?>">Prev</a></li>
 					<?php					
-											}
-											for(;$pagefrist < $pagetotal;$pagefrist++)
-											{
-												$pageitemid = $pagefrist + 1 ;
+													}
+													for(;$pagefrist < $pagetotal;$pagefrist++)
+													{
+														$pageitemid = $pagefrist + 1 ;
 					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageitemid)?>"><?=$pageitemid?></a></li>
-					<?php
-											}
-											if($pageid == $pagetotal)
-											{
-					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$pageid)?>">Next</a></li>
-					<?php
-											}
-											else
-											{
-												$idNext = $pageid + 1;
-					?>
-												<li><a href="<?=base_url("/Form/switch_page/".$idNext)?>">Next</a></li>
-					<?php
-											}
-										}
-									}
-					?>									
+											
+														<li><a href="<?=base_url("/Warranty/search_switchpage/".$pageid."/".$searchvalue)?>"><?=$pageitemid?></a></li>
 									
+					<?php
+													}
+													if($pageid == $pagetotal)
+													{
+					?>
+														<li><a href="<?=base_url("/Warranty/search_switchpage/".$pageid."/".$searchvalue)?>">Next</a></li>
+					<?php
+													}
+													else
+													{
+														$idNext = $pageid + 1;
+					?>
+														<li><a href="<?=base_url("/Warranty/search_switchpage/".$idNext."/".$searchvalue)?>">Next</a></li>
+					<?php
+													}
+												}
+											}
+					?>	
 								</ul>
 							</div>
 							<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

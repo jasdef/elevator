@@ -27,6 +27,13 @@
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
+						<form action="<?=base_url("/Form/transaction_Search")?>" method="post">
+								<table>
+									<tr>
+										<td><input type="text" name = "Search" value=""  class="input-xlarge"></td><td><button class="btn btn-primary" >搜尋</button></td>
+									</tr>
+								</table>
+						</form>
 								<div class="btn-toolbar">
 									<a href="<?=base_url("/Form/create_transaction_view")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
@@ -51,8 +58,8 @@
 					<?php
 											if(count($this->data) != 0 )
 											{
-												$fristitem = $this->data[13];
-												$itemmax = $this->data[14];
+												$fristitem = $this->data['fristitem'];
+												$itemmax = $this->data['itemmax'];
 												for($j = 0; $fristitem < $itemmax;$j++)
 												{
 					?>							
@@ -91,9 +98,9 @@
 								
 					<?php			if(count($this->data) != 0 )
 									{
-										$pagefrist = $this->data[10];//第一頁
-										$pagetotal = $this->data[11];//共有幾頁
-										$pageid = $this->data[12];//第幾頁
+										$pagefrist = $this->data['pagefrist'];//第一頁
+										$pagetotal = $this->data['pagetotal'];//共有幾頁
+										$pageid = $this->data['pageid'];//第幾頁
 										if($pagetotal > 1 )
 										{
 											if($pageid > 1 )

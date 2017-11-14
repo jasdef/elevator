@@ -147,9 +147,9 @@
 										<td><input type="text" id="Item1" name="Item1" value="0" class="input" onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
 
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input-xlarge" disabled></td>
+										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
 										<td>
-											<select id="Item_status1" name="Item_status1" class="input-xlarge" onChange="calculate(this)">
+											<select id="Item_status1" name="Item_status1" class="input" onChange="calculate(this)">
 
 												<option value = 0 selected="selected">請選擇表單狀態</option>
 												<option value = 1>已開發票</option>

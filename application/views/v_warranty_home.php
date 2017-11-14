@@ -24,6 +24,13 @@
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
+						<form action="<?=base_url("/Warranty/warranty_Search")?>" method="post">
+								<table>
+									<tr>
+										<td><input type="text" name = "Search" value=""  class="input-xlarge"></td><td><button class="btn btn-primary" >搜尋</button></td>
+									</tr>
+								</table>
+						</form>
 								<div class="btn-toolbar">
 									<a href="<?=base_url("/Warranty/create_warranty")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
 								</div>
