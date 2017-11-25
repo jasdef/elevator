@@ -138,9 +138,6 @@
 										}
 								   }
 								?>	
-																
-								<label>收款提醒(間隔幾個月)</label>
-								<input type="text" name = "Remind" value="<?php print($this->data['remind_month']);?>" class="input-xlarge">
 								
 								<table id="table" class="table sortable">
 									<tbody>
