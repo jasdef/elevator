@@ -3,7 +3,7 @@
 			if($_SESSION["permission"] == 1 || $_SESSION["permission"] == 2) { 
 			
 		?>
-		<a href="#forms-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>表單管理</i></a>
+		<a href="#forms-menu" class="nav-header" data-toggle="collapse"><i class="icon-list"></i>表單管理</i></a>
 		
 		<ul id="forms-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/form/transaction_home")?>">買賣單</a></li>
@@ -23,12 +23,12 @@
             <li ><a href="<?=base_url("/elevator/elevator_home")?>">新增與編輯</a></li>    
 		</ul>
 		
-		<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>客戶管理</i></a>
+		<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-book"></i>客戶管理</i></a>
         <ul id="customer-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/customer/customer_home")?>">新增與編輯</a></li>    
 		</ul>
 		
-				<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>人員管理</i></a>
+				<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>人員管理</i></a>
         <ul id="customer-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/personal/personal_home")?>">新增與編輯</a></li>    
 		</ul>
