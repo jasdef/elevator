@@ -4,10 +4,6 @@
 			
 		?>
 		<a href="#forms-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>表單管理</i></a>
-
-	    <ul id="forms-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/form/form_home")?>">新增與編輯</a></li>
-        </ul>
 		
 		<ul id="forms-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/form/transaction_home")?>">買賣單</a></li>
