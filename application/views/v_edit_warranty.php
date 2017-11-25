@@ -37,7 +37,7 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/warranty/elevator_home")?>">保固單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/warranty/warranty_home")?>">保固單管理</a> <span class="divider">/</span></li>
 						<li class="active">編輯保固單</li>
 					</ul>
 
