@@ -35,6 +35,7 @@ class Form_model extends CI_Model
 	{
 		$this->db->where('id',$data->id);
 		$d['name'] = $data->name;
+		$d['elevator_num'] = $data->elevator_num;
 		$d['total_price'] = $data->total_price;
 		$d['start_date'] = $data->start_date;
 		$d['is_return'] = $data->is_return;

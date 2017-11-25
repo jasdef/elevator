@@ -102,6 +102,9 @@
 								<label>表單名稱</label>
 								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>" class="input-xlarge">
 								
+								<label>電梯數量</label>
+								<input type="text" name = "Elevator_num" value="<?php print($this->data['elevator_num']);?>" class="input-xlarge">
+								
 								<label>總價</label>
 								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" class="input-xlarge" onChange="calculate(this)">					
 								

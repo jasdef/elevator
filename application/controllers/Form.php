@@ -484,6 +484,7 @@ class Form extends CI_Controller {
 		$data = New datamodel;
 		$id = $this->input->post("Id");
 		$name = $this->input->post("Company_name"); 	
+		$elevator_num = $this->input->post("Elevator_num");
 		$total_price = $this->input->post("Total_price"); 
 		$is_return = $this->input->post("IsReturn"); 
 		$start_date = $this->input->post("Start_date");  
@@ -504,6 +505,7 @@ class Form extends CI_Controller {
 		
 		$data->id = $id;
 		$data->name = $name;
+		$data->elevator_num = $elevator_num;
 		$data->total_price = $total_price;
 		$data->return_back = $is_return;
 		$data->customer_id = $customer;
