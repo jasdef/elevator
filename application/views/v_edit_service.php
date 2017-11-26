@@ -336,21 +336,6 @@
 					var num = document.getElementById("table").rows.length;
 					//建立新的tr 因為是從0開始算 所以目前的row數剛好為目前要增加的第幾個tr
 					//alert(num);
-					for (i =0; i < num; i++)
-					{
-						$(function() {
-						$( "#payment_date"+(i+1) ).datepicker({
-						showOn: "button",
-						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-						buttonImageOnly: true
-
-				   
-						});
-						$( "#payment_date"+(i+1) ).change(function() {
-						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-						});	
-						
-					}
 					
 					if(fomr1.payment_date1.value != "")
 					{
@@ -437,7 +422,24 @@
 					{
 						alert("欄位空白");
 					}
+					
+					num = document.getElementById("table").rows.length;
+					for (i =0; i < num; i++)
+					{
+						$(function() {
+						$( "#payment_date"+(i+1) ).datepicker({
+						showOn: "button",
+						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+						buttonImageOnly: true
+
+				   
+						});
+						$( "#payment_date"+(i+1) ).change(function() {
+						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+						});	
 						
+					}					
+	
 				}
 				function remove_data() {
 					//先取得目前的row數
