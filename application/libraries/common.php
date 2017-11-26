@@ -36,6 +36,30 @@ class Common
 			case 3:
 				return '保固合約書';			
 		}
+	}
+
+	public function converservicemonthByID($id) 
+	{
+		switch ($id) 
+		{
+			case 0:
+				return '請選擇單雙月保養';
+			case 1:
+				return '單月保養';
+			case 2:
+				return '雙月保養';
+		}
 	}	
+	
+		public function converlicenseByID($id) 
+	{
+		switch ($id) 
+		{
+			case 1:
+				return '有';
+			case 2:
+				return '無';
+		}
+	}
 	
 }

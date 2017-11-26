@@ -11,7 +11,11 @@
 		
 		<ul id="forms-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/Warranty/warranty_home")?>">保固單</a></li>
-        </ul>			
+        </ul>
+		
+		<ul id="forms-menu" class="nav nav-list collapse in">
+            <li ><a href="<?=base_url("/service/service_home")?>">保養名冊</a></li>
+        </ul>		
 		
         <ul id="customer-menu" class="nav nav-list collapse in">
             <li ><a href="<?=base_url("/form/upload")?>">新增上傳檔案</a></li>    
