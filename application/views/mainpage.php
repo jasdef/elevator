@@ -37,7 +37,7 @@
 
 <div class="row-fluid">
     <div class="block span6">
-        <a href="#tablewidget" class="block-heading" data-toggle="collapse">買賣單提醒<span class="label label-warning">+10</span></a>
+        <a href="#tablewidget" class="block-heading" data-toggle="collapse">買賣單提醒</a>
         <div id="tablewidget" class="block-body collapse in">
             <table class="table sortable">
 				<thead>
@@ -81,7 +81,6 @@
 ?>
 				</tbody>
 			</table>
-            <p><a href="users.html">More...</a></p>
         </div>
     </div>
     <div class="block span6">
@@ -103,7 +102,7 @@
                 <a href="#" class="demo-cancel-click" rel="tooltip" title="Click to refresh"><i class="icon-refresh"></i></a>
             </span>
 
-            <a href="#widget2container" data-toggle="collapse">買賣電梯</a>
+            <a href="#widget2container" data-toggle="collapse">本月保養名單</a>
         </div>
         <div id="widget2container" class="block-body collapse in">
             <table class="table list">
