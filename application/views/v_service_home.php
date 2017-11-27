@@ -61,7 +61,7 @@
 														<td><?=$this->data[$j]->service_month;?></td>
 														<td><?=$this->data[$j]->license;?></td>
 														<td><?=$this->data[$j]->Total_price;?></td>
-														<td><?=$this->data[$j]->Item_status;?></td>
+														<td><?=$this->data[$j]->status;?></td>
 														<td>
 															<a href="<?=base_url("/service/edit_service")?>/service_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 														</td>

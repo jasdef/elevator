@@ -16,36 +16,39 @@
 			
 			<script>
 			function calculate(element) 
-			{			
+			{
 				var price = document.getElementById('Total_price').value;
 				var result = parseInt(price);
-				var count = 0;			
+				
+				var count = 0;				
 				for (; count < 6; count++)
 				{
 					var temp = document.getElementById('payment_amount'+(count+1));
-				
+					
 					if (temp == null) 
 					{
 						break;						
-					}					
-				}
-				var items = new Array(count);
-				var value=price;
-				for (i =0; i < count; i++)
-				{	
-					items[i] = parseInt(document.getElementById('payment_amount'+(i+1)).value);
-					var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
-					if (items[i] != 0) 
-					{						
-						document.getElementById('Item'+(i+1)+"_price").value = parseInt(value -(items[i]));					
-						value= parseInt(value -(items[i]));
-					}					
-					if (status == 5)
-					{
-						result -= price *(items[i]*0.01);						
 					}
-				}					
-				document.getElementById('Left_money').value = result;				
+				}
+				var items = new Array(count);						
+				var value = price;
+				for (i =0; i < count; i++)
+				{
+					items[i] = parseInt(document.getElementById('payment_amount'+(i+1)).value);
+					var status = parseInt(document.getElementById('item_status'+(i+1)).value);
+					if (items[i] != 0) 
+					{
+						if (status == 5) 
+						{
+							document.getElementById('Item'+(i+1)+"_price").value = parseInt(value-(items[i]));	
+							value = value-(items[i]);
+						}
+					}
+					
+
+						//result -= price -(items[i]);						
+											
+				}
 			}
 			function calculatetime(element) 
 			{
@@ -85,7 +88,6 @@
 				$( "#datepicker1" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
 			 
-			 ///////////////
 			 $(function() {
 				$( "#payment_date1" ).datepicker({
 				  showOn: "button",
@@ -98,8 +100,6 @@
 				$( "#payment_date1" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
 			 
-			 ///////////////////
-			 ///////////////
 			 $(function() {
 				$( "#payment_date2" ).datepicker({
 				  showOn: "button",
@@ -112,8 +112,6 @@
 				$( "#payment_date2" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
 			 
-			 ///////////////////
-			 ///////////////
 			 $(function() {
 				$( "#payment_date3" ).datepicker({
 				  showOn: "button",
@@ -125,42 +123,41 @@
 				$( "#payment_date3" ).change(function() {
 				$( "#payment_date3" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 			 });
-			 
-			 ///////////////////				 
-			 for (i =0; i < 6; i++)
-					{
-						$(function() {
-						$( "#payment_date"+(i+1) ).datepicker({
-						showOn: "button",
-						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-						buttonImageOnly: true
+			 $(function() {
+				$( "#payment_date4" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+				  buttonImageOnly: true
 
 				   
-						});
-						$( "#payment_date"+(i+1) ).change(function() {
-						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-						});	
-						
-					}
+				});
+				$( "#payment_date4" ).change(function() {
+				$( "#payment_date4" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+			 });
 			 
-			 
-			 
-			 
-					for (i =0; i < 6; i++)
-					{
-						$(function() {
-						$( "#payment_date"+(i+1) ).datepicker({
-						showOn: "button",
-						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-						buttonImageOnly: true
+			 $(function() {
+				$( "#payment_date5" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+				  buttonImageOnly: true
 
 				   
-						});
-						$( "#payment_date"+(i+1) ).change(function() {
-						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-						});	
-						
-					}
+				});
+				$( "#payment_date5" ).change(function() {
+				$( "#payment_date5" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+			 });
+			 
+			 $(function() {
+				$( "#payment_date6" ).datepicker({
+				  showOn: "button",
+				  buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+				  buttonImageOnly: true
+
+				   
+				});
+				$( "#payment_date6" ).change(function() {
+				$( "#payment_date6" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+			 });
 			</script> 			
 		
 			<div class="content">
@@ -198,7 +195,7 @@
 								<input type="text" id="signing_over_day" name="signing_over_day" value="0" class="input-xlarge" disabled>
 								
 								<label>單雙月保養</label>
-									<select id="Item_status1" name="service_month" class="input-xlarge" onChange="calculate(this)">
+									<select  name="service_month" class="input-xlarge" onChange="calculate(this)">
 										<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇單雙月保養</option>
 										<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>單月保養</option>
 										<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
@@ -214,21 +211,22 @@
 								<input type="text" id="datepicker1" name = "license_day" value="<?php print($this->data['license_day']);?>" class="input-xlarge">								
 								
 								<label>總價</label>
-								<input type="text" id="Total_price" name = "Total_price" value="<?php print($this->data['Total_price']);?>" class="input-xlarge"> 
+								<input type="text" id="Total_price" name = "Total_price" value="<?php print($this->data['Total_price']);?>" class="input-xlarge" onChange="calculate(this)"> 
 								<table id="table" class="table sortable">
 									<tbody>
 										<tr>
-										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value="<?php print($this->data['payment_date1']);?>"  style=width:200px onChange="calculate(this)"></th>					
+										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value="<?php print($this->data['payment_date1']);?>"  style=width:200px ></th>					
 										<th>繳款金額<br><input type="text" id="payment_amount1" name="payment_amount1" value="<?php print($this->data['payment_amount1']);?>" style=width:200px onChange="calculate(this)"></th>
-										<th>剩餘金額<br><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px disabled></th>
+										<th>剩餘金額<br><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px onChange="calculate(this)" disabled></th>
 										<th>表單狀態<br>
-											<select id="Item_status1" name="Item_status1" style=width:200px onChange="calculate(this)">
-												<option value = 0 <?php if ($this->data['Item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['Item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['Item_status1'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['Item_status1'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['Item_status1'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['Item_status1'] == 5)echo "selected=\"selected\"";?>>已收款</option>
+											<select id="item_status1" name="item_status1" style=width:200px onChange="calculate(this)">
+											
+												<option value = 0 <?php if ($this->data['item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
+												<option value = 1 <?php if ($this->data['item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
+												<option value = 2 <?php if ($this->data['item_status1'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
+												<option value = 3 <?php if ($this->data['item_status1'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
+												<option value = 4 <?php if ($this->data['item_status1'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
+												<option value = 5 <?php if ($this->data['item_status1'] == 5)echo "selected=\"selected\"";?>>已收款</option>
 											</select>
 										</th>
 										<th>
@@ -240,18 +238,18 @@
 										for ($i = 1; $i < $item_count; $i++)
 										{				
 											echo '<tr>';
-											echo '<th><input type="text" id="payment_date'.($i+1). '" name="payment_date'.($i+1). '" value="'.$this->data["payment_date".($i+1)].'" style=width:200px onChange="calculate(this)"></th>';		
+											echo '<th><input type="text" id="payment_date'.($i+1). '" name="payment_date'.($i+1). '" value="'.$this->data["payment_date".($i+1)].'" style=width:200px ></th>';		
 											echo '<th><input type="text" id="payment_amount'.($i+1). '" name="payment_amount'.($i+1). '" value="' .$this->data["payment_amount".($i+1)]. '" style=width:200px onChange="calculate(this)"></th>';
 											echo '<th><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" style=width:200px onChange="calculate(this)"  disabled></th>';
 											echo '<th>';
-												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" style=width:200px onChange="calculate(this)">';
+												echo '<select id="item_status'.($i+1). '" name="item_status'.($i+1). '" style=width:200px onChange="calculate(this)">';
 													
-													echo '<option value = 0 '; if ($this->data["Item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
-													echo '<option value = 1 '; if ($this->data["Item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
-													echo '<option value = 2 '; if ($this->data["Item_status".($i+1)] == 2) echo 'selected=\"selected\"'; echo '">已送請款單</option>';
-													echo '<option value = 3 '; if ($this->data["Item_status".($i+1)] == 3) echo 'selected=\"selected\"'; echo '">已送請款單/發票</option>';
-													echo '<option value = 4 '; if ($this->data["Item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
-													echo '<option value = 5 '; if ($this->data["Item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
+													echo '<option value = 0 '; if ($this->data["item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
+													echo '<option value = 1 '; if ($this->data["item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
+													echo '<option value = 2 '; if ($this->data["item_status".($i+1)] == 2) echo 'selected=\"selected\"'; echo '">已送請款單</option>';
+													echo '<option value = 3 '; if ($this->data["item_status".($i+1)] == 3) echo 'selected=\"selected\"'; echo '">已送請款單/發票</option>';
+													echo '<option value = 4 '; if ($this->data["item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
+													echo '<option value = 5 '; if ($this->data["item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
 												echo '</select>';
 											echo '</th>';
 											echo '<th>';
@@ -261,11 +259,15 @@
 								?>		
 											
 									</tbody>
-								</table>	
+								</table>							
 								<label>備註事項</label>
 										<textarea name="remark" value="<?php print($this->data['remark']);?>" style="width:1000px;height:100px;"></textarea>
 							</div>
 						</form>
+						<script type='text/javascript'>
+							calculate(this);
+							calculatetime(this);
+						</script>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -289,6 +291,12 @@
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				$("[rel=tooltip]").tooltip();
+				$(function() {
+					$('.demo-cancel-click').click(function(){return false;});
+				});
+			</script>
 			<script type="text/javascript">
 				var count=1;
 				function OneClick() {
@@ -330,7 +338,7 @@
 				});
 			</script>
 			<script type="text/javascript">
-				var min = <?php echo $this->data['payment_date_count'];?>;
+				var min = <?php	if($this->data['payment_date_count']==0){echo '1';}else{echo $this->data['payment_date_count'];}?>;
 				var tdunm;//判斷新增到第幾個欄位
 				function add_new_data() {	
 					var num = document.getElementById("table").rows.length;
@@ -400,7 +408,7 @@
 							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
 							 Td = Tr.insertCell(Tr.cells.length);
 							 //而這個就是要填入td中的innerHTML
-							 Td.innerHTML='<input type="text" id="payment_date'+min+'" name="payment_date'+min+'" value="" style=width:200px onChange="calculate(this)">';
+							 Td.innerHTML='<input type="text" id="payment_date'+min+'" name="payment_date'+min+'" value="" style=width:200px >';
 							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
 							 Td = Tr.insertCell(Tr.cells.length);
 							 Td.innerHTML='<input type="text" id="payment_amount'+min+'" name="payment_amount'+min+'" value="0" style=width:200px onChange="calculate(this)">';
@@ -409,9 +417,19 @@
 							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" style=width:200px onChange="calculate(this)"  disabled>';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" style=width:200px onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
+							 Td.innerHTML='	<select id="item_status'+min+'" name="item_status'+min+'" style=width:200px onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
 							 //這樣就好囉 記得td數目要一樣 不然會亂掉~
-
+							// alert(min);
+							$(function() {
+							$( "#payment_date"+(min) ).datepicker({
+							showOn: "button",
+							buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+							buttonImageOnly: true
+							});
+							$( "#payment_date"+(min) ).change(function() {
+							$( "#payment_date"+(min) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+							});
+							 
 						}
 						else
 						{
@@ -422,23 +440,11 @@
 					{
 						alert("欄位空白");
 					}
-					
-					num = document.getElementById("table").rows.length;
-					for (i =0; i < num; i++)
+					/*var num = document.getElementById("table").rows.length;
+					for($i=0;$i<num;$i++)
 					{
-						$(function() {
-						$( "#payment_date"+(i+1) ).datepicker({
-						showOn: "button",
-						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-						buttonImageOnly: true
-
-				   
-						});
-						$( "#payment_date"+(i+1) ).change(function() {
-						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-						});	
-						
-					}					
+							
+					}*/
 	
 				}
 				function remove_data() {

@@ -8,7 +8,6 @@ class Service extends CI_Controller {
 		parent::__construct();
 		session_start();
 		$this->load->model('Customer_model');
-		$this->load->model('m_warranty_model');
 		$this->load->model('m_service_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
@@ -36,13 +35,29 @@ public function service_home()
 			$this->data['fristitem'] = $fristitem; 			
 			$this->data['itemmax'] = $itemmax;			
 			foreach($temp as $row):	
-				$row->Item_status = $common->conversionFormStatusByID($row->Item_status);
 				$row->service_month = $common->converservicemonthByID($row->service_month);
-				$row->license = $common->converlicenseByID($row->license);	
+				$row->license = $common->converlicenseByID($row->license);
+				$row->status = "已完成收款";
 				if($fristitem < $itemmax)
 				{	
-					$this->data[$fristitem] = $row;
+					for ($i = 0; $i < 6; $i++)
+					{
+						
+						if ($row->payment_amount[$i] != 0  && $row->item_status[$i] != 5) 
+						{	
+							$row->status = "尚未收款完成";	
+						}
+						else if ($row->payment_amount[$i] != 0  && $row->item_status[$i] == 5)
+						{
+							$row->status = "已完成收款";
+						}
+						
+						
+					}
+					//echo "<br>";	
+					$this->data[$fristitem] = $row;			
 				}
+				
 				$fristitem++;
 			endforeach;			
 			
@@ -90,7 +105,7 @@ public function service_home()
 		$service_model = new m_service_model();
 		$temp = $service_model->getservice();
 		$common = new Common();		
-		$fristitem = 0;
+		
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);		
@@ -102,20 +117,38 @@ public function service_home()
 			{
 				$itemmax = ($id * 10);		
 			}
-			$j = 0;	
-			$i = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
+			$fristitem = 0;
+			$count = 0;	
+			$prevcount = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
 			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
 			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
-				$row->Item_status = $common->conversionFormStatusByID($row->Item_status);
+				//$row->item_status = $common->conversionFormStatusByID($row->item_status);
 				$row->service_month = $common->converservicemonthByID($row->service_month);
-				$row->license = $common->converlicenseByID($row->license);	
-				if($fristitem >= $i)
+				$row->license = $common->converlicenseByID($row->license);
+				$row->status = "已完成收款";
+				
+				if($fristitem >= $prevcount)
 				{				
 					if($fristitem < $itemmax)
 					{	
-						$this->data[$j] = $row;
-						$j++;
+							
+						for ($i = 0; $i < 6; $i++)
+						{
+							
+							if ($row->payment_amount[$i] != 0  && $row->item_status[$i] != 5) 
+							{	
+								$row->status = "尚未收款完成";	
+							}
+							else if ($row->payment_amount[$i] != 0  && $row->item_status[$i] == 5)
+							{
+								$row->status = "已完成收款";
+							}
+							
+							
+						}
+						$this->data[$count] = $row;
+						$count++;
 					}
 				}	
 				$fristitem++;				
@@ -162,150 +195,6 @@ public function service_home()
 		}		
 		$this->load->view('v_service_home', $this->data);
 	}
-/*
-	public function service_Search() 
-	{	
-		$searchvalue = $this->input->post("Search"); 
-		$warranty_model = new m_warranty_model();
-		$temp = $warranty_model->getwarrantyBysearch($searchvalue);	
-		$fristitem = 0;
-		$itemmax = 10;
-		
-		if ($temp != 0) 
-		{	
-			$totalitem = count($temp);	
-			if( 10 > $totalitem)
-			{
-				$itemmax = $totalitem;
-			}
-			else
-			{
-				$itemmax = 10;		
-			}
-			$this->data['fristitem'] = $fristitem; 			
-			$this->data['itemmax'] = $itemmax;			
-			foreach($temp as $row):				
-				if($fristitem < $itemmax)
-				{	
-					$this->data[$fristitem] = $row;
-				}
-				$fristitem++;
-			endforeach;			
-			
-			//資料筆數
-			if($totalitem >= 10)
-			{	
-				if($totalitem % 10 != 0)
-				{
-					$pageitem = floor($totalitem / 10) + 1;
-				}
-				else
-				{
-					$pageitem = $totalitem / 10;
-				}		
-			}
-			else
-			{
-				$pageitem = 1;
-			}
-			//頁碼
-			$pagefrist = 0;
-			if($pageitem > 10 )
-			{	
-				$pagetotal = 10;
-			}
-			else
-			{
-				$pagetotal = $pageitem;		
-			}
-			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
-			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
-			$this->data['pageid'] = 1;			//第幾頁
-		}
-		else
-		{
-			$this->data = null;
-		}		
-		$this->load->view('v_warranty_home', $this->data);
-	}
-
-	
-	public function search_switchpage($id,$searchvalue)//多頁數執行
-	{
-
-		$warranty_model = new m_warranty_model();
-		$temp = $warranty_model->getwarranty();	
-		$fristitem = 0;
-		if ($temp != 0) 
-		{	
-			$totalitem = count($temp);		
-			if(($id * 10) > $totalitem)
-			{
-				$itemmax = $totalitem;
-			}
-			else
-			{
-				$itemmax = ($id * 10);		
-			}
-			$j = 0;	
-			$i = ($id - 1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
-			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
-			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
-			foreach($temp as $row):
-				
-				if($fristitem >= $i)
-				{				
-					if($fristitem < $itemmax)
-					{	
-						$this->data[$j] = $row;
-						$j++;
-					}
-				}	
-				$fristitem++;				
-			endforeach;			
-			
-			//資料筆數
-			if($totalitem >= 10)
-			{	
-				if($totalitem % 10 != 0)
-				{
-					$pageitem = floor($totalitem / 10) + 1;
-				}
-				else
-				{
-					$pageitem = $totalitem / 10;
-				}		
-			}
-			else
-			{
-				$pageitem = 1;
-			}
-			//頁數		
-			if($id > 10 )
-			{	
-				$pagefrist = floor(($id - 1) / 10) * 10;
-				$pagetotal = (floor(($id - 1) / 10) + 1) * 10;
-				if($pagelast > $sheetid)
-				{
-					$pagetotal = $sheetid;
-				}
-			}
-			else
-			{	
-				$pagefrist = 0;
-				$pagetotal = $pageitem;		
-			}
-			$this->data['pagefrist'] = $pagefrist;	//各10頁的第一頁
-			$this->data['pagetotal'] = $pagetotal;	//各10頁的總筆數數		
-			$this->data['pageid'] = $id;			//第幾頁
-		}
-		else
-		{
-			$this->data = null;
-		}		
-		$this->load->view('v_warranty_home', $this->data);
-	}
-	*/
 	public function delete_service() 
 	{
 		$m_service_model = new m_service_model();
@@ -351,8 +240,8 @@ public function service_home()
 		for ($i = 0; $i < 6; $i++)
 		{	
 			$payment_date[$i] = $this->input->post("payment_date".($i+1)) == Null ? "" : $this->input->post("payment_date".($i+1));
-			$payment_amount[$i] = $this->input->post("payment_amount".($i+1)) == Null ? 0 : $this->input->post("payment_amount".($i+1));
-			$Item_status[$i] = $this->input->post("Item_status".($i+1)) == Null ? 0 : $this->input->post("Item_status".($i+1));			
+			$payment_amount[$i] = $this->input->post("payment_amount".($i+1))  == Null ? 0 :  $this->input->post("payment_amount".($i+1));
+			$item_status[$i] = $this->input->post("item_status".($i+1)) == Null ? "" : $this->input->post("item_status".($i+1));			
 		}
 		$remark = $this->input->post("remark");		
 		$warranty_id = $this->input->post("warranty_id");
@@ -366,7 +255,7 @@ public function service_home()
 		$data->Total_price = $Total_price;
 		$data->payment_date = $payment_date;
 		$data->payment_amount = $payment_amount;
-		$data->Item_status = $Item_status;
+		$data->item_status = $item_status;
 		$data->remark = $remark;
 		$data->warranty_id = $warranty_id;
 		
@@ -407,7 +296,7 @@ public function service_home()
 		{	
 			$payment_date[$i] = $this->input->post("payment_date".($i+1)) == Null ? "" : $this->input->post("payment_date".($i+1));
 			$payment_amount[$i] = $this->input->post("payment_amount".($i+1)) == Null ? 0 : $this->input->post("payment_amount".($i+1));
-			$Item_status[$i] = $this->input->post("Item_status".($i+1)) == Null ? 0 : $this->input->post("Item_status".($i+1));			
+			$item_status[$i] = $this->input->post("item_status".($i+1)) == Null ? 0 : $this->input->post("item_status".($i+1));			
 		}
 		$remark = $this->input->post("remark");		
 		$warranty_id = $this->input->post("warranty_id");
@@ -420,7 +309,7 @@ public function service_home()
 		$data->Total_price = $Total_price;
 		$data->payment_date = $payment_date;
 		$data->payment_amount = $payment_amount;
-		$data->Item_status = $Item_status;
+		$data->item_status = $item_status;
 		$data->remark = $remark;
 		$data->warranty_id = $warranty_id;
 		

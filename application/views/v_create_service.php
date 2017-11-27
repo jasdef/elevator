@@ -46,58 +46,43 @@
 				$( "#payment_date1" ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
 				});
 				
-				
-				function addOption(list, text, value)
-				{
-					var index=list.options.length;
-					list.options[index]=new Option(text, value);
-		
-				}
-				
-				
 				function calculate(element) 
+			{
+				var price = document.getElementById('Total_price').value;
+				var result = parseInt(price);
+				
+				var count = 0;				
+				for (; count < 6; count++)
 				{
-				
-					var price = document.getElementById('Total_price').value;
-					var result = parseInt(price);
-					var count = 0;
-				
-					for (; count < 6; count++)
+					var temp = document.getElementById('payment_amount'+(count+1));
+					
+					if (temp == null) 
 					{
-						var temp = document.getElementById('payment_amount'+(count+1));
-					
-						if (temp == null) 
-						{
-							break;						
-						}
-					
+						break;						
 					}
-					var items = new Array(count);
-					var value=price;
-					for (i =0; i < count; i++)
-					{	
-							
-						items[i] = parseInt(document.getElementById('payment_amount'+(i+1)).value);
-						var status = parseInt(document.getElementById('Item_status'+(i+1)).value);
-						if (items[i] != 0) 
-						{
-							
-							document.getElementById('Item'+(i+1)+"_price").value = parseInt(value -(items[i]));					
-							value= parseInt(value -(items[i]));
-						}
-						
-						if (status == 5)
-						{
-							result -= price *(items[i]*0.01);						
-						}
-					}
-					
-					document.getElementById('Left_money').value = result;
-				
 				}
-				
-				function calculatetime(element) 
+				var items = new Array(count);						
+				var value = price;
+				for (i =0; i < count; i++)
 				{
+					items[i] = parseInt(document.getElementById('payment_amount'+(i+1)).value);
+					var status = parseInt(document.getElementById('item_status'+(i+1)).value);
+					if (items[i] != 0) 
+					{
+						if (status == 5) 
+						{
+							document.getElementById('Item'+(i+1)+"_price").value = parseInt(value-(items[i]));	
+							value = value-(items[i]);
+						}
+					}
+					
+
+						//result -= price -(items[i]);						
+											
+				}
+			}
+			function calculatetime(element) 
+			{
 					
 				var time = document.getElementById('signing_day').value;
 				var overtime =parseInt( document.getElementById('mechanical_warranty').value);
@@ -108,7 +93,7 @@
 				var year = dt.getFullYear()+overtime;
 				result=(year+'/'+month + '/' + day) ;
 				document.getElementById('signing_over_day').value = result;
-				}
+			}
 				
 			</script> 
 	
@@ -168,13 +153,13 @@
 									
 									
 										<tr>
-										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value=""  style=width:200px onChange="calculate(this)"></th>					
+										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value=""  style=width:200px ></th>					
 										<th>繳款金額<br><input type="text" id="payment_amount1" name="payment_amount1" value="0" style=width:200px onChange="calculate(this)"></th>
 										<!--<td><label>金額</label></td>	-->				
 
 										<th>剩餘金額<br><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px disabled></th>
 										<th>表單狀態<br>
-											<select id="Item_status1" name="Item_status1" style=width:200px onChange="calculate(this)">
+											<select id="item_status1" name="item_status1" style=width:200px onChange="calculate(this)">
 
 												<option value = 0 selected="selected">請選擇表單狀態</option>
 												<option value = 1>已開發票</option>
@@ -218,6 +203,11 @@
 				</div>
 			</div>
 			<script type="text/javascript">
+				$("[rel=tooltip]").tooltip();
+				$(function() {
+				$('.demo-cancel-click').click(function(){return false;});
+				});
+			
 				var count=1;
 				function OneClick() {
 					document.getElementById('test').disabled = true;
@@ -264,22 +254,6 @@
 				function add_new_data() {	
 					var num = document.getElementById("table").rows.length;
 					//建立新的tr 因為是從0開始算 所以目前的row數剛好為目前要增加的第幾個tr
-					
-					for (i =0; i < num; i++)
-					{
-						$(function() {
-						$( "#payment_date"+(i+1) ).datepicker({
-						showOn: "button",
-						buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-						buttonImageOnly: true
-
-				   
-						});
-						$( "#payment_date"+(i+1) ).change(function() {
-						$( "#payment_date"+(i+1) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-						});	
-						
-					}
 					if(fomr1.payment_date1.value != "")
 					{
 						tdunm = 1;
@@ -343,7 +317,7 @@
 							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
 							 Td = Tr.insertCell(Tr.cells.length);
 							 //而這個就是要填入td中的innerHTML
-							 Td.innerHTML='<input type="text" id="payment_date'+min+'" name="payment_date'+min+'" value="" style=width:200px onChange="calculate(this)">';
+							 Td.innerHTML='<input type="text" id="payment_date'+min+'" name="payment_date'+min+'" value="" style=width:200px >';
 							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
 							 Td = Tr.insertCell(Tr.cells.length);
 							 Td.innerHTML='<input type="text" id="payment_amount'+min+'" name="payment_amount'+min+'" value="0" style=width:200px onChange="calculate(this)">';
@@ -352,8 +326,18 @@
 							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" style=width:200px onChange="calculate(this)"  disabled>';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" style=width:200px onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
+							 Td.innerHTML='	<select id="item_status1'+min+'" name="item_status1'+min+'" style=width:200px onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
 							 //這樣就好囉 記得td數目要一樣 不然會亂掉~
+							 
+							$(function() {
+							$( "#payment_date"+(min) ).datepicker({
+							showOn: "button",
+							buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
+							buttonImageOnly: true
+							});
+							$( "#payment_date"+(min) ).change(function() {
+							$( "#payment_date"+(min) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
+							});
 
 						}
 						else

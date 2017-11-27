@@ -30,7 +30,7 @@ class m_service_model extends CI_Model
 		{
 			$this->db->set('payment_date'.($i+1), $data->payment_date[$i]);
 			$this->db->set('payment_amount'.($i+1), $data->payment_amount[$i]);
-			$this->db->set('Item_status'.($i+1), $data->Item_status[$i]);
+			$this->db->set('item_status'.($i+1), $data->item_status[$i]);
 		}
 		
 		$this->db->set('remark',$data->remark);
@@ -52,7 +52,7 @@ class m_service_model extends CI_Model
 		{
 			$d['payment_date'.($i+1)] = $data->payment_date[$i];
 			$d['payment_amount'.($i+1)] = $data->payment_amount[$i];
-			$d['Item_status'.($i+1)] = $data->Item_status[$i];
+			$d['item_status'.($i+1)] = $data->item_status[$i];
 		}
 		$d['remark'] = $data->remark;
 		$d['warranty_id'] = $data->warranty_id;
@@ -86,24 +86,52 @@ class m_service_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('service');
-		
 		$result = $this->db->get();
-		
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;
+			$payment_amount = array();
+			$payment_date = array();
+			$item_status = array();
 			foreach ($result->result() as $row)
 			{
 				$service_data[$idx] = new Datamodel();
+				$idx2 = 0;
+				$idx3 = 0;
+				$idx4 = 0;
 				foreach ($row as $k => $v)
-				{
-					$service_data[$idx]->$k = $v;
+				{		
+					if (preg_match("/\item_status/i", $k)) 
+					{
+						$item_status[$idx3] = $v;
+						$idx3++;						
+					}
+					else if (preg_match("/payment_date/i", $k)) 
+					{
+						$payment_date[$idx4] = $v;
+						$idx4++;
+					}
+					else if (preg_match("/payment_amount/i", $k)) 
+					{
+						$payment_amount[$idx2] = $v;
+						$idx2++;
+					}
+					else 
+					{
+						$service_data[$idx]->$k = $v;						
+					}
+					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
+				$service_data[$idx]->payment_amount = $payment_amount;
+				$service_data[$idx]->payment_date = $payment_date;
+				$service_data[$idx]->item_status = $item_status;
 				$idx++;
+			
 			}
 			return $service_data;
 		}
-		return 0;		
+		return 0;
+		
 	}
 
 /*
