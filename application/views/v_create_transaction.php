@@ -99,55 +99,74 @@
 								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
-								
-								<label>表單名稱</label>
-								<input type="text" name = "Company_name" value="" class="input-xlarge">
-								
-								<label>電梯台數</label>
-								<input type="text" id="Elevator_num" name="Elevator_num" value="0" class="input-xlarge" onChange="calculate(this)">	
-								
-								<label>總價</label>
-								<input type="text" id="Total_price" name="Total_price" value="0" class="input-xlarge" onChange="calculate(this)">					
-								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" id="datepicker" name = "Start_date" value="1990/05/01" class="input-xlarge">
-								
-								<label>合約已回/未回</label>
-								<select id="IsReturn" name="IsReturn" class="input-xlarge" >
-									<option value = 1 selected="selected">未回</option>
-									<option value = 2>已回</option>
-								</select>							
-								
-								<label>客戶</label>
-								<select id="Customer" name="Customer" class="input-xlarge" >
-								<option value = 0 selected="selected">請選擇客戶</option>
-								</select>
-								<?php 
-								   if ($this->data['customer'] != 0)
-								   {
-									  
-										foreach($this->data['customer'] as $row)
-										{										
-								?>
-									<script type='text/javascript'>
-									addOption(document.getElementById("Customer"), "<?php echo $row->company;?>", "<?php echo $row->id;?>");
-									
-									</script>								
-								<?php
-										}
-								   }
-								?>															
-								
+							<table class="table sortable">	
+								<tr>
+									<th>
+										表單名稱<br>
+										<input type="text" name = "Company_name" value="" style=width:200px>
+									</th>
+								</tr>
+								<tr>
+									<th>
+										電梯台數<br>
+										<input type="text" id="Elevator_num" name="Elevator_num" value="0" style=width:200px onChange="calculate(this)">	
+									</th>
+								</tr>
+								<tr>
+									<th>
+										總價<br>
+										<input type="text" id="Total_price" name="Total_price" value="0" style=width:200px onChange="calculate(this)">					
+									</th>
+								</tr>
+								<tr>
+									<th>
+										簽約日(西元yyyy/mm/dd)<br>
+										<input type="text" id="datepicker" name = "Start_date" value="1990/05/01" style=width:200px>
+									</th>
+								</tr>
+								<tr>
+									<th>
+										合約已回/未回<br>
+										<select id="IsReturn" name="IsReturn" style=width:215px >
+											<option value = 1 selected="selected">未回</option>
+											<option value = 2>已回</option>
+										</select>							
+									</th>
+								</tr>
+								<tr>
+									<th>
+										客戶<br>
+										<select id="Customer" name="Customer" style=width:215px >
+										<option value = 0 selected="selected">請選擇客戶</option>
+										</select>
+										<?php 
+										   if ($this->data['customer'] != 0)
+										   {
+											  
+												foreach($this->data['customer'] as $row)
+												{										
+										?>
+											<script type='text/javascript'>
+												addOption(document.getElementById("Customer"), "<?php echo $row->company;?>", "<?php echo $row->id;?>");
+											
+											</script>								
+										<?php
+												}
+										   }
+										?>															
+									</th>
+								</tr>
+								</table>
 								<table  id="table" class="table sortable">
 									<tbody>
 										<tr>
-										<td><input type="text" id="Item_name1" name="Item_name1" value="" class="input" onChange="calculate(this)"></td>					
-										<td><input type="text" id="Item1" name="Item1" value="0" class="input" onChange="calculate(this)"></td>
+										<td><input type="text" id="Item_name1" name="Item_name1" value="" style=width:200px onChange="calculate(this)"></td>					
+										<td><input type="text" id="Item1" name="Item1" value="0" style=width:200px onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
 
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
+										<td><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px disabled></td>
 										<td>
-											<select id="Item_status1" name="Item_status1" class="input" onChange="calculate(this)">
+											<select id="Item_status1" name="Item_status1" style=width:200px onChange="calculate(this)">
 
 												<option value = 0 selected="selected">請選擇表單狀態</option>
 												<option value = 1>已開發票</option>
@@ -158,15 +177,19 @@
 											</select>
 										</td>
 										<td>
-											<input type="button" value="+" onclick="add_new_data()"> <input type="button" value="-" onclick="remove_data()">
+											<input type="button" value="+"  onclick="add_new_data()"> <input type="button" value="-" onclick="remove_data()">
 										</td>
 										</tr>
 									</tbody>
 								</table>													
-								
-								<label>剩餘款項</label>
-								<input type="text" id="Left_money" name="Left_money" value="0" class="input-xlarge">
-
+								<table class="table sortable">
+									<tr>
+									<th>
+										剩餘款項<br>
+										<input type="text" id="Left_money" name="Left_money" value="0" style=width:200px>
+									</th>
+									</tr>
+								</table>
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

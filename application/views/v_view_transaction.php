@@ -76,7 +76,6 @@
 					<div class="row-fluid">
 						<form id="tab" action="<?=site_url("/form/edit_transaction_model")?>" method="post">
 							<div class="btn-toolbar">
-								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">返回</button>
 							</div>
 							<div class="well">
@@ -109,132 +108,169 @@
 								</th>
 								</tr>
 							</table>
+							
+								<br>
+								<br>
+								
 							<table class="table sortable">
 								<tr>
-								<th colspan="3">
+								<th >
 								客戶編號<br>
 								<input type="text" name = "Id" value="<?php print($this->data['customer']['id']);?>" disabled class="input">
 								</th>
-								</tr>
-								
-								<tr>
-								<th colspan="3">
+								<th>
 								公司名稱<br>
 								<input type="text" name = "company" value="<?php print($this->data['customer']['company']);?>" disabled class="input">
 								</th>
-								</tr>
-								
-								<tr>
-								<th>								
-								聯絡人<br>
-								<input type="text" name = "contacter_1" value="<?php print($this->data['customer']['contacter_1']);?>" disabled class="input"> 
+								<th>
+								統一編號<br>
+								<input type="text" name = "Num" value="<?php print($this->data['customer']['num']);?>" disabled class="input">
 								</th>
-								
+								</tr>
 								<?php
 									if($this->data['customer']['contacter_2'] != null)
 									{
-										echo "<th>聯絡人2<br> <input type=text name= contacter_2 value=".$this->data['customer']['contacter_2']." disabled class=input></th>";
+										$cust_cunt1 = 1 ;
 										if($this->data['customer']['contacter_3'] != null)
 										{
-											echo "<th>聯絡人3<br> <input type=text name= contacter_3 value=".$this->data['customer']['contacter_3']." disabled class=input></th>";
+												$customer_cunt = 3;
+												$cust_cunt2 = 1 ;
 										}
 										else
 										{
-											echo"<th></th>";
+											$customer_cunt = 2;
+											$cust_cunt2 = 2 ;
 										}
 									}
 									else
 									{
-										echo"<th></th>";
+										$customer_cunt = 1;
+										$cust_cunt1 = 3 ;
+									}
+								?>
+								<tr>
+								<th colspan="<?php echo $cust_cunt1; ?>">								
+								聯絡人<br>
+								<input type="text" name = "contacter_1" value="<?php print($this->data['customer']['contacter_1']);?>" disabled class="input"> 
+								</th>
+								<?php
+									for($i=1;$i<$customer_cunt;$i++)
+									{
+										echo "<th colspan=".$cust_cunt2.">聯絡人".($i+1)."<br> <input type=text name= contacter_".($i+1)." value=".$this->data['customer']['contacter_'.($i+1)]." disabled class=input></th>";
 									}
 								?>
 								</tr>
+								<?php
+									if($this->data['customer']['address_2'] != null)
+									{
+										$add_colspan1 = 1 ;
+										if($this->data['customer']['address_3'] != null)
+										{
+												$add_cunt = 3;
+												$add_colspan2 = 1 ;
+										}
+										else
+										{
+											$add_cunt = 2;
+											$add_colspan2 = 2 ;
+										}
+									}
+									else
+									{
+										$add_cunt = 1;
+										$add_colspan1 = 3 ;
+									}
+								?>
+								
 								<tr>
-								<th>
+								<th colspan="<?php echo $add_colspan1; ?>">
 								地址<br>
 								<input type="text" name = "address_1" value="<?php print($this->data['customer']['address_1']);?>" disabled class="input"> 
 								</th>
 								<?php
-									if($this->data['customer']['address_2'] != null)
+									for($i=1;$i<$add_cunt;$i++)
 									{
-										echo "<th>地址2<br> <input type=text name= address_2 value=".$this->data['customer']['address_2']." disabled class=input></th>";
-										if($this->data['customer']['address_3'] != null)
-										{
-											echo "<th>地址3<br> <input type=text name= address_3 value=".$this->data['customer']['address_3']." disabled class=input></th>";
-										}
-										else
-										{
-											echo"<th></th>";
-										}
-									}
-									else
-									{
-										echo"<th></th>";
+										echo "<th colspan=".$add_colspan2.">地址".($i+1)."<br> <input type=text name= address_".($i+1)." value=".$this->data['customer']['address_'.($i+1)]." disabled class=input></th>";
 									}
 								?>
 								</tr>
-								<tr>
-								<th>
-								電話<br>
-								<input type="text" name = "tel_1" value="<?php print($this->data['customer']['tel_1']);?>" disabled class="input"> 
-								</th>
 								<?php
 									if($this->data['customer']['tel_2'] != null)
-									{	
-										echo "<th>電話2<br> <input type=text name= tel_2 value=".$this->data['customer']['tel_2']." disabled class=input></th>";
+									{
+										$tel_colspan1 = 1 ;
 										if($this->data['customer']['tel_3'] != null)
 										{
-											echo "<th>電話3<br> <input type=text name= tel_3 value=".$this->data['customer']['tel_3']." disabled class=input></th>";
+												$tel_cunt = 3;
+												$tel_colspan2 = 1 ;
 										}
 										else
 										{
-											echo"<th></th>";
+											$tel_cunt = 2;
+											$tel_colspan2 = 2 ;
 										}
 									}
 									else
 									{
-										echo"<th></th>";
+										$tel_cunt = 1;
+										$tel_colspan1 = 3 ;
+									}
+								?>
+								<tr>
+								<th colspan="<?php echo $tel_colspan1; ?>">
+									電話<br>
+									<input type="text" name = "tel_1" value="<?php print($this->data['customer']['tel_1']);?>" disabled class="input"> 
+								</th>
+								<?php
+									for($i=1;$i<$tel_cunt;$i++)
+									{
+										echo "<th colspan=".$tel_colspan2.">電話".($i+1)."<br> <input type=text name= tel_".($i+1)." value=".$this->data['customer']['tel_'.($i+1)]." disabled class=input></th>";
 									}
 								?>
 								</tr>
-
+								<?php
+									if($this->data['customer']['fax_2'] != null)
+									{
+										$fax_colspan1 = 1 ;
+										if($this->data['customer']['fax_3'] != null)
+										{
+												$fax_cunt = 3;
+												$fax_colspan2 = 1 ;
+										}
+										else
+										{
+											$fax_cunt = 2;
+											$fax_colspan2 = 2 ;
+										}
+									}
+									else
+									{
+										$fax_cunt = 1;
+										$fax_colspan1 = 3 ;
+									}
+								?>
 								<tr>
-								<th>								
+								<th colspan="<?php echo $fax_colspan1; ?>">								
 								傳真<br>
 								<input type="text" name = "fax_1" value="<?php print($this->data['customer']['fax_1']);?>" disabled class="input"> 
 								</th>
 								<?php
-									if($this->data['customer']['fax_2'] != null)
-									{	
-										echo "<th>電話2<br> <input type=text name= fax_2 value=".$this->data['customer']['fax_2']." disabled class=input></th>";
-										if($this->data['customer']['fax_3'] != null)
-										{
-											echo "<th>電話3<br> <input type=text name= fax_3 value=".$this->data['customer']['fax_3']." disabled class=input></th>";
-										}
-										else
-										{
-											echo"<th></th>";
-										}
-									}
-									else
+									for($i=1;$i<$fax_cunt;$i++)
 									{
-										echo"<th></th>";
+										echo "<th colspan=".$fax_colspan2.">傳真".($i+1)."<br> <input type=text name= fax_".($i+1)." value=".$this->data['customer']['fax_'.($i+1)]." disabled class=input></th>";
 									}
 								?>
-								</tr>
-								<tr>
-								<th colspan="3">
-								統一編號<br>
-								<input type="text" name = "Num" value="<?php print($this->data['customer']['num']);?>" disabled class="input">
-								</th>
 								</tr>
 								<tr>
 								<th colspan="3">								
 								收款提醒(間隔幾個月)<br>
 								<input type="text" name = "Remind" value="<?php print($this->data['remind_month']);?>" disabled class="input">
-								<th>
-								<tr>
+								</th>
+								</tr>
 								</table>
+								
+								<br>
+								<br>
+								
 								<table class="table sortable">
 									<tbody>
 										<tr>
@@ -280,10 +316,12 @@
 								?>	
 									</tbody>
 								</table>													
-								
-								<label>剩餘款項</label>
-								<input type="text" id="Left_money" name="Left_money" value="0" class="input-xlarge" disabled>
-
+								<table class="table sortable">
+								<th>
+								剩餘款項<br>
+								<input type="text" id="Left_money" name="Left_money" value="0" class="input" disabled>
+								</th>
+								</table>
 							</div>
 						</form>
 						<script type='text/javascript'>

@@ -51,7 +51,7 @@ class Common
 		}
 	}	
 	
-		public function converlicenseByID($id) 
+	public function converlicenseByID($id) 
 	{
 		switch ($id) 
 		{
@@ -59,6 +59,17 @@ class Common
 				return '有';
 			case 2:
 				return '無';
+		}
+	}
+	
+	public function conversionbystatus($id)
+	{
+		switch ($id) 
+		{
+			case 1:
+				return '已完成收款';
+			case 2:
+				return '尚未收款完成';
 		}
 	}
 	

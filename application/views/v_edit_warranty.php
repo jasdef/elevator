@@ -46,7 +46,7 @@
 						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
-								<a href=""<?=base_url("/warranty/warranty_home")?>""><button class="btn ">取消</button></a>
+								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">		
 								

@@ -181,37 +181,63 @@
 								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">		
-								
-								<label>保固單編號</label>
-								<input type="text" name = "warranty_id" value="<?php print($this->data['warranty_id']);?>" class="input-xlarge">
-							
-								<label>保養單編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
-								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" id="signing_day" name = "signing_day" value="<?php print($this->data['signing_day']);?>" class="input-xlarge">，簽約年限<input type="text" id="mechanical_warranty" name = "mechanical_warranty" value="<?php print($this->data['mechanical_warranty']);?>" style=width:20px onChange="calculatetime(this)"> 年
-								
-								<label>簽約到期日(西元yyyy/mm/dd)</label>
-								<input type="text" id="signing_over_day" name="signing_over_day" value="0" class="input-xlarge" disabled>
-								
-								<label>單雙月保養</label>
-									<select  name="service_month" class="input-xlarge" onChange="calculate(this)">
-										<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇單雙月保養</option>
-										<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>單月保養</option>
-										<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
-									</select>
-								
-								<label>有無許可證</label>
-									<select id="license" name="license" class="input-xlarge" onChange="calculate(this)">
-										<option value = 1 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>有</option>
-										<option value = 2 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>無</option>
-									</select>
-								
-								<label>許可證到期日(西元yyyy/mm/dd)</label>
-								<input type="text" id="datepicker1" name = "license_day" value="<?php print($this->data['license_day']);?>" class="input-xlarge">								
-								
-								<label>總價</label>
-								<input type="text" id="Total_price" name = "Total_price" value="<?php print($this->data['Total_price']);?>" class="input-xlarge" onChange="calculate(this)"> 
+								<table  class="table sortable">
+									<tr>
+										<th>
+											保固單編號<br>
+											<input type="text" name = "warranty_id" value="<?php print($this->data['warranty_id']);?>" style=width:200px>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											保養單編號<br>
+											<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" style=width:200px>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											簽約日(西元yyyy/mm/dd)<br>
+											<input type="text" id="signing_day" name = "signing_day" value="<?php print($this->data['signing_day']);?>" style=width:200px>，簽約年限<input type="text" id="mechanical_warranty" name = "mechanical_warranty" value="<?php print($this->data['mechanical_warranty']);?>" style=width:20px onChange="calculatetime(this)"> 年
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											簽約到期日(西元yyyy/mm/dd)<br>
+											<input type="text" id="signing_over_day" name="signing_over_day" value="0" style=width:200px disabled>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+										單雙月保養<br>
+											<select  name="service_month" style=width:215px onChange="calculate(this)">
+												<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇單雙月保養</option>
+												<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>單月保養</option>
+												<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
+											</select>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											有無許可證<br>
+											<select id="license" name="license" style=width:215px onChange="calculate(this)">
+												<option value = 1 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>有</option>
+												<option value = 2 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>無</option>
+											</select>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											許可證到期日(西元yyyy/mm/dd)<br>
+											<input type="text" id="datepicker1" name = "license_day" value="<?php print($this->data['license_day']);?>" style=width:200px>								
+										</th>
+									</tr>
+									<tr>	
+										<th>
+											總價<br>
+											<input type="text" id="Total_price" name = "Total_price" value="<?php print($this->data['Total_price']);?>" style=width:200px onChange="calculate(this)"> 
+										</th>
+									</tr>
+								</table>
 								<table id="table" class="table sortable">
 									<tbody>
 										<tr>
@@ -259,9 +285,15 @@
 								?>		
 											
 									</tbody>
-								</table>							
-								<label>備註事項</label>
-										<textarea name="remark" value="<?php print($this->data['remark']);?>" style="width:1000px;height:100px;"></textarea>
+								</table>
+								<table  class="table sortable">
+									<tr>
+										<th>
+											備註事項<br>
+											<textarea name="remark" value="<?php print($this->data['remark']);?>" style="width:1000px;height:100px;"></textarea>
+										</th>
+									</tr>
+								</table>
 							</div>
 						</form>
 						<script type='text/javascript'>

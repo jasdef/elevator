@@ -96,29 +96,50 @@
 								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
-								<label>編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
-								
-								<label>表單名稱</label>
-								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>" class="input-xlarge">
-								
-								<label>電梯數量</label>
-								<input type="text" name = "Elevator_num" value="<?php print($this->data['elevator_num']);?>" class="input-xlarge">
-								
-								<label>總價</label>
-								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" class="input-xlarge" onChange="calculate(this)">					
-								
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" id="datepicker" name = "Start_date" value="<?php print($this->data['start_date']);?>" class="input-xlarge">
-								
-								<label>合約已回/未回</label>
-								<select id="IsReturn" name="IsReturn" class="input-xlarge" >
+							<table class="table sortable">
+								<tr>
+								<th>
+								編號<br>
+								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" style=width:200px>
+								</th>
+								</tr>
+								<tr>
+								<th>
+								表單名稱<br>
+								<input type="text" name = "Company_name" value="<?php print($this->data['name']);?>" style=width:200px>
+								</th>
+								</tr>
+								<tr>
+								<th>
+								電梯數量<br>
+								<input type="text" name = "Elevator_num" value="<?php print($this->data['elevator_num']);?>" style=width:200px>
+								</th>
+								</tr>
+								<tr>
+								<th>
+								總價<br>
+								<input type="text" id="Total_price" name="Total_price" value="<?php print($this->data['total_price']);?>" style=width:200px onChange="calculate(this)">					
+								</th>
+								</tr>
+								<tr>
+								<th>
+								簽約日(西元yyyy/mm/dd)<br>
+								<input type="text" id="datepicker" name = "Start_date" value="<?php print($this->data['start_date']);?>" style=width:200px>
+								</th>
+								</tr>
+								<tr>
+								<th>
+								合約已回/未回<br>
+								<select id="IsReturn" name="IsReturn" style=width:215px >
 									<option value = 1 <?php if ($this->data['is_return'] == 1)echo "selected=\"selected\"";?>>未回</option>
 									<option value = 2 <?php if ($this->data['is_return'] == 2)echo "selected=\"selected\"";?>>已回</option>
 								</select>							
-																
-								<label>客戶</label>
-								<select id="Customer" name="Customer" class="input-xlarge" >
+								</th>
+								</tr>
+								<tr>
+								<th>								
+								客戶<br>
+								<select id="Customer" name="Customer" style=width:215px >
 									<option value = 0 selected="selected">請選擇客戶</option>
 								</select>
 								<?php 
@@ -138,17 +159,19 @@
 										}
 								   }
 								?>	
-								
+								</th>
+								</tr>
+								</table>
 								<table id="table" class="table sortable">
 									<tbody>
 										<tr>
-										<td><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" class="input" onChange="calculate(this)"></td>			
-										<td><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" class="input" onChange="calculate(this)"></td>
-										<td><label>金額</label></td>					
+										<th><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" style=width:200px onChange="calculate(this)"></th>			
+										<th><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" style=width:200px onChange="calculate(this)"></th>
+										<th><label>金額</label></th>					
 
-										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
-										<td>
-											<select id="Item_status1" name="Item_status1" class="input" onChange="calculate(this)">
+										<th><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px disabled></th>
+										<th>
+											<select id="Item_status1" name="Item_status1" style=width:200px onChange="calculate(this)">
 
 												<option value = 0 <?php if ($this->data['item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
 												<option value = 1 <?php if ($this->data['item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
@@ -157,11 +180,11 @@
 												<option value = 4 <?php if ($this->data['item_status1'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
 												<option value = 5 <?php if ($this->data['item_status1'] == 5)echo "selected=\"selected\"";?>>已收款</option>
 											</select>
-										</td>
+										</th>
 
-										<td>
+										<th>
 											<input type="button" value="+" onclick="add_new_data()"> <input type="button" value="-" onclick="remove_data()">
-										</td>
+										</th>
 
 										</tr>	
 								<?php
@@ -169,12 +192,12 @@
 										for ($i = 1; $i < $item_count; $i++)
 										{				
 											echo '<tr>';
-											echo '<td><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" class="input" onChange="calculate(this)"></td>';		
-											echo '<td><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" class="input" onChange="calculate(this)"></td>';
-											echo '<td><label>金額</label></td>';					
-											echo '<td><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" class="input" onChange="calculate(this)"  disabled></td>';
-											echo '<td>';
-												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" class="input" onChange="calculate(this)">';
+											echo '<th><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" style=width:200px onChange="calculate(this)"></th>';		
+											echo '<th><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" style=width:200px onChange="calculate(this)"></th>';
+											echo '<th><label>金額</label></th>';					
+											echo '<th><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" style=width:200px onChange="calculate(this)"  disabled></th>';
+											echo '<th>';
+												echo '<select id="Item_status'.($i+1). '" name="Item_status'.($i+1). '" style=width:200px onChange="calculate(this)">';
 													
 													echo '<option value = 0 '; if ($this->data["item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
 													echo '<option value = 1 '; if ($this->data["item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
@@ -183,18 +206,22 @@
 													echo '<option value = 4 '; if ($this->data["item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
 													echo '<option value = 5 '; if ($this->data["item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
 												echo '</select>';
-											echo '</td>';
-											echo '<td>';
-											echo '</td>';
+											echo '</th>';
+											echo '<th>';
+											echo '</th>';
 											echo '</tr>	';										
 										}
 								?>		
 									</tbody>
 								</table>													
-								
-								<label>剩餘款項</label>
-								<input type="text" id="Left_money" name="Left_money" value="0" class="input-xlarge">
-
+								<table class="table sortable">
+								<tr>
+								<th>
+								剩餘款項<br>
+								<input type="text" id="Left_money" name="Left_money" value="0" style=width:200px>
+								</th>
+								</tr>
+								</table>
 							</div>
 						</form>
 						<script type='text/javascript'>
@@ -304,19 +331,19 @@
 							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
 							 Td = Tr.insertCell(Tr.cells.length);
 							 //而這個就是要填入td中的innerHTML
-							 Td.innerHTML='<input type="text" id="Item_name'+min+'" name="Item_name'+min+'" value="" class="input" onChange="calculate(this)">';
+							 Td.innerHTML='<input type="text" id="Item_name'+min+'" name="Item_name'+min+'" value="" style=width:200px onChange="calculate(this)">';
 							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='<input type="text" id="Item'+min+'" name="Item'+min+'" value="0" class="input" onChange="calculate(this)">';
+							 Td.innerHTML='<input type="text" id="Item'+min+'" name="Item'+min+'" value="0" style=width:200px onChange="calculate(this)">';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
 							 Td.innerHTML='<label>金額</label>';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" class="input" onChange="calculate(this)"  disabled>';
+							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" style=width:200px onChange="calculate(this)"  disabled>';
 							 
 							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" class="input"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
+							 Td.innerHTML='	<select id="Item_status'+min+'" name="Item_status'+min+'" style=width:200px><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
 							 //這樣就好囉 記得td數目要一樣 不然會亂掉~
 
 						}

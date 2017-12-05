@@ -118,34 +118,58 @@
 								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">
-
-								<label>保固單編號</label>
-								<input type="text" name = "warranty_id" value="" class="input-xlarge">
 							
-								<label>簽約日(西元yyyy/mm/dd)</label>
-								<input type="text" id="signing_day" name = "signing_day" value="" class="input-xlarge">，簽約年限<input type="text" id="mechanical_warranty" name = "mechanical_warranty" value="" style=width:20px onChange="calculatetime(this)"> 年
-								
-								<label>簽約到期日(西元yyyy/mm/dd)</label>
-								<input type="text" id="signing_over_day" name="signing_over_day" value="0" class="input-xlarge" disabled>
-								
-								<label>單雙月保養</label>
-									<select id="service_month" name="service_month" class="input-xlarge" >
+							<table  class="table sortable">
+								<tr>
+								<th>
+								保固單編號<br>
+								<input type="text" name = "warranty_id" value="" style=width:200px>
+								</th>
+								</tr>
+								<tr>	
+								<th>
+								簽約日(西元yyyy/mm/dd)<br>
+								<input type="text" id="signing_day" name = "signing_day" value="" style=width:200px>，簽約年限<input type="text" id="mechanical_warranty" name = "mechanical_warranty" value="" style=width:20px onChange="calculatetime(this)"> 年
+								</th>
+								</tr>
+								<tr>	
+								<th>
+								簽約到期日(西元yyyy/mm/dd)<br>
+								<input type="text" id="signing_over_day" name="signing_over_day" value="0" style=width:200px disabled>
+								</th>
+								</tr>
+								<tr>	
+								<th>
+								單雙月保養<br>
+									<select id="service_month" name="service_month" style=width:215px >
 										<option value = 0 selected="selected">請選擇單雙月保養</option>
 										<option value = 1 >單月保養</option>
 										<option value = 2>雙月保養</option>
 									</select>
-																	
-								<label>有無許可證</label>
-									<select id="license" name="license" class="input-xlarge" >
+								</th>
+								</tr>
+								<tr>	
+								<th>
+								有無許可證<br>
+									<select id="license" name="license" style=width:215px >
 										<option value = 1 selected="selected">有</option>
 										<option value = 2>無</option>
 									</select>
-									
-								<label>許可證到期日(西元yyyy/mm/dd)</label>
-								<input type="text" id="datepicker1" name = "license_day" value="" class="input-xlarge">								
-								
-								<label>總價</label>
-								<input type="text" id="Total_price" name = "Total_price" value="" class="input-xlarge"> 	
+								</th>
+								</tr>
+								<tr>	
+								<th>	
+								許可證到期日(西元yyyy/mm/dd)<br>
+								<input type="text" id="datepicker1" name = "license_day" value="" style=width:200px>								
+								</th>
+								</tr>
+								<tr>	
+								<th>
+								總價<br>
+								<input type="text" id="Total_price" name = "Total_price" value="" style=width:200px> 
+								</th>
+								</tr>
+								</table>
 
 								<table  id="table" class="table sortable">
 									<tbody>
@@ -175,8 +199,14 @@
 										</tr>
 									</tbody>
 								</table>
-								<label>備註事項</label>
-								<textarea name="remark" style="width:1000px;height:100px;"></textarea>								
+								<table  class="table sortable">
+								<tr>
+								<th>
+								備註事項<br>
+								<textarea name="remark" style="width:1000px;height:100px;"></textarea>	
+								</th>
+								</tr>
+								</table>
 							</div>
 						</form>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

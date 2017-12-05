@@ -12,12 +12,12 @@
 			
 			<div class="header">
 				
-				<h1 class="page-title">表單管理</h1>
+				<h1 class="page-title">上傳圖片</h1>
 			</div>
 			
 				<ul class="breadcrumb">
 					<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-					<li class="active">表單管理</li>
+					<li class="active">上傳圖片</li>
 				</ul>
 			<div class="container-fluid">
 				<div class="row-fluid">

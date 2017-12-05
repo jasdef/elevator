@@ -35,7 +35,10 @@ class Form extends CI_Controller {
         if ( ! $this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
+			$error1 = "未選擇上傳圖片";
             print_r($error);
+			echo "<br>".$error1;
+			echo "<br><a href=".base_url("/form/upload").">返回上一頁</a>";
         }
         else
         {
@@ -75,7 +78,7 @@ class Form extends CI_Controller {
 			foreach($temp as $row):
 			//	$row->status = $common->conversionFormStatusByID($row->status);
 			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				$row->status = "已完成收款";
+				$row->status = 1;
 				$row->is_complete = true;
 				$row->left_money = $row->total_price;
 				if($fristitem < $itemmax)
@@ -86,7 +89,7 @@ class Form extends CI_Controller {
 						
 						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
 						{
-							$row->status = "尚未收款完成";	
+							$row->status = 2;	
 							$row->is_complete = false;
 						}
 						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
@@ -94,7 +97,7 @@ class Form extends CI_Controller {
 							$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
 						}
 					}
-			
+					$row->status = $common->conversionbystatus($row->status);
 					$this->data[$fristitem] = $row;
 				}
 				$fristitem++;
@@ -140,96 +143,21 @@ class Form extends CI_Controller {
 	
 	public function transaction_Search() 
 	{
-		$form_model = new Form_model();
-		$common = new Common();
-		$searchvalue = $this->input->post("Search"); 
-		$temp = $form_model->getTransactionBySearch($searchvalue);
-		$fristitem = 0;
-		$totalitem = 0;
-		//$_SESSION['searchvalue'] = $searchvalue;
-		//echo "<br>".count($temp);	
-		if ($temp != 0) 
-		{	
-			$totalitem = count($temp);	
-			if(10 > $totalitem)
-			{
-				$itemmax = $totalitem;
-			}
-			else
-			{
-				$itemmax = 10;		
-			}
-			$this->data['fristitem'] = $fristitem; 
-			$this->data['itemmax'] = $itemmax;	
-											
-			foreach($temp as $row):
-			//	$row->status = $common->conversionFormStatusByID($row->status);
-			//	$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				$row->status = "已完成收款";
-				$row->left_money = $row->total_price;
-				if($fristitem < $itemmax)
-				{	
 
-					for ($i = 0; $i < 6; $i++)
-					{
-						
-						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
-						{
-							$row->status = "尚未收款完成";													
-						}
-						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
-						{
-							$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
-						}
-					}
-			
-					$this->data[$fristitem] = $row;
-				}
-				$fristitem++;
-			endforeach;			
-			//echo "<br>$fristitem=".$fristitem;
-			//資料筆數
-			if($totalitem >= 10)
-			{	 $totalitem;
-				if($totalitem % 10 != 0)
-				{
-					$pageitem = floor($totalitem / 10) + 1;
-				}
-				else
-				{
-					$pageitem = $totalitem / 10;
-				}		
-			}
-			else
-			{
-				$pageitem=1;
-			}
-			//頁數
-			$pagefrist = 0;
-			if($pageitem > 10 )
-			{	
-				$pagetotal = 10;
-			}
-			else
-			{
-				$pagetotal = $pageitem;		
-			}
-			$this->data['pagefrist'] = $pagefrist;
-			$this->data['pagetotal'] = $pagetotal;		
-			$this->data['pageid'] = 1;	
-			$this->data['search'] = $searchvalue;
-		}
-		else
+		$searchvalue = $this->input->post("Search"); 
+		if($searchvalue != null)
+		{  
+			redirect(base_url("/Form/search_switchpage/1/".$searchvalue)); 
+		}			
+		else	
 		{
-			$this->data = null;
-		}
-		//echo "<br>".count($this->data);	
-		$this->load->view('v_search_transaction', $this->data);	
+			redirect(base_url("/Form/transaction_home")); 
+					
+		} 
 	}
 	
-		
 	public function search_switchpage($id,$searchvalue)
-	{	//echo $searchvalue = $_SESSION['searchvalue'] ;
+	{	
 		$searchvalue=urldecode($searchvalue);
 		$form_model = new Form_model();
 		$common = new Common();
@@ -247,19 +175,33 @@ class Form extends CI_Controller {
 			{
 				$itemmax = ($id * 10);		
 			}
-			$j = 0;	
-			$i = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
+			$count = 0;	
+			$prevcount = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
 			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
 			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
-				$row->status = $common->conversionFormStatusByID($row->status);
-				$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				if($fristitem>=$i)
+				$row->status = 1;
+				$row->is_complete = true;
+				$row->left_money = $row->total_price;
+				if($fristitem>=$prevcount)
 				{				
 					if($fristitem < $itemmax)
 					{	
-						$this->data[$j] = $row;
-						$j++;
+						for($i=0;$i<6;$i++)
+						{
+							if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+							{
+								$row->status = 2;	
+								$row->is_complete = false;
+							}
+							else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
+							{
+								$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
+							}
+						}
+						$row->status = $common->conversionbystatus($row->status);
+						$this->data[$count] = $row;
+						$count++;
 					}
 				}					
 				$fristitem++;				
@@ -475,19 +417,35 @@ class Form extends CI_Controller {
 			{
 				$itemmax = ($id * 10);		
 			}
-			$j = 0;	
-			$i = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
+			$count = 0;	
+			$prevcount = ($id-1) * 10 ;//依頁面筆數 EX 第3頁(從21~30筆資料)，此處為前20筆資料
 			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
 			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
-				$row->status = $common->conversionFormStatusByID($row->status);
-				$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				if($fristitem>=$i)
+				//$row->status = $common->conversionFormStatusByID($row->status);
+				//$row->form_type = $common->conversionFormTypeByID($row->form_type);
+				$row->status = 1;
+				$row->is_complete = true;
+				$row->left_money = $row->total_price;
+				if($fristitem>=$prevcount)
 				{				
 					if($fristitem < $itemmax)
 					{	
-						$this->data[$j] = $row;
-						$j++;
+						for($i=0;$i<6;$i++)
+						{
+							if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+							{
+								$row->status = 2;	
+								$row->is_complete = false;
+							}
+							else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
+							{
+								$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
+							}
+						}
+						$row->status = $common->conversionbystatus($row->status);
+						$this->data[$count] = $row;
+						$count++;
 					}
 				}					
 				$fristitem++;				

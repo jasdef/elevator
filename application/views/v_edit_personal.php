@@ -13,13 +13,13 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">編輯客戶</h1>
+					<h1 class="page-title">編輯員工</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/Personal/personal_home")?>">客戶管理</a> <span class="divider">/</span></li>
-						<li class="active">編輯客戶</li>
+						<li><a href="<?=site_url("/Personal/personal_home")?>">員工管理</a> <span class="divider">/</span></li>
+						<li class="active">編輯員工</li>
 					</ul>
 
 				<div class="container-fluid">
@@ -31,26 +31,26 @@
 							</div>
 							<div class="well">			
 								<label>人員編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
+								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" style=width:200px>
 								
 								<label>帳號</label>
-								<input type="text" name = "account" value="<?php print($this->data['account']);?>"  readonly="readonly" class="input-xlarge">
+								<input type="text" name = "account" value="<?php print($this->data['account']);?>"  readonly="readonly" style=width:200px>
 																
 								<label>密碼</label>
-								<input type="password" name = "password" value="<?php print($this->data['password']);?>" class="input-xlarge">
+								<input type="password" name = "password" value="<?php print($this->data['password']);?>" style=width:200px>
 								
 								<label>姓名</label>
-								<input type="text" name = "name" value="<?php print($this->data['name']);?>" class="input-xlarge">
+								<input type="text" name = "name" value="<?php print($this->data['name']);?>" style=width:200px>
 
 								<label>權限</label><?//  後端判斷的值 傳送到前段data[1],data[2],data[3] ?>
-								<select name="permission">
+								<select name="permission" style=width:215px>
 								<option value="1" <?php if ($this->data['permission'] == 1)echo "selected=\"selected\"";?>>系統管理員</option>
 								<option value="2" <?php if ($this->data['permission'] == 2)echo "selected=\"selected\"";?>>會計</option>
 								<option value="3" <?php if ($this->data['permission'] == 3)echo "selected=\"selected\"";?>>員工</option>
 								</select>
 							
 								<label>狀態</label>
-								<select name="status"><?//  後端判斷的值 傳送到前段data[4],data[5] ?>
+								<select name="status" style=width:215px><?//  後端判斷的值 傳送到前段data[4],data[5] ?>
 								<option value="0" <?php if ($this->data['status'] == 0)echo "selected=\"selected\"";?>>未鎖定</option>
 								<option value="1" <?php if ($this->data['status'] == 1)echo "selected=\"selected\"";?>>鎖定</option>
 								</select>
@@ -156,8 +156,8 @@
 						{
 						contMin++;
 						divname=""+contname+ contMin ;
-						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" class="input-xlarge" /> </div>');
-						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" style=width:200px /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" style=width:200px>
 						else
 						{	
 							alert("最多3個欄位"); 
@@ -198,8 +198,8 @@
 						{
 						AddrMin++;
 						divname=""+addrname+ AddrMin ;
-						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" class="input-xlarge" /> </div>');
-						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" style=width:200px /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" style=width:200px>
 						else
 						{	
 							alert("最多3個欄位"); 
@@ -240,7 +240,7 @@
 						{
 						TelMin++;
 						divname="div"+telname+ TelMin ;
-						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" class="input-xlarge" /> </div>');
+						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" style=width:200px /> </div>');
 						}																		
 						else
 						{	

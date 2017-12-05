@@ -13,13 +13,13 @@
 				
 				<div class="header">
 					
-					<h1 class="page-title">新增人員</h1>
+					<h1 class="page-title">新增員工</h1>
 				</div>
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/Personal/personal_home")?>">人員管理</a> <span class="divider">/</span></li>
-						<li class="active">新增人員</li>
+						<li><a href="<?=site_url("/Personal/personal_home")?>">員工管理</a> <span class="divider">/</span></li>
+						<li class="active">新增員工</li>
 					</ul>
 
 				<div class="container-fluid">
@@ -30,26 +30,26 @@
 							<div class="well">
 							
 								<label>帳號</label>
-								<input type="text" name = "account" value="" class="input-xlarge">
+								<input type="text" name = "account" value="" style=width:200px>
 																
 								<label>密碼</label>
-								<input type="password" name = "password" value="" class="input-xlarge">
+								<input type="password" name = "password" value="" style=width:200px>
 								
 								<label>再次確認密碼</label>
-								<input type="password" name = "passwordrt" value="" class="input-xlarge">
+								<input type="password" name = "passwordrt" value="" style=width:200px>
 								
 								<label>姓名</label>
-								<input type="text" name = "name" value="" class="input-xlarge">
+								<input type="text" name = "name" value="" style=width:200px>
 								
 								<label>權限</label>
-								<select name="permission">
+								<select name="permission" style=width:215px>
 								<option value="1">系統管理員</option>
 								<option value="2">會計</option>
 								<option value="3" selected>員工</option>
 								</select>
 							
 								<label>狀態</label>
-								<select name="status">
+								<select name="status" style=width:215px>
 								<option value="0" selected>未鎖定</option>
 								<option value="1">鎖定</option>
 								</select>
@@ -168,8 +168,8 @@
 						{
 						contMin++;
 						divname=""+contname+ contMin ;
-						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" class="input-xlarge" /> </div>');
-						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" style=width:200px /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" style=width:200px>
 						else
 						{	
 							alert("最多3個欄位"); 
@@ -210,8 +210,8 @@
 						{
 						AddrMin++;
 						divname=""+addrname+ AddrMin ;
-						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" class="input-xlarge" /> </div>');
-						}																		//			<input type="text" name = "contacter_1" value="" class="input-xlarge">
+						$("#address_").append('<div id="' +addrname+ AddrMin + '">地址'+AddrMin+'<br><input type="text" name="address_'+AddrMin+'" value="" style=width:200px /> </div>');
+						}																		//			<input type="text" name = "contacter_1" value="" style=width:200px>
 						else
 						{	
 							alert("最多3個欄位"); 
@@ -252,7 +252,7 @@
 						{
 						TelMin++;
 						divname=""+telname+ TelMin ;
-						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" class="input-xlarge" /> </div>');
+						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" style=width:200px /> </div>');
 						}																		
 						else
 						{	

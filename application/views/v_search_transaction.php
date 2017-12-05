@@ -4,6 +4,12 @@
 		include "head.php";
 		
 	?> 
+	<style>
+		form button
+		{
+			vertical-align: middle;
+		}
+	</style>
 	<body> 
 		<?php
 			include "navbar.php";
@@ -27,12 +33,10 @@
 				
 					<div class="container-fluid">
 						<div class="row-fluid">
+						
 						<form action="<?=base_url("/Form/transaction_Search")?>" method="post">
-								<table>
-									<tr>
-										<td><input type="text" name = "Search" value=""  class="input-xlarge"></td><td><button class="btn btn-primary" >搜尋</button></td>
-									</tr>
-								</table>
+							<input text="text" name = "Search" value="" class="input-xlarge"	>
+							<button class="btn btn-primary">搜尋</button>
 						</form>
 								<div class="btn-toolbar">
 									<a href="<?=base_url("/Form/create_transaction_view")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
@@ -175,6 +179,9 @@
 			$(function() {
 				$('.demo-cancel-click').click(function(){return false;});
 			});
+			
+			
+			
 		</script>
 	</body>
 </html>
