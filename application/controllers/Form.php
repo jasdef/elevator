@@ -219,6 +219,10 @@ class Form extends CI_Controller {
 					$pageitem = $totalitem / 10;
 				}		
 			}
+			else 
+			{
+				$pageitem = 1;	
+			}
 			//頁數		
 			if($id > 10 )
 			{	
