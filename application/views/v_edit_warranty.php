@@ -65,7 +65,7 @@
 								<label>免費保養</label>
 								<input type="text" name = "free_maintenance" value="<?php print($this->data['free_maintenance']);?>" class="input-xlarge"> 年
 								
-								<label>有效日期(西元yyyy/mm/dd)</label>
+								<label>合約開始日期(西元yyyy/mm/dd)</label>
 								<input type="text" id="datepicker" name = "effective_date" value="<?php print($this->data['effective_date']);?>" class="input-xlarge">
 								
 								

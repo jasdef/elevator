@@ -62,7 +62,7 @@
 								<label>免費保養</label>
 								<input type="text" name = "free_maintenance" value="" class="input-xlarge"> 年
 								
-								<label>有效日期(西元yyyy/mm/dd)</label>
+								<label>合約開始日期(西元yyyy/mm/dd)</label>
 								<input type="text" id="datepicker" name = "effective_date" value="" class="input-xlarge"> 
 								
 								<label>聯絡人</label>
