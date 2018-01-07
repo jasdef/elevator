@@ -208,11 +208,12 @@
 									</tr>
 									<tr>	
 										<th>
-										單雙月保養<br>
+										月保養<br>
 											<select  name="service_month" style=width:215px onChange="calculate(this)">
-												<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇單雙月保養</option>
-												<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>單月保養</option>
+												<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇月保養</option>
+												<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>每月保養</option>
 												<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
+												<option value = 3 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>季保養</option>
 											</select>
 										</th>
 									</tr>

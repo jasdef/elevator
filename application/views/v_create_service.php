@@ -140,11 +140,12 @@
 								</tr>
 								<tr>	
 								<th>
-								單雙月保養<br>
+								月保養<br>
 									<select id="service_month" name="service_month" style=width:215px >
-										<option value = 0 selected="selected">請選擇單雙月保養</option>
-										<option value = 1 >單月保養</option>
+										<option value = 0 selected="selected">請選擇月保養</option>
+										<option value = 1 >每月保養</option>
 										<option value = 2>雙月保養</option>
+										<option value = 3>季保養</option>
 									</select>
 								</th>
 								</tr>
