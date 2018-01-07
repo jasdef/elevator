@@ -9,12 +9,14 @@ class Warranty extends CI_Controller {
 		session_start();
 		$this->load->model('Customer_model');
 		$this->load->model('m_warranty_model');
+		$this->load->model('Form_model');
 		$this->load->library('datamodel');
 	}
 	
 public function warranty_home() 
 	{	
 		$warranty_model = new m_warranty_model();
+		$form_model = new Form_model();			
 		$temp = $warranty_model->getwarranty();	
 		$fristitem = 0;
 		$itemmax = 10;
@@ -35,6 +37,13 @@ public function warranty_home()
 			foreach($temp as $row):				
 				if($fristitem < $itemmax)
 				{	
+					$row->transaction_name = "";
+					if ($row->transaction_id != 0) 
+					{
+						$transaction = $form_model->getTransactionByID($row->transaction_id);
+						$row->transaction_name = $transaction['name'];
+					}
+					
 					$this->data[$fristitem] = $row;
 				}
 				$fristitem++;

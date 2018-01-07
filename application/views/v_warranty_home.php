@@ -39,7 +39,8 @@
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">客戶編號</a></th>
+												<th><a href="#">保固單編號</a></th>
+												<th><a href="#">買賣單名稱</a></th>
 												<th><a href="#">客戶名稱</a></th>
 												<th><a href="#">聯絡人</a></th>
 												<th><a href="#">地址</a></th>
@@ -58,6 +59,7 @@
 					?>	
 													<tr>
 														<td><?=$this->data[$j]->id;?></td>
+														<td><?=$this->data[$j]->transaction_name;?></td>
 														<td><?=$this->data[$j]->customer;?></td>
 														<td><?=$this->data[$j]->contacter_1;?></td>
 														<td><?=$this->data[$j]->address;?></td>
