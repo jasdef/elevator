@@ -164,8 +164,11 @@
 								</table>
 								<table id="table" class="table sortable">
 									<tbody>
+										<label><strong>收款明細</strong></label>
 										<tr>
+										<th><label>項目名稱</label></th>
 										<th><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" style=width:200px onChange="calculate(this)"></th>			
+										<th><label>金額百分比</label></th>
 										<th><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" style=width:200px onChange="calculate(this)"></th>
 										<th><label>金額</label></th>					
 
@@ -192,7 +195,9 @@
 										for ($i = 1; $i < $item_count; $i++)
 										{				
 											echo '<tr>';
+											echo '<th><label>項目名稱</label></th>';
 											echo '<th><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" style=width:200px onChange="calculate(this)"></th>';		
+											echo '<th><label>金額百分比</label></th>';
 											echo '<th><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" style=width:200px onChange="calculate(this)"></th>';
 											echo '<th><label>金額</label></th>';					
 											echo '<th><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" style=width:200px onChange="calculate(this)"  disabled></th>';
@@ -328,10 +333,18 @@
 							 //先取得目前的row數
 
 							 var Tr = document.getElementById("table").insertRow(num);
+							 
+							 Td = Tr.insertCell(Tr.cells.length);
+							 Td.innerHTML='<label>項目名稱</label>';
+							 
 							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
 							 Td = Tr.insertCell(Tr.cells.length);
 							 //而這個就是要填入td中的innerHTML
 							 Td.innerHTML='<input type="text" id="Item_name'+min+'" name="Item_name'+min+'" value="" style=width:200px onChange="calculate(this)">';
+							 
+							 Td = Tr.insertCell(Tr.cells.length);
+							 Td.innerHTML='<label>金額百分比</label>';
+							 
 							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
 							 Td = Tr.insertCell(Tr.cells.length);
 							 Td.innerHTML='<input type="text" id="Item'+min+'" name="Item'+min+'" value="0" style=width:200px onChange="calculate(this)">';

@@ -273,8 +273,11 @@
 								
 								<table class="table sortable">
 									<tbody>
+										<label><strong>收款明細</strong></label>
 										<tr>
+										<td><label>項目名稱</label></td>
 										<td><input type="text" id="Item_name1" name="Item_name1" value="<?php print($this->data['item_name1']);?>" disabled class="input" onChange="calculate(this)"></td>						
+										<td><label>金額百分比</label></td>
 										<td><input type="text" id="Item1" name="Item1" value="<?php print($this->data['item1']);?>" disabled class="input" onChange="calculate(this)"></td>
 										<td><label>金額</label></td>					
 										<td><input type="text" id="Item1_price" name="Item1_price" value="0" class="input" disabled></td>
@@ -294,7 +297,9 @@
 										for ($i = 1; $i < $item_count; $i++)
 										{				
 											echo '<tr>';
+											echo '<td><label>項目名稱</label></td>';	
 											echo '<td><input type="text" id="Item_name'.($i+1). '" name="Item_name'.($i+1). '" value="'.$this->data["item_name".($i+1)].'" disabled class="input" onChange="calculate(this)"></td>';		
+											echo '<td><label>金額百分比</label></td>';	
 											echo '<td><input type="text" id="Item'.($i+1). '" name="Item'.($i+1). '" value="' .$this->data["item".($i+1)]. '" disabled class="input" onChange="calculate(this)"></td>';
 											echo '<td><label>金額</label></td>';					
 											echo '<td><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" disabled class="input" onChange="calculate(this)"  disabled></td>';

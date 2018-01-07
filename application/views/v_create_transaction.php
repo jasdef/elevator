@@ -159,9 +159,14 @@
 								</table>
 								<table  id="table" class="table sortable">
 									<tbody>
+																			
+										<label><strong>收款明細</strong></label>																		
 										<tr>
-										<td><input type="text" id="Item_name1" name="Item_name1" value="" style=width:200px onChange="calculate(this)"></td>					
+										<td><label>項目名稱</label></td>	
+										<td><input type="text" id="Item_name1" name="Item_name1" value="" style=width:200px onChange="calculate(this)"></td>	
+										<td><label>金額百分比</label></td>										
 										<td><input type="text" id="Item1" name="Item1" value="0" style=width:200px onChange="calculate(this)"></td>
+								
 										<td><label>金額</label></td>					
 
 										<td><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px disabled></td>
@@ -290,11 +295,18 @@
 							 //先取得目前的row數
 
 							 var Tr = document.getElementById("table").insertRow(num);
+							 
+							 Td = Tr.insertCell(Tr.cells.length);
+							 Td.innerHTML='<label>項目名稱</label>';
+							 
 							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
 							 Td = Tr.insertCell(Tr.cells.length);
 							 //而這個就是要填入td中的innerHTML
 							 Td.innerHTML='<input type="text" id="Item_name'+min+'" name="Item_name'+min+'" value="" class="input" onChange="calculate(this)">';
 							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
+							 Td = Tr.insertCell(Tr.cells.length);
+							 Td.innerHTML='<label>金額百分比</label>';
+							 
 							 Td = Tr.insertCell(Tr.cells.length);
 							 Td.innerHTML='<input type="text" id="Item'+min+'" name="Item'+min+'" value="0" class="input" onChange="calculate(this)">';
 							 
