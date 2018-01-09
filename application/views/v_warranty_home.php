@@ -45,8 +45,10 @@
 												<th><a href="#">聯絡人</a></th>
 												<th><a href="#">地址</a></th>
 												<th><a href="#">電話</a></th>
+												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
+												<th class="sorttable_nosort">動作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -65,10 +67,16 @@
 														<td><?=$this->data[$j]->address;?></td>
 														<td><?=$this->data[$j]->tel_1;?></td>
 														<td>
+														<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
+														</td>
+														<td>
 															<a href="<?=base_url("/Warranty/edit_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 														</td>
 														<td>
 															<a href="<?=base_url("/Warranty/delete_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														</td>
+														<td>
+														<a href="<?=base_url("/Service/service_create_by_warranty/".$this->data[$j]->id."")?>">產生保養單</a>
 														</td>
 													</tr>
 					<?php							$fristitem++;

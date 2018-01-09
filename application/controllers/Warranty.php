@@ -13,7 +13,7 @@ class Warranty extends CI_Controller {
 		$this->load->library('datamodel');
 	}
 	
-public function warranty_home() 
+	public function warranty_home() 
 	{	
 		$warranty_model = new m_warranty_model();
 		$form_model = new Form_model();			

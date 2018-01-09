@@ -9,11 +9,12 @@ class Service extends CI_Controller {
 		session_start();
 		$this->load->model('Customer_model');
 		$this->load->model('m_service_model');
+		$this->load->model('m_warranty_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
 	}
 	
-public function service_home() 
+	public function service_home() 
 	{	
 		$service_model = new m_service_model();
 		$temp = $service_model->getservice();
@@ -195,6 +196,7 @@ public function service_home()
 		}		
 		$this->load->view('v_service_home', $this->data);
 	}
+	
 	public function delete_service() 
 	{
 		$m_service_model = new m_service_model();
@@ -268,6 +270,21 @@ public function service_home()
 	{	
 		$this->load->view('v_create_service');
 	}
+	
+	public function service_create_by_warranty($warranty_id) 
+	{
+		$warranty_model = new m_warranty_model();
+		$service_model = new m_service_model();
+		$warranty = $warranty_model->getwarrantyByID($warranty_id);
+		$data = New datamodel;
+		$data->warranty_id = $warranty_id;
+		$data->signing_day = $warranty['effective_date'];
+		$data->mechanical_warranty = $warranty['free_maintenance'];
+		
+		$service_model->insertservice($data);
+		redirect(base_url("/service/service_home"));	
+	}
+	
 	/*
 	public function warranty_create_by_transaction($transaction_id, $nums) 
 	{
