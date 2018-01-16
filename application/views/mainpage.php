@@ -84,15 +84,54 @@
         </div>
     </div>
     <div class="block span6">
-        <a href="#widget1container" class="block-heading" data-toggle="collapse">提醒 </a>
-        <div id="widget1container" class="block-body collapse in">
-            <h2>Here's a Tip</h2>
-            <p>This template was developed with <a href="http://middlemanapp.com/" target="_blank">Middleman</a> and includes .erb layouts and views.</p>
-            <p>All of the views you see here (sign in, sign up, users, etc) are already split up so you don't have to waste your time doing it yourself!</p>
-            <p>The layout.erb file includes the header, footer, and side navigation and all of the views are broken out into their own files.</p>
-            <p>If you aren't using Ruby, there is also a set of plain HTML files for each page, just like you would expect.</p>
+        <a href="#widget1container" class="block-heading" data-toggle="collapse">簽約提醒 </a>
+        <div id="tablewidget" class="block-body collapse in">
+            <table class="table sortable">
+				<thead>
+					<tr>
+						<th><a href="#">#</a></th>												
+						<th><a href="#">表單名稱</a></th>
+						<th><a href="#">狀態</a></th>
+						<th><a href="#">開始日期</a></th>
+						<th><a href="#">總價</a></th>
+						<th><a href="#">剩餘款項</a></th>
+						<th class="sorttable_nosort">檢視</th>
+						<th class="sorttable_nosort">編輯</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
+					if(count($this->data) != 0 )
+					{
+
+						for($j = 0; $j < count($this->data['transaction']); $j++)
+						{
+?>							
+						<tr>
+							<td><?=$this->data['transaction'][$j]->id;?></td>
+							<td><?=$this->data['transaction'][$j]->name;?></td>
+							<td><?=$this->data['transaction'][$j]->status;?></td>
+							<td><?=$this->data['transaction'][$j]->start_date;?></td>
+							<td><?=$this->data['transaction'][$j]->total_price;?></td>
+							<td><?=$this->data['transaction'][$j]->left_money;?></td>
+							<td>
+								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+							</td>
+							<td>
+								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+							</td>
+						</tr>
+
+<?php				
+						}
+					}
+?>
+				</tbody>
+			</table>
         </div>
     </div>
+	
+	
 </div>
 
 <div class="row-fluid">
