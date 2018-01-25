@@ -57,13 +57,19 @@ class Form_model extends CI_Model
 		$this->db->delete('transaction_form');
 	}	
 	
-	public function getTransaction() 
+	public function getTransaction($sWhere='',$sOrder='')
 	{
-		$this->db->select('*');
-		$this->db->from('transaction_form');
-		
-		$result = $this->db->get();
-		
+		$sSql = "select * from transaction_form where 1 ";
+
+		if($sWhere!=''){
+            $sSql .= " and name like '%{$sWhere}%'";
+        }
+        if($sOrder!=''){
+		    $sSql .= "order by {$sOrder}";
+        }
+        echo "$sSql";
+		$result = $this->db->query($sSql);
+
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;

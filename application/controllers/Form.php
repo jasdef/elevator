@@ -55,13 +55,33 @@ class Form extends CI_Controller {
 	
 	public function transaction_home() 
 	{
+
+        $sSearch = $this->input->get("Search");
+        $isorder = $this->input->get("isorder")?$this->input->get("isorder"):'id';
+        $isby = $this->input->get("isby");
+
+        $sOrder = '';
+        if($isorder){
+
+            if($isby==''){
+                $isby = 'asc';
+            }elseif($isby=='asc'){
+                $isby = 'desc';
+            }elseif($isby=='desc'){
+                $isby = 'asc';
+            }else{
+                $isby = '';
+            }
+            $sOrder = "$isorder $isby";
+        }
+
 		$form_model = new Form_model();
 		$common = new Common();
-		$temp = $form_model->getTransaction();
+		$temp = $form_model->getTransaction($sSearch,$sOrder);
 		$fristitem = 0;
 		$totalitem = 0;
-		
-		if ($temp != 0) 
+
+		if ($temp != 0)
 		{	
 			$totalitem = count($temp);	
 			if(10 > $totalitem)
@@ -73,7 +93,8 @@ class Form extends CI_Controller {
 				$itemmax = 10;		
 			}
 			$this->data['fristitem'] = $fristitem; 
-			$this->data['itemmax'] = $itemmax;	
+			$this->data['itemmax'] = $itemmax;
+            $this->data['isby'] = $isby;
 											
 			foreach($temp as $row):
 			//	$row->status = $common->conversionFormStatusByID($row->status);

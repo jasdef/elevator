@@ -34,7 +34,7 @@
 										vertical-align: middle;
 									}
 								</style>
-						<form action="<?=base_url("/Form/transaction_Search")?>" method="post">
+						<form action="<?=base_url("/Form/transaction_home")?>" method="get">
 							<input text="text" name = "Search" value="" class="input-xlarge"	>
 							<button class="btn btn-primary">搜尋</button>
 						</form>
@@ -47,11 +47,11 @@
 									<table class="table sortable">
 										<thead>
 											<tr>
-												<th><a href="#">#</a></th>												
-												<th><a href="#">表單名稱</a></th>
+												<th><a href="./transaction_home?isorder=id&isby=<?=$this->data['isby'];?>">#</a></th>
+												<th><a href="./transaction_home?isorder=name&isby=<?=$this->data['isby'];?>">表單名稱</a></th>
 												<th><a href="#">狀態</a></th>
-												<th><a href="#">開始日期</a></th>
-												<th><a href="#">總價</a></th>
+												<th><a href="./transaction_home?isorder=start_date&isby=<?=$this->data['isby'];?>">開始日期</a></th>
+												<th><a href="./transaction_home?isorder=total_price&isby=<?=$this->data['isby'];?>">總價</a></th>
 												<th><a href="#">剩餘款項</a></th>
 												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
@@ -73,8 +73,8 @@
 													<td><?=$this->data[$j]->name;?></td>
 													<td><?=$this->data[$j]->status;?></td>
 													<td><?=$this->data[$j]->start_date;?></td>
-													<td><?=$this->data[$j]->total_price;?></td>
-													<td><?=$this->data[$j]->left_money;?></td>
+													<td><?=number_format($this->data[$j]->total_price,0,'.',',');?></td>
+													<td><?=number_format($this->data[$j]->left_money,0,'.',',');?></td>
 													<td>
 														<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
 													</td>
