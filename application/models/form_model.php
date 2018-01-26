@@ -67,7 +67,6 @@ class Form_model extends CI_Model
         if($sOrder!=''){
 		    $sSql .= "order by {$sOrder}";
         }
-        echo "$sSql";
 		$result = $this->db->query($sSql);
 
 		if ($result->num_rows() > 0)
