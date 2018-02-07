@@ -1,40 +1,30 @@
 	<div class="sidebar-nav">
         <?php 
-			if($_SESSION["permission"] == 1 || $_SESSION["permission"] == 2) { 
-			
+			if($_SESSION["permission"] == 1 || $_SESSION["permission"] == 2) {
 		?>
 		<a href="#forms-menu" class="nav-header" data-toggle="collapse"><i class="icon-list"></i>表單管理</i></a>
 		
 		<ul id="forms-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/form/transaction_home")?>">買賣單</a></li>
-        </ul>	
-		
-		<ul id="forms-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/Warranty/warranty_home")?>">保固單</a></li>
+            <li ><a href="<?=base_url("/form/transaction_home")?>"><i class="icon-caret-right"></i>買賣單</a></li>
+            <li ><a href="<?=base_url("/Warranty/warranty_home")?>"><i class="icon-caret-right"></i>保固單</a></li>
+            <li ><a href="<?=base_url("/service/service_home")?>"><i class="icon-caret-right"></i>保養名冊</a></li>
+            <li ><a href="<?=base_url("/form/upload")?>"><i class="icon-caret-right"></i>新增上傳檔案</a></li>
         </ul>
-		
-		<ul id="forms-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/service/service_home")?>">保養名冊</a></li>
-        </ul>		
-		
-        <ul id="customer-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/form/upload")?>">新增上傳檔案</a></li>    
-		</ul>		
 		
 			
 		<a href="#elevator-menu" class="nav-header" data-toggle="collapse"><i class="icon-folder-open"></i>電梯管理</i></a>
         <ul id="elevator-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/elevator/elevator_home")?>">新增與編輯</a></li>    
+            <li ><a href="<?=base_url("/elevator/elevator_home")?>">電梯列表</a></li>
 		</ul>
 		
 		<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-book"></i>客戶管理</i></a>
         <ul id="customer-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/customer/customer_home")?>">新增與編輯</a></li>    
+            <li ><a href="<?=base_url("/customer/customer_home")?>">客戶列表</a></li>
 		</ul>
 		
-				<a href="#customer-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>人員管理</i></a>
-        <ul id="customer-menu" class="nav nav-list collapse in">
-            <li ><a href="<?=base_url("/personal/personal_home")?>">新增與編輯</a></li>    
+		<a href="#personal-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>人員管理</i></a>
+        <ul id="personal-menu" class="nav nav-list collapse in">
+            <li ><a href="<?=base_url("/personal/personal_home")?>">人員列表</a></li>
 		</ul>
 
 		

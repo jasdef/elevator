@@ -77,14 +77,11 @@
                     <label>密碼</label>
                     <input type="password" name="password" class="span12">
 					<p class="submit"><input type="submit" name="commit" value="登入"></p>
-                    
-                    <label class="remember-me">記住我<input type="checkbox"></label>
+
                     <div class="clearfix"></div>
                 </form>
             </div>
         </div>
-        <p class="pull-right" style=""><a href="" target="blank">Product by Chapman</a></p>
-        <p><a href="reset-password.html">忘記密碼?</a></p>
     </div>
 	<?php  if (isset($errorMessage)){?>
 	<div class="alert alert-error">
