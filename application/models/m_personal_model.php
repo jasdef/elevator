@@ -89,5 +89,17 @@ class m_personal_model extends CI_Model
 		}
 		return 0;
 		
-	}	
+	}
+
+    public function getPersonalList()
+    {
+        $sSql = "select * from account";
+        $query = $this->db->query($sSql);
+
+        $data['results'] = $query->result_array();
+        $data['affects'] = $query->num_rows();
+
+        return $data;
+
+    }
 }

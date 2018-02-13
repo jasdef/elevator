@@ -8,10 +8,34 @@ class Personal extends CI_Controller
 	{
 		parent::__construct();
 		session_start();
-		$this->load->model('m_personal_model');
+        $this->load->model('public_tools'); //常用工具
+        $this->load->model('m_personal_model');
 		$this->load->library('datamodel');
 		$this->load->library('Member');
+        $this->load->library('pagination');
 	}
+
+    public function personal_list()
+    {
+
+        $public_tools = new public_tools();
+        $m_personal_model = new m_personal_model();
+
+        $this->data['page_title'] = '人員列表';
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表'));
+
+        $iResult = $m_personal_model->getPersonalList();
+
+        $this->data['list'] = $iResult['results'];
+
+        $this->data['total_rows'] = $iResult['affects'];
+        $config['base_url'] = "http://{$_SERVER['HTTP_HOST']}/elevator/personal/personal_list";
+        $config['total_rows'] = $this->data['total_rows'];
+        $config['per_page'] = 10;
+        $this->pagination->initialize($config);
+
+        $this->load->view('v_personal_list', $this->data);
+    }
 		
 	public function personal_home() 
 	{	
