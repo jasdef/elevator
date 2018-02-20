@@ -1,19 +1,12 @@
 <?php
 
-class Personal_data
+class Form_data
 {
 	/**
-	account 帳號
-	password 密碼
-	mail 電郵
-	tel1 連絡電話
-	tel2 緊急連絡電話
-	name 姓名
-	contacter 緊急連絡人姓名
-	identity 身分
-	status 是否被停權 1代表停權 0代表沒被停權
-	
-	
+    table_type
+	1 = 買賣單
+	2 = 保固單
+	3 = 保養單
 	*/
 	private $data = array();
 	
