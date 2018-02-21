@@ -141,49 +141,62 @@
                 <a href="#" class="demo-cancel-click" rel="tooltip" title="Click to refresh"><i class="icon-refresh"></i></a>
             </span>
 
-            <a href="#widget2container" data-toggle="collapse">本月保養名單(保固中)</a>
+            <a href="#widget2container" data-toggle="collapse">本月保養名單</a>
         </div>
-        <div id="tablewidget" class="block-body collapse in">
-            <table class="table sortable">
-				<thead>
-					<tr>
-						<th><a href="#">#</a></th>												
-						<th><a href="#">客戶名稱</a></th>
-						<th><a href="#">簽約日期</a></th>
-						<th><a href="#">已保養次數</a></th>
-						<th><a href="#">剩餘保養次數</a></th>
-						<th class="sorttable_nosort">檢視</th>
-						<th class="sorttable_nosort">動作</th>
-					</tr>
-				</thead>
-				<tbody>
-<?php
-					if(count($this->data) != 0 )
-					{
-
-						for($j = 0; $j < count($this->data['warranty']); $j++)
-						{
-?>							
-						<tr>
-							<td><?=$this->data['warranty'][$j]->id;?></td>
-							<td><?=$this->data['warranty'][$j]->contacter_1;?></td>
-							<td><?=$this->data['warranty'][$j]->effective_date;?></td>
-							<td><?=$this->data['warranty'][$j]->warranty_times;?></td>
-							<td><?=$this->data['warranty'][$j]->left_times;?></td>
-							<td>
-								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
-							</td>
-							<td>
-								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-pencil"></i></a>
-							</td>
-						</tr>
-
-<?php				
-						}
-					}
-?>
-				</tbody>
-			</table>
+        <div id="widget2container" class="block-body collapse in">
+            <table class="table list">
+              <tbody>
+                  <tr>
+                      <td>
+                          <p><i class="icon-user"></i> Mark Otto</p>
+                      </td>
+                      <td>
+                          <p>Amount: $1,247</p>
+                      </td>
+                      <td>
+                          <p>Date: 7/19/2012</p>
+                          <a href="#">View Transaction</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <p><i class="icon-user"></i> Audrey Ann</p>
+                      </td>
+                      <td>
+                          <p>Amount: $2,793</p>
+                      </td>
+                      <td>
+                          <p>Date: 7/12/2012</p>
+                          <a href="#">View Transaction</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <p><i class="icon-user"></i> Mark Tompson</p>
+                      </td>
+                      <td>
+                          <p>Amount: $2,349</p>
+                      </td>
+                      <td>
+                          <p>Date: 3/10/2012</p>
+                          <a href="#">View Transaction</a>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <p><i class="icon-user"></i> Ashley Jacobs</p>
+                      </td>
+                      <td>
+                          <p>Amount: $1,192</p>
+                      </td>
+                      <td>
+                          <p>Date: 1/19/2012</p>
+                          <a href="#">View Transaction</a>
+                      </td>
+                  </tr>
+                    
+              </tbody>
+            </table>
         </div>
     </div>
     <div class="block span6">
