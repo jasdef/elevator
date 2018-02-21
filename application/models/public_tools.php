@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Public_tools
+ * @麵包削
+ * @獲取table總數量
+ */
 
 class Public_tools extends CI_Model
 {
@@ -20,5 +25,17 @@ class Public_tools extends CI_Model
         }
         return $results;
 	}
+
+    /**
+     * @獲取table總數量
+     * @param string $sTable
+     * @return int
+     */
+    public function get_total($sTable='')
+    {
+        if($sTable=='') return 0;
+        $this->db->from($sTable);
+        return $this->db->count_all_results();
+    }
 
 }

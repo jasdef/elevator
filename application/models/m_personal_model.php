@@ -6,8 +6,10 @@ class m_personal_model extends CI_Model
 	function __construct() 
 	{
 		parent::__construct();
-		$this->load->database();	
+		$this->load->database();
+        $this->load->model('public_tools');
 		$this->load->library('Datamodel');
+        $this->load->library('pagination');
 		
 	}
 	
@@ -91,13 +93,17 @@ class m_personal_model extends CI_Model
 		
 	}
 
-    public function getPersonalList()
+    public function getPersonalList($toPage,$toRows)
     {
-        $sSql = "select * from account";
+        $public_tools = new public_tools();
+        $toPage = is_null($toPage)?1:$toPage;
+        $toPage = ($toPage-1)<0?0:($toPage-1)*$toRows;
+
+        $sSql = "select * from account limit $toPage,$toRows";
         $query = $this->db->query($sSql);
 
         $data['results'] = $query->result_array();
-        $data['affects'] = $query->num_rows();
+        $data['affects'] = $public_tools->get_total('account');
 
         return $data;
 

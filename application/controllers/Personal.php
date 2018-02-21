@@ -24,14 +24,17 @@ class Personal extends CI_Controller
         $this->data['page_title'] = '人員列表';
         $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表'));
 
-        $iResult = $m_personal_model->getPersonalList();
+        $toPage = $this->input->get('per_page');
+        $perPageRows = 10;
+
+        $iResult = $m_personal_model->getPersonalList($toPage,$perPageRows);
 
         $this->data['list'] = $iResult['results'];
 
         $this->data['total_rows'] = $iResult['affects'];
         $config['base_url'] = "http://{$_SERVER['HTTP_HOST']}/elevator/personal/personal_list";
         $config['total_rows'] = $this->data['total_rows'];
-        $config['per_page'] = 10;
+        $config['per_page'] = $perPageRows;
         $this->pagination->initialize($config);
 
         $this->load->view('v_personal_list', $this->data);
