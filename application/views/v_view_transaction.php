@@ -260,12 +260,7 @@
 									}
 								?>
 								</tr>
-								<tr>
-								<th colspan="3">								
-								收款提醒(間隔幾個月)<br>
-								<input type="text" name = "Remind" value="<?php print($this->data['remind_month']);?>" disabled class="input">
-								</th>
-								</tr>
+
 								</table>
 								
 								<br>
