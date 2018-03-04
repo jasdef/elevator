@@ -20,6 +20,9 @@ class Form_model extends CI_Model
 		$this->db->set('elevator_num', $data->elevator_num);
 		$this->db->set('receipt_status', $data->receipt_status);
 		$this->db->set('customer_id', $data->customer_id);
+		$this->db->set('is_duty', $data->is_duty);
+		$this->db->set('is_receipt', $data->is_receipt);
+		$this->db->set('remark', $data->remark);
 		for ($i = 0; $i < 6; $i++) 
 		{
 			//echo Item_name[$i]."<br>";
@@ -40,6 +43,10 @@ class Form_model extends CI_Model
 		$d['is_return'] = $data->is_return;
 		$d['receipt_status'] = $data->receipt_status;
 		$d['customer_id'] = $data->customer_id;
+		$d['is_duty'] = $data->is_duty;
+		$d['is_receipt'] = $data->is_receipt;
+		$d['remark'] = $data->remark;
+		
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$this->db->set('item_name'.($i+1), $data->item_name[$i]);
@@ -217,93 +224,5 @@ class Form_model extends CI_Model
 		}
 		return 0;
 		
-	}
-	
-	public function getForm() 
-	{
-		$this->db->select('*');
-		$this->db->from('form');
-		
-		$result = $this->db->get();
-		
-		if ($result->num_rows() > 0)
-		{
-			$idx = 0;
-			foreach ($result->result() as $row)
-			{
-				$form_data[$idx] = new Datamodel();
-				foreach ($row as $k => $v)
-				{
-					$form_data[$idx]->$k = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
-				}
-				$idx++;
-			
-			}
-			return $form_data;
-		}
-		return 0;
-		
-	}
-	
-	public function getFormByID($id) 
-	{
-		$this->db->select('*');
-		$this->db->from('form');
-		$this->db->where('id', $id);
-		$result = $this->db->get();
-		
-		if ($result->num_rows() > 0)
-		{
-			foreach ($result->result() as $row)
-			{
-				$form_data = array();
-				foreach ($row as $k => $v)
-				{
-					$form_data[$k] = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
-				}	
-			}
-			return $form_data;
-		}
-		return 0;
-		
-	}
-	
-	
-	
-	
-/*	public function getForm() 
-	{
-		$data = new Datamodel();
-		$this->db->select('*');
-		$this->db->from('form');
-		//$this->db->where('account',$account);
-		$result = $this->db->get();
-
-		if ($result->num_rows() > 0)
-		{
-			$r = $result->result();
-			
-			$params = (array)$r[0];
-			
-			foreach ($params as $k => $v)
-			{
-				
-				$data->$k = $v;
-			
-			}
-			
-			return $data;
-		}
-		else
-		{
-			return 0;
-		}
-		
-	}
-		*/
-	
-	
-	
+	}		
 }

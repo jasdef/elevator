@@ -291,7 +291,7 @@
 									<tr>
 										<th>
 											備註事項<br>
-											<textarea name="remark" value="<?php print($this->data['remark']);?>" style="width:1000px;height:100px;"></textarea>
+											<textarea name="remark" style="width:1000px;height:100px;"> <?php echo $this->data['remark'];?> </textarea>
 										</th>
 									</tr>
 								</table>

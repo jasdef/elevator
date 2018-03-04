@@ -107,7 +107,34 @@
 								</select>
 								</th>
 								</tr>
+								<tr>
+								<th>
+								含稅/未稅<br>
+								<select id="IsDuty" name="IsDuty" class="input" disabled>
+									<option value = 1 <?php if ($this->data['is_duty'] == 1)echo "selected=\"selected\"";?>>含稅</option>
+									<option value = 2 <?php if ($this->data['is_duty'] == 2)echo "selected=\"selected\"";?>>未稅</option>
+								</select>
+								</th>
+								<th>
+								是否開發票<br>
+								<select id="IsReceipt" name="IsReceipt" class="input" disabled>
+									<option value = 1 <?php if ($this->data['is_receipt'] == 1)echo "selected=\"selected\"";?>>是</option>
+									<option value = 2 <?php if ($this->data['is_receipt'] == 2)echo "selected=\"selected\"";?>>否</option>
+								</select>
+								</th>
+								</tr>
 							</table>
+							
+							
+							<table  class="table sortable">
+								<tr>
+									<th>
+										備註事項<br>
+										<textarea name="remark" style="width:1000px;height:100px;" disabled> <?php echo $this->data['remark'];?> </textarea>
+									</th>
+								</tr>
+							</table>
+							
 							
 								<br>
 								<br>

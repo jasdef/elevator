@@ -290,7 +290,9 @@ class Form extends CI_Controller {
 		$start_date = $this->input->post("Start_date");  
 		$elevator_num = $this->input->post("Elevator_num");
 		$customer = $this->input->post("Customer"); 
-
+		$is_duty = $this->input->post("IsDuty");
+		$is_receipt = $this->input->post("IsReceipt");
+		$remark = $this->input->post("Remark");
 		$startDate = $this->input->post("Start_date");
 		
 		$remind = $this->input->post("Remind");
@@ -314,6 +316,10 @@ class Form extends CI_Controller {
 		$data->item_name = $item_name;
 		$data->remind = $remind;
 		$data->elevator_num = $elevator_num;
+		$data->is_duty = $is_duty;
+		$data->is_receipt = $is_receipt;
+		$data->remark = $remark;
+		
 		
 		$form_model->insertTransaction($data);
 		redirect(base_url("/form/transaction_home"));
@@ -391,7 +397,9 @@ class Form extends CI_Controller {
 		$is_return = $this->input->post("IsReturn"); 
 		$start_date = $this->input->post("Start_date");  
 		$customer = $this->input->post("Customer"); 
-
+		$is_duty = $this->input->post("IsDuty");
+		$is_receipt = $this->input->post("IsReceipt");
+		$remark = $this->input->post("Remark");
 		$startDate = $this->input->post("Start_date");
 		
 		$remind = $this->input->post("Remind");
@@ -409,14 +417,18 @@ class Form extends CI_Controller {
 		$data->name = $name;
 		$data->elevator_num = $elevator_num;
 		$data->total_price = $total_price;
-		$data->return_back = $is_return;
+		$data->is_return = $is_return;
 		$data->customer_id = $customer;
 		$data->start_date = $start_date;
 		$data->item = $item;
 		$data->item_status = $item_status;
 		$data->item_name = $item_name;
 		$data->remind = $remind;
-
+		$data->is_duty = $is_duty;
+		$data->is_receipt = $is_receipt;
+		$data->remark = $remark;
+		
+		
 		$form_model->updateTransaction($data);
 		redirect(base_url("/form/transaction_home"));
 		

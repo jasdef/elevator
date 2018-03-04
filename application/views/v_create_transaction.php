@@ -135,6 +135,24 @@
 								</tr>
 								<tr>
 									<th>
+										含稅/未稅<br>
+										<select id="IsReturn" name="IsReturn" style=width:215px >
+											<option value = 1 selected="selected">含稅</option>
+											<option value = 2>未稅</option>
+										</select>							
+									</th>
+								</tr>
+								<tr>
+									<th>
+										是否開發票<br>
+										<select id="IsReturn" name="IsReturn" style=width:215px >
+											<option value = 1 selected="selected">是</option>
+											<option value = 2>否</option>
+										</select>							
+									</th>
+								</tr>
+								<tr>
+									<th>
 										客戶<br>
 										<select id="Customer" name="Customer" style=width:215px >
 										<option value = 0 selected="selected">請選擇客戶</option>
@@ -156,6 +174,15 @@
 										?>															
 									</th>
 								</tr>
+								<table  class="table sortable">
+									<tr>
+										<th>
+											備註事項<br>
+											<textarea name="Remark" style="width:1000px;height:100px;"></textarea>	
+										</th>
+									</tr>
+								</table>
+														
 								</table>
 								<table  id="table" class="table sortable">
 									<tbody>
@@ -211,12 +238,6 @@
 							</div>
 						</div>
 						
-						<footer>
-							<hr>
-							<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-							<p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-							<p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-						</footer>
 					</div>
 				</div>
 			</div>

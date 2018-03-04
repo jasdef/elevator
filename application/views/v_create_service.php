@@ -173,10 +173,7 @@
 								</table>
 
 								<table  id="table" class="table sortable">
-									<tbody>
-									
-									
-									
+									<tbody>																										
 										<tr>
 										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value=""  style=width:200px ></th>					
 										<th>繳款金額<br><input type="text" id="payment_amount1" name="payment_amount1" value="0" style=width:200px onChange="calculate(this)"></th>

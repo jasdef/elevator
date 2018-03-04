@@ -136,6 +136,27 @@
 								</select>							
 								</th>
 								</tr>
+								
+								<tr>
+								<th>
+								含稅/未稅<br>
+								<select id="IsDuty" name="IsDuty" style=width:215px >
+									<option value = 1 <?php if ($this->data['is_duty'] == 1)echo "selected=\"selected\"";?>>含稅</option>
+									<option value = 2 <?php if ($this->data['is_duty'] == 2)echo "selected=\"selected\"";?>>未稅</option>
+								</select>							
+								</th>
+								</tr>
+								
+								<tr>
+								<th>
+								是否開發票<br>
+								<select id="IsReceipt" name="IsReceipt" style=width:215px >
+									<option value = 1 <?php if ($this->data['is_receipt'] == 1)echo "selected=\"selected\"";?>>是</option>
+									<option value = 2 <?php if ($this->data['is_receipt'] == 2)echo "selected=\"selected\"";?>>否</option>
+								</select>							
+								</th>
+								</tr>
+								
 								<tr>
 								<th>								
 								客戶<br>
@@ -162,6 +183,16 @@
 								</th>
 								</tr>
 								</table>
+								
+								<table  class="table sortable">
+									<tr>
+										<th>
+											備註事項<br>
+											<textarea name="Remark"  style="width:1000px;height:100px;"><?php echo $this->data['remark'];?></textarea>	
+										</th>
+									</tr>
+								</table>
+								
 								<table id="table" class="table sortable">
 									<tbody>
 										<label><strong>收款明細</strong></label>
