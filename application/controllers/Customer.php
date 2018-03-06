@@ -9,6 +9,12 @@ class Customer extends CI_Controller {
 		session_start();
 		$this->load->model('Customer_model');
 		$this->load->library('datamodel');
+
+		//菜單顯示部分
+        $this->load->model('Usermenu_model');
+        $usermenu_m = new Usermenu_model();
+        $this->data['aUsermenulist'] = $usermenu_m->usermenulist($_SESSION['id']);
+
 	}
 	
 	public function customer_home() 

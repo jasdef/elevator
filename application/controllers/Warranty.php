@@ -11,6 +11,13 @@ class Warranty extends CI_Controller {
 		$this->load->model('m_warranty_model');
 		$this->load->model('Form_model');
 		$this->load->library('datamodel');
+
+        //菜單顯示部分
+        $this->load->model('Usermenu_model');
+        $usermenu_m = new Usermenu_model();
+        if(isset($_SESSION['id'])) {
+            $this->data['aUsermenulist'] = $usermenu_m->usermenulist($_SESSION['id']);
+        }
 	}
 	
 	public function warranty_home() 
