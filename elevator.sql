@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 127.0.0.1
 Source Server Version : 50713
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : elevator
 
 Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2018-03-06 16:44:42
+Date: 2018-03-07 00:06:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,14 +27,34 @@ CREATE TABLE `account` (
   `permission` varchar(255) NOT NULL,
   `status` int(5) NOT NULL,
   `menuidarray` text,
+  `isdelete` tinyint(2) NOT NULL DEFAULT '0' COMMENT '邏輯刪除用戶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('8', 'admin', 'test', 'admin', '1', '0', '1,2,3,4,10,11,12,13,14,15,16');
-INSERT INTO `account` VALUES ('10', 'kk', '123', 'ja', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24');
+INSERT INTO `account` VALUES ('8', 'admin', 'test', 'admin', '1', '0', '1,2,3,4,10,11,12,13,14,15,16', '0');
+INSERT INTO `account` VALUES ('10', 'kk', '123', 'ja', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24', '0');
+
+-- ----------------------------
+-- Table structure for config
+-- ----------------------------
+DROP TABLE IF EXISTS `config`;
+CREATE TABLE `config` (
+  `configid` int(5) NOT NULL AUTO_INCREMENT,
+  `configkey` varchar(50) NOT NULL COMMENT '關鍵字',
+  `configvalue` varchar(255) DEFAULT NULL COMMENT 'value',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`configid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of config
+-- ----------------------------
+INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,10,11,12,13,14,15,16', 'admin預設權限');
+INSERT INTO `config` VALUES ('2', 'finance_group', '1,2,3,4,10,11,12,13,14,15,16', '財務預設權限');
+INSERT INTO `config` VALUES ('3', 'employee_group', '5,6,7,8,9,17,18,19,20,21,22,23,24', '員工預設權限');
 
 -- ----------------------------
 -- Table structure for customer
@@ -282,7 +302,7 @@ INSERT INTO `usermenu` VALUES ('12', '1', '保養名冊', 'service', 'service_ho
 INSERT INTO `usermenu` VALUES ('13', '1', '新增上傳檔案', 'form', 'upload', 'icon-caret-right', '1', '4', '0');
 INSERT INTO `usermenu` VALUES ('14', '2', '電梯列表', 'elevator', 'elevator_home', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('15', '3', '客戶列表', 'customer', 'customer_home', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('16', '4', '人員列表', 'personal', 'personal_home', 'icon-caret-right', '1', '1', '0');
+INSERT INTO `usermenu` VALUES ('16', '4', '人員列表', 'personal', 'personal_list', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('17', '5', '權限申請狀況', 'userapplication', 'users', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('18', '5', '權限管理', 'userapplication', 'usersadmin', 'icon-caret-right', '1', '2', '0');
 INSERT INTO `usermenu` VALUES ('19', '6', '專案管理', 'projectadmin', 'project_home', 'icon-caret-right', '1', '1', '0');
