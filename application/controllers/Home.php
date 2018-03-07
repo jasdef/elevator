@@ -206,7 +206,7 @@ class Home extends CI_Controller {
 		
 		$person = $mem->getMemberData($account);		
 		
-		if($person->password == $password)
+		if($person->password == md5($password))
 		{
 			return 1;
 		}

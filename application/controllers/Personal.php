@@ -270,14 +270,33 @@ class Personal extends CI_Controller
 		{  
 			$this->load->view("v_create_personal",Array( 
 					"errorMessage" => "密碼不符合",
+                    "account" => $account,
+                    "name" => $name,
+                    "permission" => $permission,
+                    "status" => $status
 				)  
 			);        
 			return false;
 		}
+
+        $plen=strlen($password);
+        if(!preg_match("/^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i",$password)||$plen<6||$plen>15){
+            $this->load->view("v_create_personal",Array(
+                    "errorMessage" => "密碼必須為6-15位的數字和字母的組合",
+                    "account" => $account,
+                    "name" => $name,
+                    "permission" => $permission,
+                    "status" => $status
+                )
+            );
+            return false;
+        }
+
+
 		else
 		{
 		$data->account = $account;
-		$data->password = $password;
+		$data->password = md5($password);
 		$data->name = $name;
 		$data->permission = $permission;
 		$data->status = $status;
@@ -327,7 +346,7 @@ class Personal extends CI_Controller
 	{
 		$m_personal_model = new m_personal_model();
 		$this->data['uri_to_assoc'] = $this->uri->uri_to_assoc(3);
-		$id = $this->data['uri_to_assoc']["personal_id"];
+		$id = isset($this->data['uri_to_assoc']["personal_id"])?$this->data['uri_to_assoc']["personal_id"]:$this->input->post("Id");
 		$this->data['getpersonalByID'] = $m_personal_model->getpersonalByID($id);
 		$permission = $this->data['getpersonalByID']['permission'];
 		$status = $this->data['getpersonalByID']['status'];
@@ -339,22 +358,30 @@ class Personal extends CI_Controller
 		$this->load->view('v_edit_personal', $this->data);
 	}	
 	
-	public function personal_edit() 
+	public function personal_edit()
 	{
-		$m_personal_model = new m_personal_model();
+        $public_tools = new public_tools();
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表','編輯員工'));
+
+	    $m_personal_model = new m_personal_model();
 		$data = New datamodel;
 		$id = $this->input->post("Id");
 		$account = $this->input->post("account");
-		$pw = $this->input->post("password");
+        $password = $this->input->post("password");
 		$name = $this->input->post("name");
 		$permission = $this->input->post("permission");
 		$status = $this->input->post("status");
-		
-		
+
+        $plen=strlen($password);
+        if(!preg_match("/^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i",$password)||$plen<6||$plen>15){
+            $this->data['errorMessage'] = '密碼必須為6-15位的數字和字母的組合';
+            $this->edit_personal();
+            return false;
+        }
 		
 		$data->id = $id;
 		$data->account = $account;
-		$data->password = $pw;
+		$data->password = md5($password);
 		$data->name = $name;
 		$data->permission = $permission;
 		$data->status = $status;

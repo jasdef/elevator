@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
+Source Server         : localhost
 Source Server Version : 50713
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : elevator
 
 Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2018-03-07 00:06:32
+Date: 2018-03-07 09:58:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,13 +29,13 @@ CREATE TABLE `account` (
   `menuidarray` text,
   `isdelete` tinyint(2) NOT NULL DEFAULT '0' COMMENT '邏輯刪除用戶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('8', 'admin', 'test', 'admin', '1', '0', '1,2,3,4,10,11,12,13,14,15,16', '0');
-INSERT INTO `account` VALUES ('10', 'kk', '123', 'ja', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24', '0');
+INSERT INTO `account` VALUES ('8', 'admin', '46f94c8de14fb36680850768ff1b7f2a', 'admin', '1', '0', '1,2,3,4,10,11,12,13,14,15,16', '0');
+INSERT INTO `account` VALUES ('10', 'kk', '46f94c8de14fb36680850768ff1b7f2a', 'ja', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24', '0');
 
 -- ----------------------------
 -- Table structure for config

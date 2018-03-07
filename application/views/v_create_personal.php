@@ -29,7 +29,7 @@ include "sidebar-nav.php";
                 <div class="well">
 
                     <label>帳號</label>
-                    <input type="text" name="account" value="" style=width:200px>
+                    <input type="text" name="account" value="<?=isset($account)?$account:''?>" style=width:200px>
 
                     <label>密碼</label>
                     <input type="password" name="password" value="" style=width:200px>
@@ -38,13 +38,13 @@ include "sidebar-nav.php";
                     <input type="password" name="passwordrt" value="" style=width:200px>
 
                     <label>姓名</label>
-                    <input type="text" name="name" value="" style=width:200px>
+                    <input type="text" name="name" value="<?=isset($name)?$name:''?>" style=width:200px>
 
                     <label>權限</label>
                     <select name="permission" style=width:215px>
-                        <option value="1">系統管理員</option>
-                        <option value="2">會計</option>
-                        <option value="3" selected>員工</option>
+                        <option value="1" <?=isset($permission)?$permission==1?'selected':'':''?>>系統管理員</option>
+                        <option value="2" <?=isset($permission)?$permission==2?'selected':'':''?>>會計</option>
+                        <option value="3" <?=isset($permission)?$permission==3?'selected':'':!isset($permission)?'selected':''?>>員工</option>
                     </select>
 
                     <label>狀態</label>

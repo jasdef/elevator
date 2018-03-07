@@ -36,7 +36,7 @@
 								<input type="text" name = "account" value="<?php print($this->data['getpersonalByID']['account']);?>"  readonly="readonly" style=width:200px>
 																
 								<label>密碼</label>
-								<input type="password" name = "password" value="<?php print($this->data['getpersonalByID']['password']);?>" style=width:200px>
+								<input type="password" name = "password" value="" placeholder="**********" style=width:200px>
 								
 								<label>姓名</label>
 								<input type="text" name = "name" value="<?php print($this->data['getpersonalByID']['name']);?>" style=width:200px>
@@ -69,7 +69,22 @@
 								<button class="btn btn-danger" data-dismiss="modal">Delete</button>
 							</div>
 						</div>
-						
+
+                        <?php if (isset($errorMessage) || isset($this->data['errorMessage'])) { ?>
+                            <div class="alert alert-error">
+
+                                <?
+                                    if(isset($errorMessage)){
+                                        echo $errorMessage;
+                                    }
+                                    elseif(isset($this->data['errorMessage'])) {
+                                        echo $this->data['errorMessage'];
+                                    }
+
+                                ?>
+                            </div>
+                        <?php } ?>
+
 						<footer>
 							<hr>
 							<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
