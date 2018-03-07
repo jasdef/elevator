@@ -1,6 +1,6 @@
 	<div class="sidebar-nav">
         <?php
-            foreach($this->data['aUsermenulist'] as $v){
+            foreach($this->aUsermenulist as $v){
                 echo '<a href="#'.$v['controller'].'-menu" class="nav-header" data-toggle="collapse"><i class="'.$v['icon'].'"></i>'.$v['title'].'</i></a>';
                 if(!empty($v['subtype'])){
                     echo '<ul id="'.$v['controller'].'-menu" class="nav nav-list collapse in">';

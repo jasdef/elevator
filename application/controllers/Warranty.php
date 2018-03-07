@@ -16,7 +16,7 @@ class Warranty extends CI_Controller {
         $this->load->model('Usermenu_model');
         $usermenu_m = new Usermenu_model();
         if(isset($_SESSION['id'])) {
-            $this->data['aUsermenulist'] = $usermenu_m->usermenulist($_SESSION['id']);
+            $this->aUsermenulist = $usermenu_m->usermenulist($_SESSION['id']);
         }
 	}
 	
