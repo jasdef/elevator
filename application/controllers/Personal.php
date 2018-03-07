@@ -13,6 +13,14 @@ class Personal extends CI_Controller
 		$this->load->library('datamodel');
 		$this->load->library('Member');
         $this->load->library('pagination');
+
+        //菜單顯示部分
+        $this->load->model('Usermenu_model');
+        $usermenu_m = new Usermenu_model();
+        if(isset($_SESSION['id'])) {
+            $this->data['aUsermenulist'] = $usermenu_m->usermenulist($_SESSION['id']);
+        }
+
 	}
 
     public function personal_list()
@@ -39,29 +47,29 @@ class Personal extends CI_Controller
 
         $this->load->view('v_personal_list', $this->data);
     }
-		
-	public function personal_home() 
-	{	
+
+	public function personal_home()
+	{
 		$m_personal_model = new m_personal_model();
 		$temp = $m_personal_model->getpersonal();
 		$fristitem = 0;
-		if ($temp != 0) 
-		{	
-			$totalitem = count($temp);	
+		if ($temp != 0)
+		{
+			$totalitem = count($temp);
 			if(10 > $totalitem)
 			{
 				$itemmax = $totalitem;
 			}
 			else
 			{
-				$itemmax = 10;		
+				$itemmax = 10;
 			}
-			$this->data['fristitem'] = $fristitem; 
-			$this->data['itemmax'] = $itemmax;	
-											
+			$this->data['fristitem'] = $fristitem;
+			$this->data['itemmax'] = $itemmax;
+
 			foreach($temp as $row):
 				if($fristitem < $itemmax)
-				{	
+				{
 					$this->data[$fristitem] = $row;
 					if($this->data[$fristitem]->status != 1)
 					{
@@ -71,7 +79,7 @@ class Personal extends CI_Controller
 					{
 						$this->data[$fristitem]->status = "已停權";
 					}
-					
+
 					if($this->data[$fristitem]->permission == 1)
 					{
 						$this->data[$fristitem]->permission = "系統管理員";
@@ -86,8 +94,8 @@ class Personal extends CI_Controller
 					}
 				}
 				$fristitem++;
-			endforeach;			
-			
+			endforeach;
+
 			//資料筆數
 			if($totalitem >= 10)
 			{	 $totalitem;
@@ -98,7 +106,7 @@ class Personal extends CI_Controller
 				else
 				{
 					$pageitem = $totalitem / 10;
-				}		
+				}
 			}
 			else
 			{
@@ -107,22 +115,22 @@ class Personal extends CI_Controller
 			//頁數
 			$pagefrist = 0;
 			if($pageitem > 10 )
-			{	
+			{
 				$pagetotal = 10;
 			}
 			else
 			{
-				$pagetotal = $pageitem;		
+				$pagetotal = $pageitem;
 			}
 			$this->data['pagefrist'] = $pagefrist;
-			$this->data['pagetotal'] = $pagetotal;		
-			$this->data['pageid'] = 1;	
+			$this->data['pagetotal'] = $pagetotal;
+			$this->data['pageid'] = 1;
 		}
 		else
 		{
 			$this->data=null;
 		}
-		$this->load->view('v_personal_home', $this->data);
+		$this->load->view('v_personal_list', $this->data);
 	}
 	
 	public function switch_page($id)
@@ -215,16 +223,22 @@ class Personal extends CI_Controller
 		{
 			$this->data = null;
 		}
-		$this->load->view('v_personal_home', $this->data);
+		$this->load->view('v_personal_list', $this->data);
 	}
 	
 	public function create_personal() 
-	{	
+	{
+        $public_tools = new public_tools();
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表','新增員工'));
+
 		$this->load->view('v_create_personal');
 	}
 			
 	public function personal_create() 
 	{
+        $public_tools = new public_tools();
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表','新增員工'));
+
 		$m_personal_model = new m_personal_model();
 		$data = New datamodel;
 		$mem = new Member;
@@ -256,20 +270,47 @@ class Personal extends CI_Controller
 		{  
 			$this->load->view("v_create_personal",Array( 
 					"errorMessage" => "密碼不符合",
+                    "account" => $account,
+                    "name" => $name,
+                    "permission" => $permission,
+                    "status" => $status
 				)  
 			);        
 			return false;
 		}
+
+        $plen=strlen($password);
+        if(!preg_match("/^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i",$password)||$plen<6||$plen>15){
+            $this->load->view("v_create_personal",Array(
+                    "errorMessage" => "密碼必須為6-15位的數字和字母的組合",
+                    "account" => $account,
+                    "name" => $name,
+                    "permission" => $permission,
+                    "status" => $status
+                )
+            );
+            return false;
+        }
+
+
 		else
 		{
 		$data->account = $account;
-		$data->password = $password;
+		$data->password = md5($password);
 		$data->name = $name;
 		$data->permission = $permission;
 		$data->status = $status;
+		$data->menuidarray = $m_personal_model->getMenuPermission($permission);
+
+		if($data->menuidarray){
+            $this->load->view("v_create_personal",Array(
+                    "errorMessage" => "權限錯誤",
+                )
+            );
+        }
 		
 		$m_personal_model->insertpersonal($data);
-		redirect(base_url("/personal/personal_home"));
+		redirect(base_url("/personal/personal_list"));
 		}
 	}
 	
@@ -298,44 +339,56 @@ class Personal extends CI_Controller
 		$id = $this->data["personal_id"];
 		$m_personal_model->deletepersonal($id);
 		$this->data = $m_personal_model->getpersonal();	
-		redirect(base_url("/personal/personal_home"));	
+		redirect(base_url("/personal/personal_list"));
 	}	
 	
 	public function edit_personal() 
 	{
 		$m_personal_model = new m_personal_model();
-		$this->data = $this->uri->uri_to_assoc(3);
-		$id = $this->data["personal_id"];
-		$this->data = $m_personal_model->getpersonalByID($id);
-		$permission = $this->data['permission'];
-		$status = $this->data['status'];
+		$this->data['uri_to_assoc'] = $this->uri->uri_to_assoc(3);
+		$id = isset($this->data['uri_to_assoc']["personal_id"])?$this->data['uri_to_assoc']["personal_id"]:$this->input->post("Id");
+		$this->data['getpersonalByID'] = $m_personal_model->getpersonalByID($id);
+		$permission = $this->data['getpersonalByID']['permission'];
+		$status = $this->data['getpersonalByID']['status'];
 
-		
+        $public_tools = new public_tools();
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表','編輯員工'));
+
+
 		$this->load->view('v_edit_personal', $this->data);
 	}	
 	
-	public function personal_edit() 
+	public function personal_edit()
 	{
-		$m_personal_model = new m_personal_model();
+        $public_tools = new public_tools();
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','人員列表','編輯員工'));
+
+	    $m_personal_model = new m_personal_model();
 		$data = New datamodel;
 		$id = $this->input->post("Id");
 		$account = $this->input->post("account");
-		$pw = $this->input->post("password");
+        $password = $this->input->post("password");
 		$name = $this->input->post("name");
 		$permission = $this->input->post("permission");
 		$status = $this->input->post("status");
-		
-		
+
+        $plen=strlen($password);
+        if(!preg_match("/^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i",$password)||$plen<6||$plen>15){
+            $this->data['errorMessage'] = '密碼必須為6-15位的數字和字母的組合';
+            $this->edit_personal();
+            return false;
+        }
 		
 		$data->id = $id;
 		$data->account = $account;
-		$data->password = $pw;
+		$data->password = md5($password);
 		$data->name = $name;
 		$data->permission = $permission;
 		$data->status = $status;
+        $data->menuidarray = $m_personal_model->getMenuPermission($permission);
 
 		
 		$m_personal_model->updatepersonal($data);
-		redirect(base_url("/personal/personal_home"));
+		redirect(base_url("/personal/personal_list"));
 	}
 }

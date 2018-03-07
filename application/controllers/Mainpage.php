@@ -11,6 +11,13 @@ class Mainpage extends CI_Controller {
 		$this->load->model('Customer_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
+
+        //菜單顯示部分
+        $this->load->model('Usermenu_model');
+        $usermenu_m = new Usermenu_model();
+        if(isset($_SESSION['id'])) {
+            $this->data['aUsermenulist'] = $usermenu_m->usermenulist($_SESSION['id']);
+        }
 	}
 	
 	public function index()

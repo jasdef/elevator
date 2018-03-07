@@ -16,7 +16,10 @@ class m_personal_model extends CI_Model
 	public function deletepersonal($id) 
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('account');
+		//$this->db->delete('account');
+
+		$d['isdelete'] = 1;
+        $this->db->update('account',$d);
 	}	
 	
 	public function insertpersonal($data)
@@ -27,7 +30,8 @@ class m_personal_model extends CI_Model
 		$this->db->set('name',$data->name);
 		$this->db->set('permission',$data->permission);
 		$this->db->set('status',$data->status);
-		$this->db->insert('account');	
+		$this->db->set('menuidarray',$data->menuidarray);
+		$this->db->insert('account');
 	}
 	
 	public function updatepersonal($data) 
@@ -39,6 +43,8 @@ class m_personal_model extends CI_Model
 		$d['name'] = $data->name;
 		$d['permission'] = $data->permission;
 		$d['status'] = $data->status;
+		$d['menuidarray'] = $data->menuidarray;
+
 		
 		$this->db->update('account',$d);
 		
@@ -99,7 +105,7 @@ class m_personal_model extends CI_Model
         $toPage = is_null($toPage)?1:$toPage;
         $toPage = ($toPage-1)<0?0:($toPage-1)*$toRows;
 
-        $sSql = "select * from account limit $toPage,$toRows";
+        $sSql = "select * from account where isdelete=0 limit $toPage,$toRows";
         $query = $this->db->query($sSql);
 
         $data['results'] = $query->result_array();
@@ -108,4 +114,30 @@ class m_personal_model extends CI_Model
         return $data;
 
     }
+
+    public function getMenuPermission($sPermission=''){
+	    if($sPermission=='') return false;
+
+	    $configkey = '';
+	    switch($sPermission){
+            case '1' :
+                $configkey = 'admin_group';
+                break;
+            case '2':
+                $configkey = 'finance_group';
+                break;
+            case '3':
+                $configkey = 'employee_group';
+                break;
+        }
+
+        if ($configkey=='') return false;
+
+	    $sSql = "select * from config where configkey='{$configkey}'";
+        $query = $this->db->query($sSql);
+        $sMenuPermission = $query->row_array();
+        return $sMenuPermission['configvalue'];
+
+    }
+
 }

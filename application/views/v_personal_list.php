@@ -2,8 +2,16 @@
 <html lang="en">
 	<?php
 		include "head.php";
-		
-	?> 
+	?>
+
+    <script>
+        function ondeleteqwe(id,username){
+            if(confirm("確認刪除 ["+username+"] 用戶"))
+            {
+                document.location.href="<?=base_url("/personal/delete_personal")?>/personal_id/"+id;
+            }
+        }
+    </script>
 	<body> 
 		<?php
 			include "navbar.php";
@@ -25,7 +33,7 @@
 					<div class="container-fluid">
 						<div class="row-fluid">
 								<div class="btn-toolbar">
-									<a href="<?=base_url("/Personal/create_Personal/1")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i>新增</button></a>
+									<a href="<?=base_url("/Personal/create_Personal/1")?>"><button class="btn btn-primary" id="new_people"><i class="icon-plus"></i> 新增</button></a>
 								</div>
 							<form action="<?=base_url("/personal/personal_borad")?>" method="post">
 								<div class="well">
@@ -52,7 +60,8 @@
                                                     <td><?=$v['permission'];?></td>
                                                     <td><?=$v['status'];?></td>
                                                     <td><a href="<?=base_url("/personal/edit_personal")?>/personal_id/<?=$v['id'];?>" ><i class="icon-pencil"></i></td>
-                                                    <td><a href="<?=base_url("/personal/delete_personal")?>/personal_id/<?=$v['id'];?>" ><i class="icon-remove"></i></td>
+<!--                                                    <td><a href="--><?//=base_url("/personal/delete_personal")?><!--/personal_id/--><?//=$v['id'];?><!--" ><i class="icon-remove"></i></td>-->
+                                                    <td><a href="javascript: void(0)" onclick="ondeleteqwe('<?=$v['id'];?>','<?=$v['name'];?>')"><i class="icon-remove"></i></a></td>
                                                 </tr>
                                             <? endforeach; ?>
                                         <? endif; ?>

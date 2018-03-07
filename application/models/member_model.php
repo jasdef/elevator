@@ -55,6 +55,7 @@ class Member_model extends CI_Model
 		$this->db->select('`account`');
 		$this->db->from('account');
 		$this->db->where('account',$account);
+		$this->db->where('isdelete',0);
 		$data = $this->db->get();
 		
 		

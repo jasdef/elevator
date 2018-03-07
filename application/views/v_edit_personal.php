@@ -18,8 +18,7 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/Personal/personal_home")?>">員工管理</a> <span class="divider">/</span></li>
-						<li class="active">編輯員工</li>
+                        <?=$this->data['breadcrumb_trail']?>
 					</ul>
 
 				<div class="container-fluid">
@@ -31,28 +30,28 @@
 							</div>
 							<div class="well">			
 								<label>人員編號</label>
-								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" style=width:200px>
+								<input type="text" name = "Id" value="<?php print($this->data['getpersonalByID']['id']);?>" readonly="readonly" style=width:200px>
 								
 								<label>帳號</label>
-								<input type="text" name = "account" value="<?php print($this->data['account']);?>"  readonly="readonly" style=width:200px>
+								<input type="text" name = "account" value="<?php print($this->data['getpersonalByID']['account']);?>"  readonly="readonly" style=width:200px>
 																
 								<label>密碼</label>
-								<input type="password" name = "password" value="<?php print($this->data['password']);?>" style=width:200px>
+								<input type="password" name = "password" value="" placeholder="**********" style=width:200px>
 								
 								<label>姓名</label>
-								<input type="text" name = "name" value="<?php print($this->data['name']);?>" style=width:200px>
+								<input type="text" name = "name" value="<?php print($this->data['getpersonalByID']['name']);?>" style=width:200px>
 
 								<label>權限</label><?//  後端判斷的值 傳送到前段data[1],data[2],data[3] ?>
 								<select name="permission" style=width:215px>
-								<option value="1" <?php if ($this->data['permission'] == 1)echo "selected=\"selected\"";?>>系統管理員</option>
-								<option value="2" <?php if ($this->data['permission'] == 2)echo "selected=\"selected\"";?>>會計</option>
-								<option value="3" <?php if ($this->data['permission'] == 3)echo "selected=\"selected\"";?>>員工</option>
+								<option value="1" <?php if ($this->data['getpersonalByID']['permission'] == 1)echo "selected=\"selected\"";?>>系統管理員</option>
+								<option value="2" <?php if ($this->data['getpersonalByID']['permission'] == 2)echo "selected=\"selected\"";?>>會計</option>
+								<option value="3" <?php if ($this->data['getpersonalByID']['permission'] == 3)echo "selected=\"selected\"";?>>員工</option>
 								</select>
 							
 								<label>狀態</label>
 								<select name="status" style=width:215px><?//  後端判斷的值 傳送到前段data[4],data[5] ?>
-								<option value="0" <?php if ($this->data['status'] == 0)echo "selected=\"selected\"";?>>未鎖定</option>
-								<option value="1" <?php if ($this->data['status'] == 1)echo "selected=\"selected\"";?>>鎖定</option>
+								<option value="0" <?php if ($this->data['getpersonalByID']['status'] == 0)echo "selected=\"selected\"";?>>未鎖定</option>
+								<option value="1" <?php if ($this->data['getpersonalByID']['status'] == 1)echo "selected=\"selected\"";?>>鎖定</option>
 								</select>
 								
 							</div>
@@ -70,7 +69,22 @@
 								<button class="btn btn-danger" data-dismiss="modal">Delete</button>
 							</div>
 						</div>
-						
+
+                        <?php if (isset($errorMessage) || isset($this->data['errorMessage'])) { ?>
+                            <div class="alert alert-error">
+
+                                <?
+                                    if(isset($errorMessage)){
+                                        echo $errorMessage;
+                                    }
+                                    elseif(isset($this->data['errorMessage'])) {
+                                        echo $this->data['errorMessage'];
+                                    }
+
+                                ?>
+                            </div>
+                        <?php } ?>
+
 						<footer>
 							<hr>
 							<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
