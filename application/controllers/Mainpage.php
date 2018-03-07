@@ -56,18 +56,25 @@ class Mainpage extends CI_Controller {
 			}
 			
 			$temp = $warranty_model->getwarranty();
+			$result_array = array();
+			$index = 0;
 			
 			if ($temp != 0) 
 			{
 				foreach ($temp as $row) 
 				{
+					$need_times = $row->free_maintenance * 12;
 					
-					
-					
+					if ($need_times > $row->warranty_times) 
+					{
+						$result_array[$index] = $row;		
+						$row->need_times = $need_times;
+					}										
 				}
+				
+				$this->data['warranty'] = $result_array;
 			}
-			
-			
+						
 			
 			$this->load->view('mainpage', $this->data);  
 		}

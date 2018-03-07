@@ -141,61 +141,51 @@
                 <a href="#" class="demo-cancel-click" rel="tooltip" title="Click to refresh"><i class="icon-refresh"></i></a>
             </span>
 
-            <a href="#widget2container" data-toggle="collapse">本月保養名單</a>
+            <a href="#widget2container" data-toggle="collapse">本月保固保養名單</a>
         </div>
         <div id="widget2container" class="block-body collapse in">
             <table class="table list">
-              <tbody>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Mark Otto</p>
-                      </td>
-                      <td>
-                          <p>Amount: $1,247</p>
-                      </td>
-                      <td>
-                          <p>Date: 7/19/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Audrey Ann</p>
-                      </td>
-                      <td>
-                          <p>Amount: $2,793</p>
-                      </td>
-                      <td>
-                          <p>Date: 7/12/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Mark Tompson</p>
-                      </td>
-                      <td>
-                          <p>Amount: $2,349</p>
-                      </td>
-                      <td>
-                          <p>Date: 3/10/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <p><i class="icon-user"></i> Ashley Jacobs</p>
-                      </td>
-                      <td>
-                          <p>Amount: $1,192</p>
-                      </td>
-                      <td>
-                          <p>Date: 1/19/2012</p>
-                          <a href="#">View Transaction</a>
-                      </td>
-                  </tr>
-                    
-              </tbody>
+				<thead>
+					<tr>
+						<th><a href="#">#</a></th>												
+						<th><a href="#">客戶名稱</a></th>
+						<th><a href="#">保固年限</a></th>
+						<th><a href="#">開始日期</a></th>
+						<th><a href="#">需做總數</a></th>
+						<th><a href="#">剩餘次數</a></th>
+						<th class="sorttable_nosort">檢視</th>
+						<th class="sorttable_nosort">編輯</th>
+						<th class="sorttable_nosort">派遣</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
+					if(count($this->data) != 0 )
+					{
+
+						for($j = 0; $j < count($this->data['warranty']); $j++)
+						{
+?>							
+						<tr>
+							<td><?=$this->data['warranty'][$j]->id;?></td>
+							<td><?=$this->data['warranty'][$j]->customer;?></td>
+							<td><?=$this->data['warranty'][$j]->free_maintenance;?></td>
+							<td><?=$this->data['warranty'][$j]->effective_date;?></td>
+							<td><?=$this->data['warranty'][$j]->need_times;?></td>
+							<td><?=$this->data['warranty'][$j]->warranty_times;?></td>
+							<td>
+								<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+							</td>
+							<td>
+								<a href="<?=base_url("/Warranty/edit_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+							</td>
+						</tr>
+
+<?php				
+						}
+					}
+?>
+				</tbody>
             </table>
         </div>
     </div>
