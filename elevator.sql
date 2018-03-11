@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50713
+Source Server Version : 100119
 Source Host           : 127.0.0.1:3306
 Source Database       : elevator
 
 Target Server Type    : MYSQL
-Target Server Version : 50713
+Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-03-07 09:58:03
+Date: 2018-03-11 20:01:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `account` (
   `menuidarray` text,
   `isdelete` tinyint(2) NOT NULL DEFAULT '0' COMMENT '邏輯刪除用戶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of account
@@ -132,7 +132,7 @@ CREATE TABLE `form_action_log` (
   `table_type` int(20) DEFAULT NULL,
   `table_id` int(255) DEFAULT NULL,
   `dispatcher` int(255) DEFAULT NULL,
-  `principle` int(255) DEFAULT NULL,
+  `staff` int(255) DEFAULT NULL,
   `dispatch_date` varchar(255) DEFAULT NULL,
   `finish_date` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -255,17 +255,20 @@ CREATE TABLE `transaction_form` (
   `item_status6` int(1) DEFAULT NULL,
   `customer_id` int(255) DEFAULT NULL,
   `elevator_num` int(20) DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `is_duty` int(1) DEFAULT NULL,
+  `is_receipt` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of transaction_form
 -- ----------------------------
-INSERT INTO `transaction_form` VALUES ('34', '力大房屋', '250000', '2017-10-01', null, null, null, '訂金', '貨到', '驗收', null, null, null, '10', '10', '10', null, null, null, '1', '5', '1', null, null, null, '10', '5');
-INSERT INTO `transaction_form` VALUES ('35', '1', '5000000', '2017-10-30', null, null, null, '貨到', null, null, null, null, null, '100', null, null, null, null, null, '5', null, null, null, null, null, '11', '1');
-INSERT INTO `transaction_form` VALUES ('36', '利通', '200000', '2017-10-17', null, '2', null, '訂金', '貨到', null, null, null, null, '20', '10', null, null, null, null, '5', '1', null, null, null, null, '11', '5');
-INSERT INTO `transaction_form` VALUES ('46', '測試表單', '150000', '2018-01-06', null, null, null, '訂金', '裝修', null, null, null, null, '10', '90', null, null, null, null, '5', '5', null, null, null, null, '11', '2');
-INSERT INTO `transaction_form` VALUES ('47', '林政揚豪宅', '2500000', '2018-01-06', null, null, null, '訂金', '貨到', '安裝完成', '驗收', null, null, '30', '50', '10', '10', null, null, '5', '5', '5', '5', null, null, '11', '3');
+INSERT INTO `transaction_form` VALUES ('34', '力大房屋', '250000', '2017-10-01', null, null, null, '訂金', '貨到', '驗收', null, null, null, '10', '10', '10', null, null, null, '1', '5', '1', null, null, null, '10', '5', null, null, null);
+INSERT INTO `transaction_form` VALUES ('35', '1', '5000000', '2017-10-30', null, null, null, '貨到', null, null, null, null, null, '100', null, null, null, null, null, '5', null, null, null, null, null, '11', '1', null, null, null);
+INSERT INTO `transaction_form` VALUES ('36', '利通', '200000', '2017-10-17', null, '2', null, '訂金', '貨到', null, null, null, null, '20', '10', null, null, null, null, '5', '1', null, null, null, null, '11', '5', null, null, null);
+INSERT INTO `transaction_form` VALUES ('46', '測試表單', '150000', '2018-01-06', null, null, null, '訂金', '裝修', null, null, null, null, '10', '90', null, null, null, null, '5', '5', null, null, null, null, '11', '2', null, null, null);
+INSERT INTO `transaction_form` VALUES ('47', '林政揚豪宅', '2500000', '2018-01-06', null, null, null, '訂金', '貨到', '安裝完成', '驗收', null, null, '30', '50', '10', '10', null, null, '5', '5', '5', '5', null, null, '11', '3', null, null, null);
 
 -- ----------------------------
 -- Table structure for usermenu
@@ -348,3 +351,4 @@ INSERT INTO `warranty` VALUES ('25', null, null, null, null, '0', null, null, nu
 INSERT INTO `warranty` VALUES ('26', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
 INSERT INTO `warranty` VALUES ('27', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
 INSERT INTO `warranty` VALUES ('28', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
+SET FOREIGN_KEY_CHECKS=1;
