@@ -51,8 +51,8 @@
 										</thead>
 										<tbody>
 
-                                        <? if (count($this->data['list']) != 0): ?>
-                                            <? foreach ($this->data['list'] as $v): ?>
+                                        <?php if (count($this->data['list']) != 0): ?>
+                                            <?php foreach ($this->data['list'] as $v): ?>
                                                 <tr>
                                                     <td><?=$v['id'];?></td>
                                                     <td><?=$v['account'];?></td>
@@ -63,8 +63,8 @@
 <!--                                                    <td><a href="--><?//=base_url("/personal/delete_personal")?><!--/personal_id/--><?//=$v['id'];?><!--" ><i class="icon-remove"></i></td>-->
                                                     <td><a href="javascript: void(0)" onclick="ondeleteqwe('<?=$v['id'];?>','<?=$v['name'];?>')"><i class="icon-remove"></i></a></td>
                                                 </tr>
-                                            <? endforeach; ?>
-                                        <? endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
 
 										</tbody>
 									</table>
