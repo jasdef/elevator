@@ -7,11 +7,13 @@ class Form extends CI_Controller {
 	{
 		parent::__construct();
 		session_start();
+        $this->load->model('public_tools'); //常用工具
 		$this->load->model('Form_model');
 		$this->load->model('Elevator_model');
 		$this->load->model('Customer_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
+        $this->load->library('pagination');
 		
 		
         $this->load->helper(array('form', 'url'));//
@@ -387,10 +389,24 @@ class Form extends CI_Controller {
 			}
 
 		}
+
+		//保固頁標籤
+        $toPage = $this->input->get('per_page');
+        $perPageRows = 10;
+        $iResult = $form_model->getWarrantyList($id,$toPage,$perPageRows);
+
+        $this->data['warranty_list'] = $iResult['results'];
+
+        $this->data['total_rows'] = $iResult['affects'];
+        $config['base_url'] = "http://{$_SERVER['HTTP_HOST']}/elevator/personal/personal_list";
+        $config['total_rows'] = $this->data['total_rows'];
+        $config['per_page'] = $perPageRows;
+        $this->pagination->initialize($config);
 		
 		$this->data['item_count']=$count;
 		$this->data['customer'] = $customer_model->getCustomerByID($customer_id);		
-		$this->load->view('v_view_transaction', $this->data);			
+//		$this->load->view('v_view_transaction', $this->data);
+		$this->load->view('v_view_transaction_bk', $this->data);
 	}
 		
 	public function edit_transaction_model() 

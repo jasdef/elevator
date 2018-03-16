@@ -224,5 +224,26 @@ class Form_model extends CI_Model
 		}
 		return 0;
 		
-	}		
+	}
+
+	public function getWarrantyList($iWarranty=0,$toPage,$toRows){
+
+	    if($iWarranty==0){
+	        return false;
+        }
+
+        $public_tools = new public_tools();
+        $toPage = is_null($toPage)?1:$toPage;
+        $toPage = ($toPage-1)<0?0:($toPage-1)*$toRows;
+
+        $sSql = "select * from warranty where transaction_id={$iWarranty} limit $toPage,$toRows";
+        $query = $this->db->query($sSql);
+
+        $data['results'] = $query->result_array();
+        $data['affects'] = $public_tools->get_total('warranty',array('transaction_id'=>$iWarranty));
+
+        return $data;
+    }
+
+
 }

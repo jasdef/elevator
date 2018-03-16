@@ -31,10 +31,16 @@ class Public_tools extends CI_Model
      * @param string $sTable
      * @return int
      */
-    public function get_total($sTable='')
+    public function get_total($sTable='',$sWhere=array())
     {
         if($sTable=='') return 0;
         $this->db->from($sTable);
+        if(!empty($sWhere)) {
+            foreach ($sWhere as $k=>$v){
+                $this->db->where($k,$v);
+            }
+        }
+
         return $this->db->count_all_results();
     }
 
