@@ -160,7 +160,7 @@
 				</thead>
 				<tbody>
 <?php
-					if(count($this->data) != 0 )
+					if(count($this->data) != 0 && count($this->data['warranty']) != 0 )
 					{
 
 						for($j = 0; $j < count($this->data['warranty']); $j++)

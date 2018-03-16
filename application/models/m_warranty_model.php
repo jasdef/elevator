@@ -86,6 +86,29 @@ class m_warranty_model extends CI_Model
 		return 0;
 	}
 	
+	public function getRemindWarranty()
+	{
+		$this->db->select('*');
+		$this->db->from('warranty');
+		$this->db->where('is_remind', 1);
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			foreach ($result->result() as $row)
+			{
+				$warranty_data = array();
+				foreach ($row as $k => $v)
+				{
+					$warranty_data[$k] = $v;
+					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+				}	
+			}
+			return $warranty_data;
+		}
+		return 0;
+	}
+		
 	public function getwarranty() 
 	{
 		$this->db->select('*');

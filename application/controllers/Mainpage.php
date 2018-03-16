@@ -62,7 +62,7 @@ class Mainpage extends CI_Controller {
 				$this->data['transaction'] = $temp_array;
 			}
 			
-			$temp = $warranty_model->getwarranty();
+			$temp = $warranty_model->getRemindWarranty();
 			$result_array = array();
 			$index = 0;
 			
@@ -79,10 +79,11 @@ class Mainpage extends CI_Controller {
 					}										
 				}
 				
-				$this->data['warranty'] = $result_array;
+				
 			}
-						
 			
+			$this->data['warranty'] = $result_array;
+
 			$this->load->view('mainpage', $this->data);  
 		}
 		else {

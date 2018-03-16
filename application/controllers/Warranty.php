@@ -418,6 +418,7 @@ class Warranty extends CI_Controller {
 		$data->fax_2 = $fax_2;
 		$data->fax_3 = $fax_3;;
 		$data->num = $num;
+		$data->is_remind = 1;//開始檢查提醒		
 		$data->transaction_id = $transaction_id;
 		$warranty_model->insertwarranty($data);
 		redirect(base_url("/warranty/warranty_home"));	
