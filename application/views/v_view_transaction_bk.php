@@ -4,6 +4,14 @@
 			include "head.php";
 		?>
 		<body>
+            <script>
+                function ondeleteqwe(id,text,transaction_id){
+                    if(confirm("確認刪除 ["+text+"] "))
+                    {
+                        document.location.href="<?=base_url("/form/delete_imgadd")?>?id="+id+"&transaction_id="+transaction_id;
+                    }
+                }
+            </script>
 			<script type='text/javascript'>
 
 			function addOption(list, text, value, selectIndex)
@@ -74,7 +82,7 @@
 
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#view_transaction" data-toggle="tab">資料檢視</a></li>
-                    <li><a href="#view_warranty" data-toggle="tab">保固單</a></li>
+                    <li><a href="#view_transaction_img" data-toggle="tab">照片檢視</a></li>
                 </ul>
 
 
@@ -360,44 +368,19 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="view_warranty">
-                                <div class="well">
-                                    <table class="table sortable">
-                                        <thead>
-                                        <tr>
-                                            <th><a href="#">保固單編號</a></th>
-                                            <th><a href="#">客戶名稱</a></th>
-                                            <th><a href="#">聯絡人</a></th>
-                                            <th><a href="#">地址</a></th>
-                                            <th><a href="#">電話</a></th>
-                                            <th class="sorttable_nosort">檢視</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php if (count($this->data['warranty_list']) != 0): ?>
-                                            <?php foreach ($this->data['warranty_list'] as $v): ?>
-                                                <tr>
-                                                    <td><?=$v['id'];?></td>
-                                                    <td><?=$v['customer'];?></td>
-                                                    <td><?=$v['contacter_1'];?></td>
-                                                    <td><?=$v['address'];?></td>
-                                                    <td><?=$v['tel_1'];?></td>
-                                                    <td><?=$v['address'];?></td>
-                                                    <td><a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$v['id'];?>" ><i class="icon-eye-open"></i></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr><td colspan="7" >目前暫無資料</td></tr>
-                                        <?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
 
-                                <div class="pagination">
-                                    <?=$this->pagination->create_links();?>
-                                    <ul>
-                                        <li><a href="">總筆數: <?=$this->data['total_rows'];?></a></li>
-                                    </ul>
+                            <div class="tab-pane fade" id="view_transaction_img">
+                                <div class="well">
+                                    <?php if(!empty($this->data['imgdata'])): ?>
+
+                                        <?php foreach ($this->data['imgdata'] as $v): ?>
+                                             <img src="<?=base_url("/uploads/{$v['type']}/{$v['imgadd']}")?>" class="img-polaroid">
+                                            <div class="image-data">
+                                                <a href="javascript: void(0)" onclick="ondeleteqwe('<?=$v['id'];?>','<?=$v['imgadd'];?>','<?=$this->data['id']?>')"><span class="title"><?=$v['imgadd']?> <i class="icon-remove"></i></span></a>
+                                            </div>
+                                        <?php endforeach;?>
+
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

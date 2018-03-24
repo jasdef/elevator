@@ -143,6 +143,24 @@ CREATE TABLE `form_action_log` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for imgaddress
+-- ----------------------------
+DROP TABLE IF EXISTS `imgaddress`;
+CREATE TABLE `imgaddress` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) DEFAULT NULL COMMENT '表單歸類項目',
+  `typeid` int(10) DEFAULT NULL COMMENT '表單歸類項目id',
+  `imgadd` varchar(255) DEFAULT NULL COMMENT '圖檔位置',
+  `writedate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '寫入時間戳記',
+  `isdelete` tinyint(2) DEFAULT '0' COMMENT '邏輯刪除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of imgaddress
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for photo
 -- ----------------------------
 DROP TABLE IF EXISTS `photo`;

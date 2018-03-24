@@ -90,7 +90,7 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="fomr1" action="<?=site_url("/form/edit_transaction_model")?>" method="post">
+						<form id="tab" name="fomr1" action="<?=site_url("/form/edit_transaction_model")?>" method="post" enctype="multipart/form-data">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">取消</button>
@@ -257,6 +257,12 @@
 								<input type="text" id="Left_money" name="Left_money" value="0" style=width:200px>
 								</th>
 								</tr>
+                                    <tr>
+                                        <th>
+                                            上傳圖片<br>
+                                            <input type="file" name="userfile" size="20" />
+                                        </th>
+                                    </tr>
 								</table>
 							</div>
 						</form>

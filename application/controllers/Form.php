@@ -419,24 +419,31 @@ class Form extends CI_Controller {
 
 		}
 
-		//保固頁標籤
-        $toPage = $this->input->get('per_page');
-        $perPageRows = 10;
-        $iResult = $form_model->getWarrantyList($id,$toPage,$perPageRows);
+		//圖片檢視
+        $public_tools = new public_tools();
+		$imgdata = $public_tools->getimgview(array('type'=>'transaction','typeid'=>$id));
 
-        $this->data['warranty_list'] = $iResult['results'];
+		unset($this->data['item_count']);
+		unset($this->data['customer']);
+		unset($this->data['imgdata']);
 
-        $this->data['total_rows'] = $iResult['affects'];
-        $config['base_url'] = "http://{$_SERVER['HTTP_HOST']}/elevator/personal/personal_list";
-        $config['total_rows'] = $this->data['total_rows'];
-        $config['per_page'] = $perPageRows;
-        $this->pagination->initialize($config);
-		
 		$this->data['item_count']=$count;
 		$this->data['customer'] = $customer_model->getCustomerByID($customer_id);		
+		$this->data['imgdata'] = $imgdata;
 //		$this->load->view('v_view_transaction', $this->data);
 		$this->load->view('v_view_transaction_bk', $this->data);
 	}
+
+	public function delete_imgadd(){
+
+        $transaction_id = $this->input->get('transaction_id');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+
+        $d['isdelete'] = 1;
+        $this->db->update('imgaddress',$d);
+        redirect(base_url("/Form/view_transaction_view/transaction_id/{$transaction_id}"));
+    }
 		
 	public function edit_transaction_model() 
 	{
@@ -482,6 +489,10 @@ class Form extends CI_Controller {
 		
 		
 		$form_model->updateTransaction($data);
+
+        $public_tools = new public_tools();
+        $public_tools->upload_tools(array('table'=>'transaction','id'=>$id,'file_name'=>'transaction','upload_path'=>'transaction'));
+
 		redirect(base_url("/form/transaction_home"));
 		
 	}
