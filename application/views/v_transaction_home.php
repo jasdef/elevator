@@ -35,7 +35,7 @@
 									}
 								</style>
 						<form action="<?=base_url("/Form/transaction_home")?>" method="get">
-							<input text="text" name = "Search" value="" class="input-xlarge"	>
+							<input text="text" name = "Search" value="" class="input-xlarge" placeholder="表單名稱">
 							<button class="btn btn-primary">搜尋</button>
 						</form>
 
@@ -70,7 +70,7 @@
 					?>							
 												<tr>
 													<td><?=$this->data[$j]->id;?></td>
-													<td><?=$this->data[$j]->name;?></td>
+													<td><a href="<?=base_url("/Form/transaction_home")?>?transaction_id=<?=$this->data[$j]->id;?>" ><?=$this->data[$j]->name;?></td>
 													<td><?=$this->data[$j]->status;?></td>
 													<td><?=$this->data[$j]->start_date;?></td>
 													<td><?=number_format($this->data[$j]->total_price,0,'.',',');?></td>

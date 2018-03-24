@@ -123,6 +123,59 @@ class Form_model extends CI_Model
 		return 0;
 		
 	}
+
+
+	public function getRowTransactiondata($iTransactionId){
+	    if(!$iTransactionId) return false;
+
+        $sSql = "select * from transaction_form where id={$iTransactionId} limit 1";
+        $query = $this->db->query($sSql);
+
+        $data = $query->row_array();
+
+        $data['status'] = 1;
+        for ($i = 1; $i <= 6; $i++) {
+
+            if ($data['item'.$i] != 0 && $data['item_status'.$i] != 5) {
+                $data['status'] = 2;
+            }
+        }
+
+        return $data;
+    }
+
+    public function getWarrantyldatalist($iTransactionId){
+        if(!$iTransactionId) return false;
+
+        $sSql = "select * from warranty where transaction_id={$iTransactionId}";
+        $query = $this->db->query($sSql);
+
+        $data = $query->result_array();
+
+        return $data;
+    }
+
+    public function getRowWarrantyldata($iWarrantyId){
+        if(!$iWarrantyId) return false;
+
+        $sSql = "select * from warranty where id={$iWarrantyId} limit 1";
+        $query = $this->db->query($sSql);
+
+        $data = $query->row_array();
+
+        return $data;
+    }
+
+    public function getServicedatalist($iWarrantyId){
+        if(!$iWarrantyId) return false;
+
+        $sSql = "select * from service where warranty_id={$iWarrantyId}";
+        $query = $this->db->query($sSql);
+
+        $data = $query->result_array();
+
+        return $data;
+    }
 	
 	public function getTransactionByID($id) 
 	{
