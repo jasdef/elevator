@@ -8,7 +8,7 @@ class m_service_model extends CI_Model
 		parent::__construct();
 		$this->load->database();	
 		$this->load->library('Datamodel');
-		
+		$this->load->model('m_warranty_model');
 	}
 	
 	public function deleteservice($id) 
@@ -25,6 +25,7 @@ class m_service_model extends CI_Model
 		$this->db->set('mechanical_warranty',$data->mechanical_warranty);
 		$this->db->set('license',$data->license);
 		$this->db->set('license_day',$data->license_day);
+		$this->db->set('do_times',$data->do_times);
 		$this->db->set('Total_price',$data->Total_price);
 		for ($i = 0; $i < 6; $i++) 
 		{
@@ -48,7 +49,11 @@ class m_service_model extends CI_Model
 		$d['license'] = $data->license;
 		$d['license_day'] = $data->license_day;
 		$d['Total_price'] = $data->Total_price;
-		for ($i = 0; $i < 6; $i++) 
+		$d['is_remind'] = $data->is_remind;
+		$d['do_times'] = $data->do_times;
+		$d['service_times'] = $data->service_times;
+
+		for ($i = 0; $i < count($data->payment_date); $i++) 
 		{
 			$d['payment_date'.($i+1)] = $data->payment_date[$i];
 			$d['payment_amount'.($i+1)] = $data->payment_amount[$i];
@@ -133,6 +138,77 @@ class m_service_model extends CI_Model
 		return 0;
 		
 	}
+	
+	public function getRemindService() 
+	{
+		$w_model = new m_warranty_model();
+		$this->checkRemind();
+		$this->db->select('*');
+		$this->db->from('service');
+		$this->db->where('is_remind', 1);
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$service_data[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					
+					if ($k == "warranty_id") 
+					{
+						$temp = $w_model->getwarrantyByID($v);
+						if ($temp != 0) 
+						{
+						
+							$service_data[$idx]->customer = $temp['customer'];							
+						}
+						
+					}
+					$service_data[$idx]->$k = $v;
+				}
+				$idx++;
+			}			
+				
+								
+			return $service_data;
+		}
+		return 0;
+		
+	}
+	
+	private function checkRemind()//檢查是否有需要提醒的單號  
+	{
+		$this->db->select('*');
+		$this->db->from('service');
+		$this->db->where('is_remind', 0);//0代表從來沒有提醒過 所以要檢查日期是否到了該提醒
+		$result = $this->db->get();
+		$nowDate = getdate();
+		if ($result->num_rows() > 0)
+		{
+			
+			foreach ($result->result() as $row)
+			{
+				$sratDate = $row->signing_day;
+				
+				$temp = mb_split("/",$sratDate);
+				
+				if ($nowDate['year'] == $temp[0])
+				{
+					if ($nowDate['mon'] == $temp[1]) 
+					{
+						$row->is_remind = 1;
+						$this->updateservice($row);
+						
+					}
+				}
+			}
+		}
+		
+	}
+	
 
 /*
 	public function getserviceBySearch($value) 
