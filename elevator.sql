@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-03-25 14:29:50
+Date: 2018-03-25 15:02:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -226,20 +226,23 @@ CREATE TABLE `service` (
   `item_status6` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `warranty_id` int(255) DEFAULT NULL,
+  `is_signing` int(1) DEFAULT NULL,
+  `is_remind` int(1) DEFAULT NULL,
+  `service_times` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service
 -- ----------------------------
-INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '27');
-INSERT INTO `service` VALUES ('5', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '23');
-INSERT INTO `service` VALUES ('6', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3');
-INSERT INTO `service` VALUES ('7', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3');
-INSERT INTO `service` VALUES ('8', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3');
-INSERT INTO `service` VALUES ('9', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '24');
-INSERT INTO `service` VALUES ('10', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3');
-INSERT INTO `service` VALUES ('11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '28');
+INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '27', null, null, null);
+INSERT INTO `service` VALUES ('5', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '23', null, null, null);
+INSERT INTO `service` VALUES ('6', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
+INSERT INTO `service` VALUES ('7', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
+INSERT INTO `service` VALUES ('8', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
+INSERT INTO `service` VALUES ('9', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '24', null, null, null);
+INSERT INTO `service` VALUES ('10', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
+INSERT INTO `service` VALUES ('11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '28', null, null, null);
 
 -- ----------------------------
 -- Table structure for transaction_form
