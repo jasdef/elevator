@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-03-25 15:02:24
+Date: 2018-03-25 19:28:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -226,23 +226,24 @@ CREATE TABLE `service` (
   `item_status6` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `warranty_id` int(255) DEFAULT NULL,
-  `is_signing` int(1) DEFAULT NULL,
-  `is_remind` int(1) DEFAULT NULL,
-  `service_times` int(10) DEFAULT NULL,
+  `is_signing` int(1) DEFAULT '0',
+  `is_remind` int(1) DEFAULT '0',
+  `service_times` int(10) DEFAULT '0',
+  `do_times` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service
 -- ----------------------------
-INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '27', null, null, null);
-INSERT INTO `service` VALUES ('5', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '23', null, null, null);
-INSERT INTO `service` VALUES ('6', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
-INSERT INTO `service` VALUES ('7', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
-INSERT INTO `service` VALUES ('8', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
-INSERT INTO `service` VALUES ('9', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '24', null, null, null);
-INSERT INTO `service` VALUES ('10', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null);
-INSERT INTO `service` VALUES ('11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '28', null, null, null);
+INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '27', null, null, null, null);
+INSERT INTO `service` VALUES ('5', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '23', null, null, null, null);
+INSERT INTO `service` VALUES ('6', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null, null);
+INSERT INTO `service` VALUES ('7', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null, null);
+INSERT INTO `service` VALUES ('8', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null, null);
+INSERT INTO `service` VALUES ('9', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '24', null, null, null, null);
+INSERT INTO `service` VALUES ('10', '2018/02/22', null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '3', null, null, null, null);
+INSERT INTO `service` VALUES ('11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '28', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for transaction_form
@@ -254,7 +255,7 @@ CREATE TABLE `transaction_form` (
   `total_price` int(20) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `is_return` int(1) DEFAULT NULL,
-  `remind_month` int(1) DEFAULT NULL,
+  `is_signing` int(1) DEFAULT NULL,
   `receipt_status` int(1) DEFAULT NULL,
   `item_name1` varchar(255) CHARACTER SET utf8 DEFAULT '',
   `item_name2` varchar(255) CHARACTER SET utf8 DEFAULT '',
@@ -277,8 +278,8 @@ CREATE TABLE `transaction_form` (
   `customer_id` int(255) DEFAULT NULL,
   `elevator_num` int(20) DEFAULT NULL,
   `remark` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `is_duty` int(1) DEFAULT NULL,
-  `is_receipt` int(1) DEFAULT NULL,
+  `is_duty` int(1) DEFAULT '0',
+  `is_receipt` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
@@ -359,8 +360,8 @@ CREATE TABLE `warranty` (
   `fax_3` varchar(255) DEFAULT NULL,
   `num` varchar(255) DEFAULT NULL,
   `transaction_id` int(255) DEFAULT NULL,
-  `is_signing` int(1) DEFAULT NULL,
-  `is_remind` int(1) DEFAULT NULL,
+  `is_signing` int(1) DEFAULT '0',
+  `is_remind` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
