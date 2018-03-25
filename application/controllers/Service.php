@@ -245,7 +245,8 @@ class Service extends CI_Controller {
 		$license = $this->input->post("license");
 		$license_day = $this->input->post("license_day");
 		$Total_price = $this->input->post("Total_price");
-
+		$do_times = $this->input->post("do_times");
+		$is_remind = $this->input->post("is_remind");
 		for ($i = 0; $i < 6; $i++)
 		{	
 			$payment_date[$i] = $this->input->post("payment_date".($i+1)) == Null ? "" : $this->input->post("payment_date".($i+1));
@@ -267,7 +268,8 @@ class Service extends CI_Controller {
 		$data->item_status = $item_status;
 		$data->remark = $remark;
 		$data->warranty_id = $warranty_id;
-		
+		$data->do_times = $do_times;
+		$data->is_remind = $is_remind;
 		$service_model->updateservice($data);
 		redirect(base_url("/service/service_home"));
 	}
@@ -315,7 +317,7 @@ class Service extends CI_Controller {
 		$license = $this->input->post("license");
 		$license_day = $this->input->post("license_day");
 		$Total_price = $this->input->post("Total_price");
-
+		$do_times = $this->input->post("do_times");
 		for ($i = 0; $i < 6; $i++)
 		{	
 			$payment_date[$i] = $this->input->post("payment_date".($i+1)) == Null ? "" : $this->input->post("payment_date".($i+1));
@@ -336,7 +338,7 @@ class Service extends CI_Controller {
 		$data->item_status = $item_status;
 		$data->remark = $remark;
 		$data->warranty_id = $warranty_id;
-		
+		$data->do_times = $do_times;
 		$service_model->insertservice($data);
 		redirect(base_url("/service/service_home"));	
 	}

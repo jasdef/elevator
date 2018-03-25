@@ -52,7 +52,7 @@
 								
 								<label>買賣單編號</label>
 								<input type="text" name = "transaction_id" value="<?php print($this->data['transaction_id']);?>" class="input-xlarge">
-							
+								<p hidden="hidden"><input type="text" name = "is_remind" value="<?php print($this->data['is_remind']);?>" ></p>
 								<label>保固單編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
 								

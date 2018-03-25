@@ -187,6 +187,10 @@
 											保固單編號<br>
 											<input type="text" name = "warranty_id" value="<?php print($this->data['warranty_id']);?>" style=width:200px>
 										</th>
+										<th hidden="hidden">
+										
+											<input type="text" name = "is_remind" value="<?php print($this->data['is_remind']);?>" >
+										</th>
 									</tr>
 									<tr>	
 										<th>
@@ -213,7 +217,17 @@
 												<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇月保養</option>
 												<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>每月保養</option>
 												<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
-												<option value = 3 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>季保養</option>
+												<option value = 3 <?php if ($this->data['service_month'] == 3)echo "selected=\"selected\"";?>>季保養</option>
+											</select>
+										</th>
+									</tr>
+									<tr>	
+										<th>
+										保養次數<br>
+											<select  name="do_times" style=width:215px onChange="calculate(this)">
+												<option value = 0 <?php if ($this->data['do_times'] == 0)echo "selected=\"selected\"";?>>請選擇保養次數</option>
+												<option value = 1 <?php if ($this->data['do_times'] == 1)echo "selected=\"selected\"";?>>1次</option>
+												<option value = 2 <?php if ($this->data['do_times'] == 2)echo "selected=\"selected\"";?>>2次</option>
 											</select>
 										</th>
 									</tr>

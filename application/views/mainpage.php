@@ -177,7 +177,7 @@
 								<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
 							</td>
 							<td>
-								<a href="<?=base_url("/Warranty/edit_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+								<a href="<?=base_url("/Warranty/edit_warranty")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-pencil"></i></a>
 							</td>
 						</tr>
 
@@ -203,7 +203,7 @@
 					<tr>
 						<th><a href="#">#</a></th>												
 						<th><a href="#">客戶名稱</a></th>
-						<th><a href="#">保固年限</a></th>
+						<th><a href="#">保養年限</a></th>
 						<th><a href="#">開始日期</a></th>
 						<th><a href="#">需做總數</a></th>
 						<th><a href="#">剩餘次數</a></th>
@@ -214,24 +214,24 @@
 				</thead>
 				<tbody>
 <?php
-					if(count($this->data) != 0 && count($this->data['warranty']) != 0 )
+					if(count($this->data) != 0 && count($this->data['service']) != 0 )
 					{
 
-						for($j = 0; $j < count($this->data['warranty']); $j++)
+						for($j = 0; $j < count($this->data['service']); $j++)
 						{
 ?>							
 						<tr>
-							<td><?=$this->data['warranty'][$j]->id;?></td>
-							<td><?=$this->data['warranty'][$j]->customer;?></td>
-							<td><?=$this->data['warranty'][$j]->free_maintenance;?></td>
-							<td><?=$this->data['warranty'][$j]->effective_date;?></td>
-							<td><?=$this->data['warranty'][$j]->need_times;?></td>
-							<td><?=$this->data['warranty'][$j]->warranty_times;?></td>
+							<td><?=$this->data['service'][$j]->id;?></td>
+							<td><?=$this->data['service'][$j]->customer;?></td>
+							<td><?=$this->data['service'][$j]->mechanical_warranty;?></td>
+							<td><?=$this->data['service'][$j]->signing_day;?></td>
+							<td><?=$this->data['service'][$j]->need_times;?></td>
+							<td><?=$this->data['service'][$j]->service_times;?></td>
 							<td>
-								<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+								<a href="<?=base_url("/service/view_service_view")?>/service_id/<?=$this->data['service'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
 							</td>
 							<td>
-								<a href="<?=base_url("/Warranty/edit_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+								<a href="<?=base_url("/service/edit_service")?>/service_id/<?=$this->data['service'][$j]->id;?>" ><i class="icon-pencil"></i></a>
 							</td>
 						</tr>
 

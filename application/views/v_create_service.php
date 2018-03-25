@@ -139,15 +139,25 @@
 								</th>
 								</tr>
 								<tr>	
-								<th>
-								月保養<br>
-									<select id="service_month" name="service_month" style=width:215px >
-										<option value = 0 selected="selected">請選擇月保養</option>
-										<option value = 1 >每月保養</option>
-										<option value = 2>雙月保養</option>
-										<option value = 3>季保養</option>
-									</select>
-								</th>
+									<th>
+									月保養<br>
+										<select id="service_month" name="service_month" style=width:215px >
+											<option value = 0 selected="selected">請選擇月保養</option>
+											<option value = 1 >每月保養</option>
+											<option value = 2>雙月保養</option>
+											<option value = 3>季保養</option>
+										</select>
+									</th>
+								</tr>
+								<tr>	
+									<th>
+									保養次數<br>
+										<select id="do_times" name="do_times" style=width:215px >
+											<option value = 0 selected="selected">請選擇次數</option>
+											<option value = 1 >1次</option>
+											<option value = 2>2次</option>
+										</select>
+									</th>
 								</tr>
 								<tr>	
 								<th>
@@ -159,10 +169,10 @@
 								</th>
 								</tr>
 								<tr>	
-								<th>	
-								許可證到期日(西元yyyy/mm/dd)<br>
-								<input type="text" id="datepicker1" name = "license_day" value="" style=width:200px>								
-								</th>
+									<th>	
+									許可證到期日(西元yyyy/mm/dd)<br>
+									<input type="text" id="datepicker1" name = "license_day" value="" style=width:200px>								
+									</th>
 								</tr>
 								<tr>	
 								<th>

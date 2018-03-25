@@ -80,7 +80,6 @@ class m_warranty_model extends CI_Model
 				foreach ($row as $k => $v)
 				{
 					$warranty_data[$k] = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}	
 			}
 			return $warranty_data;
@@ -104,8 +103,7 @@ class m_warranty_model extends CI_Model
 				$warranty_data[$idx] = new Datamodel();
 				foreach ($row as $k => $v)
 				{
-					$warranty_data[$idx]->$k = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+					$warranty_data[$idx]->$k = $v;				
 				}
 				$idx++;
 			}
