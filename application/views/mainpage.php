@@ -190,24 +190,62 @@
         </div>
     </div>
     <div class="block span6">
-        <p class="block-heading">公告</p>
-        <div class="block-body">
-            <h2>Built with Less</h2>
-            <p>The CSS is built with Less. There is a compiled version included if you prefer plain CSS.</p>
-            <p>Fava bean jícama seakale beetroot courgette shallot amaranth pea garbanzo carrot radicchio peanut leek pea sprouts arugula brussels sprout green bean. Spring onion broccoli chicory shallot winter purslane pumpkin gumbo cabbage squash beet greens lettuce celery. Gram zucchini swiss chard mustard burdock radish brussels sprout groundnut. Asparagus horseradish beet greens broccoli brussels.</p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+        <div class="block-heading">
+            <span class="block-icon pull-right">
+                <a href="#" class="demo-cancel-click" rel="tooltip" title="Click to refresh"><i class="icon-refresh"></i></a>
+            </span>
+
+            <a href="#widget2container" data-toggle="collapse">本月保養合約保養名單</a>
+        </div>
+        <div id="widget2container" class="block-body collapse in">
+            <table class="table list">
+				<thead>
+					<tr>
+						<th><a href="#">#</a></th>												
+						<th><a href="#">客戶名稱</a></th>
+						<th><a href="#">保固年限</a></th>
+						<th><a href="#">開始日期</a></th>
+						<th><a href="#">需做總數</a></th>
+						<th><a href="#">剩餘次數</a></th>
+						<th class="sorttable_nosort">檢視</th>
+						<th class="sorttable_nosort">編輯</th>
+						<th class="sorttable_nosort">派遣</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
+					if(count($this->data) != 0 && count($this->data['warranty']) != 0 )
+					{
+
+						for($j = 0; $j < count($this->data['warranty']); $j++)
+						{
+?>							
+						<tr>
+							<td><?=$this->data['warranty'][$j]->id;?></td>
+							<td><?=$this->data['warranty'][$j]->customer;?></td>
+							<td><?=$this->data['warranty'][$j]->free_maintenance;?></td>
+							<td><?=$this->data['warranty'][$j]->effective_date;?></td>
+							<td><?=$this->data['warranty'][$j]->need_times;?></td>
+							<td><?=$this->data['warranty'][$j]->warranty_times;?></td>
+							<td>
+								<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+							</td>
+							<td>
+								<a href="<?=base_url("/Warranty/edit_warranty_view")?>/warranty_id/<?=$this->data['warranty'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+							</td>
+						</tr>
+
+<?php				
+						}
+					}
+?>
+				</tbody>
+            </table>
         </div>
     </div>
 </div>
                    
-                    <footer>
-                        <hr>
 
-                        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                        <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-
-                        <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-                    </footer>
                     
             </div>
         </div>

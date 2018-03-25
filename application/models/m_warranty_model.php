@@ -35,6 +35,7 @@ class m_warranty_model extends CI_Model
 		$this->db->set('fax_2',$data->fax_2);
 		$this->db->set('fax_3',$data->fax_3);
 		$this->db->set('num',$data->num);
+		$this->db->set('is_remind', $data->is_remind);
 		$this->db->set('transaction_id', $data->transaction_id);
 		$this->db->insert('warranty');	
 	}
@@ -58,6 +59,7 @@ class m_warranty_model extends CI_Model
 		$d['fax_2'] = $data->fax_2;
 		$d['fax_3'] = $data->fax_3;
 		$d['num'] = $data->num;
+		$d['is_remind'] = $data->is_remind;
 		$d['transaction_id'] = $data->transaction_id;
 		$this->db->update('warranty',$d);
 		
@@ -88,6 +90,7 @@ class m_warranty_model extends CI_Model
 	
 	public function getRemindWarranty()
 	{
+		$this->checkWarranty();
 		$this->db->select('*');
 		$this->db->from('warranty');
 		$this->db->where('is_remind', 1);
@@ -95,19 +98,51 @@ class m_warranty_model extends CI_Model
 		
 		if ($result->num_rows() > 0)
 		{
+			$idx = 0;
 			foreach ($result->result() as $row)
 			{
-				$warranty_data = array();
+				$warranty_data[$idx] = new Datamodel();
 				foreach ($row as $k => $v)
 				{
-					$warranty_data[$k] = $v;
+					$warranty_data[$idx]->$k = $v;
 					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
-				}	
+				}
+				$idx++;
 			}
+								
 			return $warranty_data;
 		}
 		return 0;
 	}
+	
+	private function checkWarranty()//檢查是否有需要提醒的單號 
+	{
+		$this->db->select('*');
+		$this->db->from('warranty');
+		$this->db->where('is_remind', 0);//0代表從來沒有提醒過 所以要檢查日期是否到了該提醒
+		$result = $this->db->get();
+		$nowDate = getdate();
+		if ($result->num_rows() > 0)
+		{
+			
+			foreach ($result->result() as $row)
+			{
+				$sratDate = $row->effective_date;
+				
+				$temp = mb_split("/",$sratDate);
+				
+				if ($nowDate['year'] == $temp[0])
+				{
+					if ($nowDate['mon'] == $temp[1]) 
+					{
+						$row->is_remind = 1;
+						$this->updatewarranty($row);
+						
+					}
+				}
+			}
+		}			
+	}	
 		
 	public function getwarranty() 
 	{

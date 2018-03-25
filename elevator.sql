@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-03-11 20:01:53
+Date: 2018-03-25 14:29:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -357,16 +357,17 @@ CREATE TABLE `warranty` (
   `num` varchar(255) DEFAULT NULL,
   `transaction_id` int(255) DEFAULT NULL,
   `is_signing` int(1) DEFAULT NULL,
+  `is_remind` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of warranty
 -- ----------------------------
-INSERT INTO `warranty` VALUES ('3', '林政揚阿姆', '2', '1', '2018/02/22', '0', '林政揚阿姆', null, null, '卓蘭鎮豪宅裡', '093333311313', null, null, '04-25250950', null, null, '28906300', '47', null);
-INSERT INTO `warranty` VALUES ('24', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
-INSERT INTO `warranty` VALUES ('25', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
-INSERT INTO `warranty` VALUES ('26', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
-INSERT INTO `warranty` VALUES ('27', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
-INSERT INTO `warranty` VALUES ('28', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null);
+INSERT INTO `warranty` VALUES ('3', '林政揚阿姆', '2', '1', '2018/03/22', '0', '林政揚阿姆', null, null, '卓蘭鎮豪宅裡', '093333311313', null, null, '04-25250950', null, null, '28906300', '47', null, '1');
+INSERT INTO `warranty` VALUES ('24', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null, null);
+INSERT INTO `warranty` VALUES ('25', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null, null);
+INSERT INTO `warranty` VALUES ('26', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null, null);
+INSERT INTO `warranty` VALUES ('27', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null, null);
+INSERT INTO `warranty` VALUES ('28', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', null, null);
 SET FOREIGN_KEY_CHECKS=1;
