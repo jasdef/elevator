@@ -232,6 +232,24 @@ class Service extends CI_Controller {
 		$this->load->view('v_edit_service', $this->data);
 	}
 	
+	public function view_service_view() 
+	{
+		$service_model = new m_service_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["service_id"];
+		$this->data = $service_model->getserviceByID($id);
+		$count = 0 ;
+		for ($i = 0; $i < 6; $i++)
+		{	
+			if($this->data["payment_date".($i+1)] != "")
+			{	
+				$count++;				
+			}
+		}
+		$this->data['payment_date_count']=$count;
+		$this->load->view('v_view_service', $this->data);
+		
+	}	
 	
 	public function service_edit() 
 	{

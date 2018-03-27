@@ -44,6 +44,7 @@
 												<th><a href="#">有無許可證</a></th>
 												<th><a href="#">總價</a></th>												
 												<th><a href="#">表單狀態</a></th>
+												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
 											</tr>
@@ -62,6 +63,9 @@
 														<td><?=$this->data[$j]->license;?></td>
 														<td><?=$this->data[$j]->Total_price;?></td>
 														<td><?=$this->data[$j]->status;?></td>
+														<td>
+														<a href="<?=base_url("/service/view_service_view")?>/service_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
+														</td>
 														<td>
 															<a href="<?=base_url("/service/edit_service")?>/service_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 														</td>
