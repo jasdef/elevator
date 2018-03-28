@@ -321,6 +321,54 @@ class Warranty extends CI_Controller {
 		$this->load->view('v_edit_warranty', $this->data);
 	}
 	
+	public function view_warranty_view() 
+	{
+				$warranty_model = new m_warranty_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["warranty_id"];
+		$this->data = $warranty_model->getwarrantyByID($id);
+		if($this->data['contacter_3'] != null)
+		{
+			 $this->data['contacter_count'] = 3 ;
+		}
+		elseif($this->data['contacter_2'] != null)
+		{
+			$this->data['contacter_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['contacter_count'] = 1 ;
+		}
+				
+		if($this->data['tel_3'] != null)
+		{
+			 $this->data['tel_count'] = 3 ;
+		}
+		elseif($this->data['tel_2'] != null)
+		{
+			$this->data['tel_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['tel_count'] = 1 ;
+		}
+		
+		
+		if($this->data['fax_3'] != null)
+		{
+			$this->data['fax_count'] = 3 ;
+		}
+		elseif($this->data['fax_2'] != null)
+		{
+			$this->data['fax_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['fax_count'] = 1 ;
+		}
+		
+		$this->load->view('v_view_warranty', $this->data);
+	}
 	
 	public function warranty_edit() 
 	{
