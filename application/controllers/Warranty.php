@@ -7,6 +7,7 @@ class Warranty extends CI_Controller {
 	{
 		parent::__construct();
 		session_start();
+        $this->load->model('public_tools'); //常用工具
 		$this->load->model('Customer_model');
 		$this->load->model('m_warranty_model');
 		$this->load->model('Form_model');
@@ -366,9 +367,25 @@ class Warranty extends CI_Controller {
 		{
 			$this->data['fax_count'] = 1 ;
 		}
+
+        //圖片檢視
+        $public_tools = new public_tools();
+        $imgdata = $public_tools->getimgview(array('type'=>'warranty','typeid'=>$id));
+        $this->data['imgdata'] = $imgdata;
 		
 		$this->load->view('v_view_warranty', $this->data);
 	}
+
+    public function delete_imgadd(){
+
+        $transaction_id = $this->input->get('warranty_id');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+
+        $d['isdelete'] = 1;
+        $this->db->update('imgaddress',$d);
+        redirect(base_url("/Warranty/view_warranty_view/warranty_id/{$transaction_id}"));
+    }
 	
 	public function warranty_edit() 
 	{
@@ -411,6 +428,10 @@ class Warranty extends CI_Controller {
 		$data->transaction_id = $transaction_id;
 		$data->is_remind = $is_remind;
 		$warranty_model->updatewarranty($data);
+
+        $public_tools = new public_tools();
+        $public_tools->upload_tools(array('table'=>'warranty','id'=>$id,'file_name'=>'warranty','upload_path'=>'warranty'));
+
 		redirect(base_url("/warranty/warranty_home"));
 	}
 	

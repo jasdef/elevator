@@ -13,7 +13,15 @@
 			<script src="<?=base_url("js/jquery/jquery.min.js");?>"></script>
 			<script src="<?=base_url("js/jquery/jquery-ui.min.js");?>"></script>
 			<link rel="stylesheet" href="jqueryui/style.css">
-			
+
+            <script>
+                function ondeleteqwe(id,text,warranty_id){
+                    if(confirm("確認刪除 ["+text+"] "))
+                    {
+                        document.location.href="<?=base_url("/Warranty/delete_imgadd")?>?id="+id+"&warranty_id="+warranty_id;
+                    }
+                }
+            </script>
 			<script>
 			 $(function() {
 				$( "#datepicker" ).datepicker({
@@ -41,8 +49,15 @@
 						<li class="active">編輯保固單</li>
 					</ul>
 
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#view_warranty" data-toggle="tab">資料檢視</a></li>
+                    <li><a href="#view_warranty_img" data-toggle="tab">照片檢視</a></li>
+                </ul>
+
 				<div class="container-fluid">
 					<div class="row-fluid">
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane active in" id="view_warranty">
 						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn" type="button" onclick="history.back()">返回</button>
@@ -120,6 +135,22 @@
 								
 							</div>
 						</form>
+                            </div>
+                            <div class="tab-pane fade" id="view_warranty_img">
+                                <div class="well">
+                                    <?php if(!empty($this->data['imgdata'])): ?>
+
+                                        <?php foreach ($this->data['imgdata'] as $v): ?>
+                                            <img src="<?=base_url("/uploads/{$v['type']}/{$v['imgadd']}")?>" class="img-polaroid">
+                                            <div class="image-data">
+                                                <a href="javascript: void(0)" onclick="ondeleteqwe('<?=$v['id'];?>','<?=$v['imgadd'];?>','<?=$this->data['id']?>')"><span class="title"><?=$v['imgadd']?> <i class="icon-remove"></i></span></a>
+                                            </div>
+                                        <?php endforeach;?>
+
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

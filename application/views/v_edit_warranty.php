@@ -43,7 +43,7 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post">
+						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post" enctype="multipart/form-data">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">取消</button>
@@ -118,6 +118,9 @@
 								</div>	
 								<label>統一編號</label>
 								<input type="text" name = "Num" value="<?php print($this->data['num']);?>" class="input-xlarge">
+
+                                <label>上傳圖片</label>
+                                <input type="file" name="userfile" size="20" />
 								
 							</div>
 						</form>

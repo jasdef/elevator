@@ -175,7 +175,7 @@
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="fomr1" action="<?=site_url("/service/service_edit")?>" method="post">
+						<form id="tab" name="fomr1" action="<?=site_url("/service/service_edit")?>" method="post" enctype="multipart/form-data">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">取消</button>
@@ -309,6 +309,16 @@
 										</th>
 									</tr>
 								</table>
+
+                                <table  class="table sortable">
+                                    <tr>
+                                        <th>
+                                            上傳圖片<br>
+                                            <input type="file" name="userfile" size="20" />
+                                        </th>
+                                    </tr>
+                                </table>
+
 							</div>
 						</form>
 						<script type='text/javascript'>

@@ -7,6 +7,7 @@ class Service extends CI_Controller {
 	{
 		parent::__construct();
 		session_start();
+        $this->load->model('public_tools'); //常用工具
 		$this->load->model('Customer_model');
 		$this->load->model('m_service_model');
 		$this->load->model('m_warranty_model');
@@ -247,9 +248,25 @@ class Service extends CI_Controller {
 			}
 		}
 		$this->data['payment_date_count']=$count;
+
+        $public_tools = new public_tools();
+        $imgdata = $public_tools->getimgview(array('type'=>'service','typeid'=>$id));
+        $this->data['imgdata'] = $imgdata;
+
 		$this->load->view('v_view_service', $this->data);
 		
-	}	
+	}
+
+    public function delete_imgadd(){
+
+        $transaction_id = $this->input->get('service_id');
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+
+        $d['isdelete'] = 1;
+        $this->db->update('imgaddress',$d);
+        redirect(base_url("/service/view_service_view/service_id/{$transaction_id}"));
+    }
 	
 	public function service_edit() 
 	{
@@ -289,6 +306,10 @@ class Service extends CI_Controller {
 		$data->do_times = $do_times;
 		$data->is_remind = $is_remind;
 		$service_model->updateservice($data);
+
+        $public_tools = new public_tools();
+        $public_tools->upload_tools(array('table'=>'service','id'=>$id,'file_name'=>'service','upload_path'=>'service'));
+
 		redirect(base_url("/service/service_home"));
 	}
 	

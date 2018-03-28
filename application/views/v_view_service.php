@@ -13,7 +13,16 @@
 			<script src="<?=base_url("js/jquery/jquery.min.js");?>"></script>
 			<script src="<?=base_url("js/jquery/jquery-ui.min.js");?>"></script>
 			<link rel="stylesheet" href="jqueryui/style.css">
-			
+
+            <script>
+                function ondeleteqwe(id,text,service_id){
+                    if(confirm("確認刪除 ["+text+"] "))
+                    {
+                        document.location.href="<?=base_url("/service/delete_imgadd")?>?id="+id+"&service_id="+service_id;
+                    }
+                }
+            </script>
+
 			<script>
 			function calculate(element) 
 			{
@@ -173,8 +182,15 @@
 						<li class="active">編輯保養單</li>
 					</ul>
 
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#view_service" data-toggle="tab">資料檢視</a></li>
+                    <li><a href="#view_service_img" data-toggle="tab">照片檢視</a></li>
+                </ul>
+
 				<div class="container-fluid">
 					<div class="row-fluid">
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane active in" id="view_service">
 						<form id="tab" name="fomr1" action="<?=site_url("/service/service_edit")?>" method="post">
 							<div class="btn-toolbar">
 								<button class="btn" type="button" onclick="history.back()">返回</button>
@@ -310,6 +326,22 @@
 								</table>
 							</div>
 						</form>
+                            </div>
+                            <div class="tab-pane fade" id="view_service_img">
+                                <div class="well">
+                                    <?php if(!empty($this->data['imgdata'])): ?>
+
+                                        <?php foreach ($this->data['imgdata'] as $v): ?>
+                                            <img src="<?=base_url("/uploads/{$v['type']}/{$v['imgadd']}")?>" class="img-polaroid">
+                                            <div class="image-data">
+                                                <a href="javascript: void(0)" onclick="ondeleteqwe('<?=$v['id'];?>','<?=$v['imgadd'];?>','<?=$this->data['id']?>')"><span class="title"><?=$v['imgadd']?> <i class="icon-remove"></i></span></a>
+                                            </div>
+                                        <?php endforeach;?>
+
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
 						<script type='text/javascript'>
 							calculate(this);
 							calculatetime(this);
