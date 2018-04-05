@@ -90,13 +90,11 @@
 				<thead>
 					<tr>
 						<th><a href="#">#</a></th>												
+						<th><a href="#">表單類型</a></th>
 						<th><a href="#">表單名稱</a></th>
 						<th><a href="#">狀態</a></th>
-						<th><a href="#">開始日期</a></th>
-						<th><a href="#">總價</a></th>
-						<th><a href="#">剩餘款項</a></th>
-						<th class="sorttable_nosort">檢視</th>
-						<th class="sorttable_nosort">編輯</th>
+						<th class="sorttable_nosort">動作</th>
+						<th class="sorttable_nosort">取消提醒</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -104,21 +102,19 @@
 					if(count($this->data) != 0 )
 					{
 
-						for($j = 0; $j < count($this->data['transaction']); $j++)
+						for($j = 0; $j < count($this->data['remind_sigin']); $j++)
 						{
 ?>							
 						<tr>
-							<td><?=$this->data['transaction'][$j]->id;?></td>
-							<td><?=$this->data['transaction'][$j]->name;?></td>
-							<td><?=$this->data['transaction'][$j]->status;?></td>
-							<td><?=$this->data['transaction'][$j]->start_date;?></td>
-							<td><?=$this->data['transaction'][$j]->total_price;?></td>
-							<td><?=$this->data['transaction'][$j]->left_money;?></td>
+							<td><?=$this->data['remind_sigin'][$j]->id;?></td>
+							<td><?=$this->data['remind_sigin'][$j]->type;?></td>
+							<td><?=$this->data['remind_sigin'][$j]->name;?></td>
+							<td><?=$this->data['remind_sigin'][$j]->status;?></td>
 							<td>
-								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['remind_sigin'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
 							</td>
 							<td>
-								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['transaction'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['remind_sigin'][$j]->id;?>" ><i class="icon-pencil"></i></a>
 							</td>
 						</tr>
 

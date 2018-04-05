@@ -139,6 +139,47 @@ class m_service_model extends CI_Model
 		
 	}
 	
+	public function getRemindSigningService() 
+	{
+		$w_model = new m_warranty_model();
+		$this->checkRemind();
+		$this->db->select('*');
+		$this->db->from('service');
+		$this->db->where('is_remind', 0);
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$service_data[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					
+					if ($k == "warranty_id") 
+					{
+						$temp = $w_model->getwarrantyByID($v);
+						if ($temp != 0) 
+						{
+						
+							$service_data[$idx]->customer = $temp['customer'];							
+						}
+						
+					}
+					$service_data[$idx]->$k = $v;
+				}
+				$idx++;
+			}			
+				
+								
+			return $service_data;
+		}
+		return 0;
+		
+	}
+	
+	
 	public function getRemindService() 
 	{
 		$w_model = new m_warranty_model();
@@ -177,7 +218,7 @@ class m_service_model extends CI_Model
 		}
 		return 0;
 		
-	}
+	}			
 	
 	private function checkRemind()//檢查是否有需要提醒的單號  
 	{

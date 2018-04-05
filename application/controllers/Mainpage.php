@@ -30,6 +30,7 @@ class Mainpage extends CI_Controller {
 			$Service_model= new m_service_model();
 			$temp = $form_model->getTransaction();
 			$temp_array = array();
+			$remind_arry = array();
 			$index = 0;
 			$isAdd = false;
 			if ($temp != 0) 
@@ -59,11 +60,31 @@ class Mainpage extends CI_Controller {
 						$index++;
 						$isAdd = false;
 					}
+					else 
+					{
+						$row->type = "買賣單";
+						$row->status = "簽保固";
+						$remind_arry[count($remind_arry)] = $row;
+						
+					}
+					
 					
 				}
 				$this->data['transaction'] = $temp_array;
 			}
 			
+			$temp = $warranty_model->getRemindSigningWarranty();
+			
+			if ($temp != 0)
+			{
+				foreach ($temp as $row) 
+				{
+					$row->type = "保固單";
+					$row->status = "簽保養單";
+					$remind_arry[count($remind_arry)] = $row;					
+				}				
+			}
+								
 			$temp = $warranty_model->getRemindWarranty();
 			$result_array = array();
 			$index = 0;
@@ -84,6 +105,18 @@ class Mainpage extends CI_Controller {
 			
 			$this->data['warranty'] = $result_array;
 			
+			$temp = $Service_model->getRemindSigningService();
+			
+			if ($temp != 0) 
+			{
+				foreach ($temp as $row) 
+				{
+					$row->type = "保養單";
+					$row->status = "續約保養單";
+					$remind_arry[count($remind_arry)] = $row;									
+				}
+			}	
+						
 			$temp = $Service_model->getRemindService();
 			$result_array = array();
 			$index = 0;
@@ -103,7 +136,12 @@ class Mainpage extends CI_Controller {
 			}			
 			
 			$this->data['service'] = $result_array;
-
+			$this->data['remind_sigin'] = $remind_arry;
+			
+			
+			
+			
+			
 			$this->load->view('mainpage', $this->data);  
 		}
 		else {

@@ -87,6 +87,34 @@ class m_warranty_model extends CI_Model
 		return 0;
 	}
 	
+	public function getRemindSigningWarranty() 
+	{
+		$this->checkWarranty();
+		$this->db->select('*');
+		$this->db->from('warranty');
+		$this->db->where('is_signing', 0);
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$warranty_data[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					$warranty_data[$idx]->$k = $v;				
+				}
+				$idx++;
+			}
+								
+			return $warranty_data;
+		}
+		return 0;
+	}
+	
+	
+	
 	public function getRemindWarranty()
 	{
 		$this->checkWarranty();
