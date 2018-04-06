@@ -313,10 +313,43 @@ class Service extends CI_Controller {
 		redirect(base_url("/service/service_home"));
 	}
 	
+	public function close_remind()//for 首頁 取消保養單續約 
+	{
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["service_id"];
+		$service_model = new m_service_model();
+		$common = new Common();
+		$data = New datamodel;
+		$data->service_id = $id;
+		$data->is_signing = $common->NO_CONTUNUE_SIGNING;
 		
+		$service_model->updateTransactionSigningState($data);
+		redirect(base_url("/mainpage/index"));
+	}
+
+	
 	public function create_service() 
 	{	
 		$this->load->view('v_create_service');
+	}
+	
+	public function service_create_by_self($service_id) 
+	{
+
+		$service_model = new m_service_model();
+		$data = $service_model->getserviceByID($service_id);
+
+		$data->signing_day = null;
+		$data->touch_time = null;
+		$data->is_remind = $common->FORM_STATUS_NOT_REMIND;
+		$data->is_signing = $common->NOT_ANYTHING_SIGNING;		
+		$service_model->insertservice($data);
+		
+		$data->is_signing = $common->ALREADY_SIGNING;		
+		$wservice_model->updateTransactionSigningState($data);
+		
+		
+		redirect(base_url("/service/service_home"));	
 	}
 	
 	public function service_create_by_warranty($warranty_id) 

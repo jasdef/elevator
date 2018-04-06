@@ -166,7 +166,7 @@ class m_warranty_model extends CI_Model
 			
 			foreach ($result->result() as $row)
 			{
-				if ($row->touch_time == null) 
+				if ($row->touch_time == null && $row->effective_date != null) 
 				{
 					$sratDate = $row->effective_date;
 					
@@ -182,7 +182,7 @@ class m_warranty_model extends CI_Model
 						}
 					}					
 				}
-				else 
+				else if ($row->touch_time != null)
 				{
 					$temp = mb_split("/", $row->touch_time);
 					

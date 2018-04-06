@@ -129,22 +129,28 @@ class Mainpage extends CI_Controller {
 						$row->need_times = $need_times;
 						$index++;
 					}
-					else 
-					{
-						$row->type = "保養單";
-						$row->status = "續約保養單";
-						$remind_arry[count($remind_arry)] = $row;					
-					}
 				}
 			}			
 			
 			$this->data['service'] = $result_array;
-			$this->data['remind_signing'] = $remind_arry;
 			
+			$temp = $Service_model->getRemindSigningService();
 			
-			
-			
-			
+			if ($temp != 0) 
+			{
+				foreach ($temp as $row) 
+				{		
+					$row->type = "保養單";
+					$row->status = "續約保養單";
+					$row->action_name = "產生保養單";
+					$row->action = base_url("/Service/service_create_by_self/".$row->id."");
+					$row->cancel = base_url("/Service/close_remind/service_id/".$row->id);
+					$remind_arry[count($remind_arry)] = $row;											
+				}	
+				
+			}
+											
+			$this->data['remind_signing'] = $remind_arry;			
 			$this->load->view('mainpage', $this->data);  
 		}
 		else {

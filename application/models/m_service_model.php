@@ -145,40 +145,52 @@ class m_service_model extends CI_Model
 		$this->checkRemind();
 		$this->db->select('*');
 		$this->db->from('service');
-		$this->db->where('is_remind', 0);
+		$this->db->where('is_signing', 0);
+		$this->db->where('is_remind', 2);
 		$result = $this->db->get();
-		
+		$nowDate = getdate();
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;
 			foreach ($result->result() as $row)
 			{
 				$service_data[$idx] = new Datamodel();
-				foreach ($row as $k => $v)
+				
+				$temp = mb_split("/",$row->signing_day);
+				if ($nowDate['year'] >= $temp[0]+$row->mechanical_warranty && $nowDate['mon'] >= $temp[1])				
 				{
-					
-					if ($k == "warranty_id") 
-					{
-						$temp = $w_model->getwarrantyByID($v);
-						if ($temp != 0) 
+					foreach ($row as $k => $v)
+					{					
+						if ($k == "warranty_id") 
 						{
-						
-							$service_data[$idx]->customer = $temp['customer'];							
+							$temp = $w_model->getwarrantyByID($v);
+							if ($temp != 0) 
+							{
+							
+								$service_data[$idx]->customer = $temp['customer'];							
+							}
+							
 						}
-						
+						$service_data[$idx]->$k = $v;
 					}
-					$service_data[$idx]->$k = $v;
+					$idx++;					
 				}
-				$idx++;
 			}			
 				
-								
+			if ($service_data[0]->id == null)
+				return 0;			
 			return $service_data;
 		}
 		return 0;
 		
 	}
 	
+	public function updateTransactionSigningState($data) 
+	{
+		$this->db->where('id',$data->service_id);
+		$d['is_signing'] = $data->is_signing;
+		$this->db->update('service',$d);			
+	}
 	
 	public function getRemindService() 
 	{
@@ -226,6 +238,7 @@ class m_service_model extends CI_Model
 		$this->db->from('service');
 		$this->db->where('is_remind', 0);//0代表從來沒有提醒過 所以要檢查日期是否到了該提醒
 		$result = $this->db->get();
+		$common = new Common();
 		$nowDate = getdate();
 		if ($result->num_rows() > 0)
 		{
@@ -233,7 +246,7 @@ class m_service_model extends CI_Model
 			foreach ($result->result() as $row)
 			{
 				
-				if ($row->touch_time == null) 
+				if ($row->touch_time == null && $row->signing_day != null) 
 				{
 					$sratDate = $row->signing_day;
 					
@@ -243,15 +256,15 @@ class m_service_model extends CI_Model
 					{
 						if ($nowDate['mon'] == $temp[1]) 
 						{
-							$row->is_remind = 1;
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;;
 							$this->updateservice($row);
 							
 						}
 					}				
 				}
-				else 
+				else if ($row->touch_time != null)
 				{
-					$sratDate = $row->touch_time;
+					$touchTime = $row->touch_time;
 					$is_need = false;
 					
 					if ($row->service_times == 0)
@@ -263,19 +276,26 @@ class m_service_model extends CI_Model
 						$is_need = true;
 					}
 					
-					$temp = mb_split("/",$sratDate);
+					$temp = mb_split("/",$touchTime);
 					
 					if ($nowDate['year'] == $temp[0])
 					{
 						if ($nowDate['mon'] > $temp[1] && $is_need) 
 						{
-							$row->is_remind = 1;
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;;
 							$this->updateservice($row);
 							
 						}
 					}						
 				}
-
+				
+				$need_times = $row->mechanical_warranty * 12 * $row->service_month * $row->do_times;
+				
+				if ($need_times <= $row->service_times) 
+				{
+					$row->is_remind = $common->FORM_STATUS_SIGNING_COMPLETE;
+					$this->updateservice($row);
+				}												
 			}
 		}
 		
