@@ -232,92 +232,53 @@ class m_service_model extends CI_Model
 			
 			foreach ($result->result() as $row)
 			{
-				$sratDate = $row->signing_day;
 				
-				$temp = mb_split("/",$sratDate);
-				
-				if ($nowDate['year'] == $temp[0])
+				if ($row->touch_time == null) 
 				{
-					if ($nowDate['mon'] == $temp[1]) 
+					$sratDate = $row->signing_day;
+					
+					$temp = mb_split("/",$sratDate);
+					
+					if ($nowDate['year'] == $temp[0])
 					{
-						$row->is_remind = 1;
-						$this->updateservice($row);
-						
-					}
+						if ($nowDate['mon'] == $temp[1]) 
+						{
+							$row->is_remind = 1;
+							$this->updateservice($row);
+							
+						}
+					}				
 				}
+				else 
+				{
+					$sratDate = $row->touch_time;
+					$is_need = false;
+					
+					if ($row->service_times == 0)
+					{					
+						$is_need = true;
+					}
+					else if (($row->service_times % $row->do_times) != 0) 
+					{						
+						$is_need = true;
+					}
+					
+					$temp = mb_split("/",$sratDate);
+					
+					if ($nowDate['year'] == $temp[0])
+					{
+						if ($nowDate['mon'] > $temp[1] && $is_need) 
+						{
+							$row->is_remind = 1;
+							$this->updateservice($row);
+							
+						}
+					}						
+				}
+
 			}
 		}
 		
 	}
-	
-
-/*
-	public function getserviceBySearch($value) 
-	{
-		$this->db->select('*');
-		$this->db->from('warranty');
-		$this->db->or_like('id',$value,'both');
-		$this->db->or_like('customer',$value,'both');
-		$this->db->or_like('mechanical_warranty',$value,'both');
-		$this->db->or_like('free_maintenance',$value,'both');
-		$this->db->or_like('effective_date',$value,'both');
-		$this->db->or_like('contacter_1',$value,'both');
-		$this->db->or_like('contacter_2',$value,'both');
-		$this->db->or_like('contacter_3',$value,'both');
-		$this->db->or_like('address',$value,'both');
-		$this->db->or_like('tel_1',$value,'both');
-		$this->db->or_like('tel_2',$value,'both');
-		$this->db->or_like('tel_3',$value,'both');
-		$this->db->or_like('fax_1',$value,'both');
-		$this->db->or_like('fax_2',$value,'both');
-		$this->db->or_like('fax_3',$value,'both');
-		$this->db->or_like('num',$value,'both');
-		$result = $this->db->get();
-		
-		if ($result->num_rows() > 0)
-		{
-			$idx = 0;
-			$item = array();
-			$item_name = array();
-			$item_status = array();
-			foreach ($result->result() as $row)
-			{
-				$form_data[$idx] = new Datamodel();
-				$idx2 = 0;
-				$idx3 = 0;
-				$idx4 = 0;
-				foreach ($row as $k => $v)
-				{	
-					if (preg_match("/\item_status/i", $k)) 
-					{
-						$item_status[$idx3] = $v;
-						$idx3++;						
-					}
-					else if (preg_match("/\item_name/i", $k)) 
-					{
-						$item_name[$idx4] = $v;
-						$idx4++;
-					}
-					else if (preg_match("/\item/i", $k)) 
-					{
-						$item[$idx2] = $v;
-						$idx2++;
-					}
-					else 
-					{
-						$form_data[$idx]->$k = $v;						
-					}
-				}
-				$form_data[$idx]->item = $item;
-				$form_data[$idx]->item_name = $item_name;
-				$form_data[$idx]->item_status = $item_status;
-				$idx++;
-			
-			}
-			return $form_data;
-		}
-		return 0;
-		
-	}*/	
 }
 ?>

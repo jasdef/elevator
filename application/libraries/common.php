@@ -5,6 +5,9 @@ class Common
 	public $FORM_STATUS_NOT_REMIND = 0;//不需要提醒的狀態
 	public $FORM_STATUS_NEED_REMIND = 1;//提醒要跑保養 或者 要簽約的狀態
 	public $FORM_STATUS_SIGNING_COMPLETE = 2; //已經簽完約或者不用簽約 不用再提醒保養的狀態
+	public $NOT_ANYTHING_SIGNING = 0;//還沒談簽約
+	public $ALREADY_SIGNING = 1;//已經簽約了
+	public $NO_CONTUNUE_SIGNING = 2;//沒有續簽
 	
 	public $ITEM_STAUTS_NONE = 0;//尚無狀態
 	public $ITEM_STAUTS_INVOICE = 1;//已開發票

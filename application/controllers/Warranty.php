@@ -445,13 +445,14 @@ class Warranty extends CI_Controller {
 	{
 		$form_model = new form_model();
 		$warranty_model = new m_warranty_model();
+		$common = new Common();
 		$data = New datamodel;
 		$data->transaction_id = $transaction_id;
 		
 		for ($i = 0; $i < $nums; $i++)
 			$warranty_model->insertwarranty($data);
 		
-		$data->is_signing = 2;//已簽約不用再提醒了
+		$data->is_signing = $common->ALREADY_SIGNING;//已簽約不用再提醒了
 		$form_model->updateTransactionSigningState($data);
 		
 		redirect(base_url("/warranty/warranty_home"));

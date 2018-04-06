@@ -61,7 +61,7 @@ class Mainpage extends CI_Controller {
 						$index++;
 						$isAdd = false;
 					}
-					else if ($row->is_signing != $common->FORM_STATUS_SIGNING_COMPLETE)
+					else if ($row->is_signing == $common->NOT_ANYTHING_SIGNING)
 					{
 						$row->type = "買賣單";
 						$row->status = "簽保固單";

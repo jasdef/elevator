@@ -216,7 +216,7 @@ class Form extends CI_Controller {
 		} 
 	}
 	
-	public function close_remind()//for 首頁提醒用的 
+	public function close_remind()//for 首頁 取消買賣單之後的保固單簽約提醒 
 	{
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["transaction_id"];
@@ -224,7 +224,7 @@ class Form extends CI_Controller {
 		$common = new Common();
 		$data = New datamodel;
 		$data->transaction_id = $id;
-		$data->is_signing = $common->FORM_STATUS_SIGNING_COMPLETE;
+		$data->is_signing = $common->NO_CONTUNUE_SIGNING;
 		
 		$form_model->updateTransactionSigningState($data);
 		redirect(base_url("/mainpage/index"));
