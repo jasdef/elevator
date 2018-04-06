@@ -94,17 +94,24 @@ class Mainpage extends CI_Controller {
 						$row->need_times = $need_times;
 						$index++;
 					}
-					else 
-					{
-						$row->type = "保固單";
-						$row->status = "簽保養單";
-						$remind_arry[count($remind_arry)] = $row;						
-					}
 				}								
 			}
 			
 			$this->data['warranty'] = $result_array;
-			
+			$temp = $warranty_model->getRemindSigningWarranty();
+			if ($temp != 0) 
+			{
+				foreach ($temp as $row) 
+				{		
+					$row->type = "保固單";
+					$row->status = "簽保養單";
+					$row->action_name = "產生保養單";
+					$row->action = base_url("/Service/service_create_by_warranty/".$row->id."");
+					$row->cancel = base_url("/Warranty/close_remind/warranty_id/".$row->id);
+					$remind_arry[count($remind_arry)] = $row;										
+				}				
+			}
+									
 		
 			$temp = $Service_model->getRemindService();
 			$result_array = array();

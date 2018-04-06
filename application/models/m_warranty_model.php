@@ -93,27 +93,39 @@ class m_warranty_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('warranty');
 		$this->db->where('is_signing', 0);
+		$this->db->where('is_remind', 2);
 		$result = $this->db->get();
-		
+		$nowDate = getdate();
 		if ($result->num_rows() > 0)
 		{
 			$idx = 0;
 			foreach ($result->result() as $row)
-			{
+			{			
 				$warranty_data[$idx] = new Datamodel();
-				foreach ($row as $k => $v)
-				{
-					$warranty_data[$idx]->$k = $v;				
+				$temp = mb_split("/",$row->effective_date);
+				if ($nowDate['year'] >= $temp[0]+$row->free_maintenance && $nowDate['mon'] >= $temp[1])				
+				{					
+					foreach ($row as $k => $v)
+					{
+						$warranty_data[$idx]->$k = $v;				
+					}
+					$idx++;					
 				}
-				$idx++;
-			}
-								
+			}				
+			
+			if ($warranty_data[0]->id == null)
+				return 0;
 			return $warranty_data;
 		}
 		return 0;
 	}
 	
-	
+	public function updateTransactionSigningState($data) 
+	{
+		$this->db->where('id',$data->warranty_id);
+		$d['is_signing'] = $data->is_signing;
+		$this->db->update('warranty',$d);			
+	}
 	
 	public function getRemindWarranty()
 	{
@@ -184,6 +196,14 @@ class m_warranty_model extends CI_Model
 						}
 					}											
 				}
+				
+				$need_times = $row->free_maintenance * 12;
+				
+				if ($need_times <= $row->warranty_times) 
+				{
+					$row->is_remind = $common->FORM_STATUS_SIGNING_COMPLETE;
+					$this->updatewarranty($row);
+				}		
 			}
 		}			
 	}	

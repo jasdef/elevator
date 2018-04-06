@@ -76,7 +76,7 @@
 															<a href="<?=base_url("/Warranty/delete_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
 														</td>
 														<td>
-														<a href="<?=base_url("/Service/service_create_by_warranty/".$this->data[$j]->id."")?>">產生保養單</a>
+														<a href="<?=base_url("/Service/service_create_by_warranty/".$this->data[$j]->id."")?>" <?php if(!$this->data[$j]->is_create_service)echo 'hidden';?> >產生保養單</a>
 														</td>
 													</tr>
 					<?php							$fristitem++;

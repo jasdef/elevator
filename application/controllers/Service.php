@@ -330,6 +330,11 @@ class Service extends CI_Controller {
 		$data->mechanical_warranty = $warranty['free_maintenance'];
 		
 		$service_model->insertservice($data);
+		
+		$data->is_signing = $common->ALREADY_SIGNING;		
+		$warranty_model->updateTransactionSigningState($data);
+		
+		
 		redirect(base_url("/service/service_home"));	
 	}
 	

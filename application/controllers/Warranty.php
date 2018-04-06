@@ -12,7 +12,7 @@ class Warranty extends CI_Controller {
 		$this->load->model('m_warranty_model');
 		$this->load->model('Form_model');
 		$this->load->library('datamodel');
-
+		$this->load->library('common');
         //菜單顯示部分
         $this->load->model('Usermenu_model');
         $usermenu_m = new Usermenu_model();
@@ -28,7 +28,8 @@ class Warranty extends CI_Controller {
 		$temp = $warranty_model->getwarranty();	
 		$fristitem = 0;
 		$itemmax = 10;
-		
+		$nowDate = getdate();
+		$common = new Common();
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);	
@@ -46,12 +47,24 @@ class Warranty extends CI_Controller {
 				if($fristitem < $itemmax)
 				{	
 					$row->transaction_name = "";
+					$row->is_create_service = false;
+					
 					if ($row->transaction_id != 0) 
 					{
 						$transaction = $form_model->getTransactionByID($row->transaction_id);
 						$row->transaction_name = $transaction['name'];
 					}
 					
+					if ($row->effective_date != null) 
+					{
+						$temp = mb_split("/",$row->effective_date);
+						if ($nowDate['year'] >= $temp[0]+$row->free_maintenance && $nowDate['mon'] >= $temp[1]
+							&& $row->is_signing == $common->NOT_ANYTHING_SIGNING && $row->is_remind == $common->FORM_STATUS_SIGNING_COMPLETE)				
+						{
+							$row->is_create_service = true;
+						}						
+					}				
+								
 					$this->data[$fristitem] = $row;
 				}
 				$fristitem++;
@@ -433,6 +446,20 @@ class Warranty extends CI_Controller {
         $public_tools->upload_tools(array('table'=>'warranty','id'=>$id,'file_name'=>'warranty','upload_path'=>'warranty'));
 
 		redirect(base_url("/warranty/warranty_home"));
+	}
+	
+	public function close_remind()//for 首頁 取消保固單續約 
+	{
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["warranty_id"];
+		$warranty_model = new m_warranty_model();
+		$common = new Common();
+		$data = New datamodel;
+		$data->warranty_id = $id;
+		$data->is_signing = $common->NO_CONTUNUE_SIGNING;
+		
+		$warranty_model->updateTransactionSigningState($data);
+		redirect(base_url("/mainpage/index"));
 	}
 	
 		
