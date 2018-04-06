@@ -94,7 +94,7 @@
 						<th><a href="#">表單名稱</a></th>
 						<th><a href="#">狀態</a></th>
 						<th class="sorttable_nosort">動作</th>
-						<th class="sorttable_nosort">取消提醒</th>
+						<th class="sorttable_nosort">取消</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -102,19 +102,19 @@
 					if(count($this->data) != 0 )
 					{
 
-						for($j = 0; $j < count($this->data['remind_sigin']); $j++)
+						for($j = 0; $j < count($this->data['remind_signing']); $j++)
 						{
 ?>							
 						<tr>
-							<td><?=$this->data['remind_sigin'][$j]->id;?></td>
-							<td><?=$this->data['remind_sigin'][$j]->type;?></td>
-							<td><?=$this->data['remind_sigin'][$j]->name;?></td>
-							<td><?=$this->data['remind_sigin'][$j]->status;?></td>
+							<td><?=$this->data['remind_signing'][$j]->id;?></td>
+							<td><?=$this->data['remind_signing'][$j]->type;?></td>
+							<td><?=$this->data['remind_signing'][$j]->name;?></td>
+							<td><?=$this->data['remind_signing'][$j]->status;?></td>
 							<td>
-								<a href="<?=base_url("/Form/view_transaction_view")?>/transaction_id/<?=$this->data['remind_sigin'][$j]->id;?>" ><i class="icon-eye-open"></i></a>
+								<a href="<?=$this->data['remind_signing'][$j]->action;?>" ><?=$this->data['remind_signing'][$j]->action_name; ?></a>
 							</td>
 							<td>
-								<a href="<?=base_url("/Form/edit_transaction_view")?>/transaction_id/<?=$this->data['remind_sigin'][$j]->id;?>" ><i class="icon-pencil"></i></a>
+								<a href="<?=$this->data['remind_signing'][$j]->cancel;?>" ><i class="icon-remove"></i></a>
 							</td>
 						</tr>
 

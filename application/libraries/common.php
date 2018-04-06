@@ -2,6 +2,16 @@
 
 class Common
 {
+	public $FORM_STATUS_NOT_REMIND = 0;//不需要提醒的狀態
+	public $FORM_STATUS_NEED_REMIND = 1;//提醒要跑保養 或者 要簽約的狀態
+	public $FORM_STATUS_SIGNING_COMPLETE = 2; //已經簽完約或者不用簽約 不用再提醒保養的狀態
+	
+	public $ITEM_STAUTS_NONE = 0;//尚無狀態
+	public $ITEM_STAUTS_INVOICE = 1;//已開發票
+	public $ITEM_STAUTS_REQUEST_PAYMENT = 2;//已送請款單
+	public $ITEM_STAUTS_BOTH = 3;//已送請款單/發票
+	public $ITEM_STAUTS_NOT_GET_MONEY = 4;//尚未收款
+	public $ITEM_STAUTS_ALREADY_GET_MONEY = 5;//已收款
 	
 	public function conversionFormStatusByID($id) 
 	{

@@ -216,6 +216,20 @@ class Form extends CI_Controller {
 		} 
 	}
 	
+	public function close_remind()//for 首頁提醒用的 
+	{
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["transaction_id"];
+		$form_model = new Form_model();
+		$common = new Common();
+		$data = New datamodel;
+		$data->transaction_id = $id;
+		$data->is_signing = $common->FORM_STATUS_SIGNING_COMPLETE;
+		
+		$form_model->updateTransactionSigningState($data);
+		redirect(base_url("/mainpage/index"));
+	}
+	
 	public function search_switchpage($id,$searchvalue)
 	{	
 		$searchvalue=urldecode($searchvalue);

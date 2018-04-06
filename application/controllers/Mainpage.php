@@ -28,6 +28,7 @@ class Mainpage extends CI_Controller {
 			$form_model = new Form_model();
 			$warranty_model = new m_warranty_model();
 			$Service_model= new m_service_model();
+			$common = new Common();
 			$temp = $form_model->getTransaction();
 			$temp_array = array();
 			$remind_arry = array();
@@ -43,12 +44,12 @@ class Mainpage extends CI_Controller {
 					for ($i = 0; $i < 6; $i++)
 					{
 						
-						if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
+						if ($row->item[$i] != 0 && $row->item_status[$i] != $common->ITEM_STAUTS_ALREADY_GET_MONEY) 
 						{
 							$row->status = "尚未收款完成";	
 							$isAdd = true;
 						}
-						else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
+						else if ($row->item[$i] != 0 && $row->item_status[$i] == $common->ITEM_STAUTS_ALREADY_GET_MONEY)
 						{
 							$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
 						}
@@ -60,10 +61,13 @@ class Mainpage extends CI_Controller {
 						$index++;
 						$isAdd = false;
 					}
-					else 
+					else if ($row->is_signing != $common->FORM_STATUS_SIGNING_COMPLETE)
 					{
 						$row->type = "買賣單";
 						$row->status = "簽保固單";
+						$row->action = base_url("/Warranty/warranty_create_by_transaction/".$row->id."/".$row->elevator_num);
+						$row->cancel = base_url("/Form/close_remind/transaction_id/".$row->id);
+						$row->action_name = "結單";
 						$remind_arry[count($remind_arry)] = $row;
 						
 					}
@@ -73,17 +77,6 @@ class Mainpage extends CI_Controller {
 				$this->data['transaction'] = $temp_array;
 			}
 			
-			$temp = $warranty_model->getRemindSigningWarranty();
-			
-			if ($temp != 0)
-			{
-				foreach ($temp as $row) 
-				{
-					$row->type = "保固單";
-					$row->status = "簽保養單";
-					$remind_arry[count($remind_arry)] = $row;					
-				}				
-			}
 								
 			$temp = $warranty_model->getRemindWarranty();
 			$result_array = array();
@@ -99,24 +92,20 @@ class Mainpage extends CI_Controller {
 					{
 						$result_array[$index] = $row;		
 						$row->need_times = $need_times;
-					}										
+						$index++;
+					}
+					else 
+					{
+						$row->type = "保固單";
+						$row->status = "簽保養單";
+						$remind_arry[count($remind_arry)] = $row;						
+					}
 				}								
 			}
 			
 			$this->data['warranty'] = $result_array;
 			
-			$temp = $Service_model->getRemindSigningService();
-			
-			if ($temp != 0) 
-			{
-				foreach ($temp as $row) 
-				{
-					$row->type = "保養單";
-					$row->status = "續約保養單";
-					$remind_arry[count($remind_arry)] = $row;									
-				}
-			}	
-						
+		
 			$temp = $Service_model->getRemindService();
 			$result_array = array();
 			$index = 0;
@@ -131,12 +120,19 @@ class Mainpage extends CI_Controller {
 					{
 						$result_array[$index] = $row;		
 						$row->need_times = $need_times;
-					}										
+						$index++;
+					}
+					else 
+					{
+						$row->type = "保養單";
+						$row->status = "續約保養單";
+						$remind_arry[count($remind_arry)] = $row;					
+					}
 				}
 			}			
 			
 			$this->data['service'] = $result_array;
-			$this->data['remind_sigin'] = $remind_arry;
+			$this->data['remind_signing'] = $remind_arry;
 			
 			
 			

@@ -8,7 +8,7 @@ class m_warranty_model extends CI_Model
 		parent::__construct();
 		$this->load->database();	
 		$this->load->library('Datamodel');
-		
+		$this->load->library('Common');
 	}
 	
 	public function deletewarranty($id) 
@@ -148,6 +148,7 @@ class m_warranty_model extends CI_Model
 		$this->db->where('is_remind', 0);//0代表從來沒有提醒過 所以要檢查日期是否到了該提醒
 		$result = $this->db->get();
 		$nowDate = getdate();
+		$common = new Common();
 		if ($result->num_rows() > 0)
 		{
 			
@@ -161,7 +162,7 @@ class m_warranty_model extends CI_Model
 				{
 					if ($nowDate['mon'] == $temp[1]) 
 					{
-						$row->is_remind = 1;
+						$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
 						$this->updatewarranty($row);
 						
 					}
