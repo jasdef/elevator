@@ -154,18 +154,35 @@ class m_warranty_model extends CI_Model
 			
 			foreach ($result->result() as $row)
 			{
-				$sratDate = $row->effective_date;
-				
-				$temp = mb_split("/",$sratDate);
-				
-				if ($nowDate['year'] == $temp[0])
+				if ($row->touch_time == null) 
 				{
-					if ($nowDate['mon'] == $temp[1]) 
+					$sratDate = $row->effective_date;
+					
+					$temp = mb_split("/",$sratDate);
+					
+					if ($nowDate['year'] == $temp[0])
 					{
-						$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
-						$this->updatewarranty($row);
-						
-					}
+						if ($nowDate['mon'] == $temp[1]) 
+						{
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$this->updatewarranty($row);
+							
+						}
+					}					
+				}
+				else 
+				{
+					$temp = mb_split("/", $row->touch_time);
+					
+					if ($nowDate['year'] == $temp[0])
+					{
+						if ($nowDate['mon'] > $temp[1]) 
+						{
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$this->updatewarranty($row);
+							
+						}
+					}											
 				}
 			}
 		}			
