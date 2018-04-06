@@ -33,6 +33,13 @@ class Form_model extends CI_Model
 		$this->db->insert('transaction_form');			
 	}		
 	
+	public function updateTransactionSigningState($data) 
+	{
+		$this->db->where('id',$data->transaction_id);
+		$d['is_signing'] = $data->is_signing;
+		$this->db->update('transaction_form',$d);			
+	}
+	
 	public function updateTransaction($data) 
 	{
 		$this->db->where('id',$data->id);

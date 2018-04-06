@@ -63,7 +63,7 @@ class Mainpage extends CI_Controller {
 					else 
 					{
 						$row->type = "買賣單";
-						$row->status = "簽保固";
+						$row->status = "簽保固單";
 						$remind_arry[count($remind_arry)] = $row;
 						
 					}

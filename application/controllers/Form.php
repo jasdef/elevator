@@ -2,7 +2,7 @@
 
 class Form extends CI_Controller {
 	//
-	var $data = array();
+	var $data = array();	
 	function __construct()
 	{
 		parent::__construct();
@@ -161,7 +161,8 @@ class Form extends CI_Controller {
 
                             if ($row->item[$i] != 0 && $row->item_status[$i] != 5) {
                                 $row->status = 2;
-                                $row->is_complete = false;
+								$row->is_complete = false;								
+                               
                             } else if ($row->item[$i] != 0 && $row->item_status[$i] == 5) {
                                 $row->left_money -= ($row->total_price * ($row->item[$i] * 0.01));
                             }
@@ -496,8 +497,6 @@ class Form extends CI_Controller {
 		redirect(base_url("/form/transaction_home"));
 		
 	}
-	
-	
 	
 	public function switch_page($id)
 	{
