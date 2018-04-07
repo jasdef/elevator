@@ -29,7 +29,7 @@ class Service extends CI_Controller {
 		$common = new Common();		
 		$fristitem = 0;
 		$itemmax = 10;
-		
+		$nowDate = getdate();
 		if ($temp != 0) 
 		{	
 			$totalitem = count($temp);	
@@ -47,22 +47,33 @@ class Service extends CI_Controller {
 				$row->service_month = $common->converservicemonthByID($row->service_month);
 				$row->license = $common->converlicenseByID($row->license);
 				$row->status = "已完成收款";
+				$row->is_create_service = false;
 				if($fristitem < $itemmax)
 				{	
 					for ($i = 0; $i < 6; $i++)
 					{
 						
-						if ($row->payment_amount[$i] != 0  && $row->item_status[$i] != 5) 
+						if ($row->payment_amount[$i] != 0  && $row->item_status[$i] != $common->ITEM_STAUTS_ALREADY_GET_MONEY) 
 						{	
 							$row->status = "尚未收款完成";	
 						}
-						else if ($row->payment_amount[$i] != 0  && $row->item_status[$i] == 5)
+						else if ($row->payment_amount[$i] != 0  && $row->item_status[$i] == $common->ITEM_STAUTS_ALREADY_GET_MONEY)
 						{
 							$row->status = "已完成收款";
-						}
-						
+						}																		
 						
 					}
+					
+					if ($row->signing_day != null) 
+					{
+						$temp = mb_split("/",$row->signing_day);
+						if ($nowDate['year'] >= $temp[0]+$row->mechanical_warranty && $nowDate['mon'] >= $temp[1]
+							&& $row->is_signing == $common->NOT_ANYTHING_SIGNING && $row->is_remind == $common->FORM_STATUS_SIGNING_COMPLETE)				
+						{
+							$row->is_create_service = true;
+						}						
+					}	
+									
 					//echo "<br>";	
 					$this->data[$fristitem] = $row;			
 				}

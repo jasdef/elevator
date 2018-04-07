@@ -47,6 +47,7 @@
 												<th class="sorttable_nosort">檢視</th>
 												<th class="sorttable_nosort">編輯</th>
 												<th class="sorttable_nosort">刪除</th>
+												<th class="sorttable_nosort">動作</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -71,6 +72,9 @@
 														</td>
 														<td>
 															<a href="<?=base_url("/service/delete_service")?>/service_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+														</td>
+														<td>
+														<a href="<?=base_url("/Service/service_create_by_self/".$this->data[$j]->id."")?>" <?php if(!$this->data[$j]->is_create_service)echo 'hidden';?> >產生保養單</a>
 														</td>
 													</tr>
 					<?php							$fristitem++;
