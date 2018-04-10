@@ -391,4 +391,23 @@ class Personal extends CI_Controller
 		$m_personal_model->updatepersonal($data);
 		redirect(base_url("/personal/personal_list"));
 	}
+
+    public function personal_power_list()
+    {
+
+        $public_tools = new public_tools();
+        $m_personal_model = new m_personal_model();
+
+        $this->data['page_title'] = '權限管理';
+        $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','權限管理'));
+
+        $iResult = $m_personal_model->getUsermenuData();
+
+        $this->data['tabPane'] = array('admin_group','finance_group','employee_group');
+        $this->data['list'] = $iResult['results'];
+
+        $config['base_url'] = "http://{$_SERVER['HTTP_HOST']}/elevator/personal/personal_power_list";
+
+        $this->load->view('v_personal_power_list', $this->data);
+    }
 }

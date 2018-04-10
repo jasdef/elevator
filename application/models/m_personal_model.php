@@ -140,4 +140,43 @@ class m_personal_model extends CI_Model
 
     }
 
+    public function getUsermenuData()
+    {
+        $public_tools = new public_tools();
+
+        $sSql = "SELECT * FROM `config` where configkey in ('admin_group','finance_group','employee_group')";
+        $query = $this->db->query($sSql);
+        $menu_group=$query->result_array();
+
+        foreach($menu_group as $k=>$v){
+            $menu_group[$k]['configvalue'] = explode(',',$v['configvalue']);
+        }
+
+        $sSql = "SELECT * FROM `usermenu` where isdisabled !=1 and parentid = 0";
+        $query = $this->db->query($sSql);
+
+        $parentarray = $query->result_array();
+
+        foreach ($parentarray as $k=>$v){
+
+            $parentarray[$k]['admin_group'] = in_array($v['menuid'],$menu_group[0]['configvalue'])&&$menu_group[0]['configkey']=='admin_group'?1:0;
+            $parentarray[$k]['finance_group'] = in_array($v['menuid'],$menu_group[1]['configvalue'])&&$menu_group[1]['configkey']=='finance_group'?1:0;
+            $parentarray[$k]['employee_group'] = in_array($v['menuid'],$menu_group[2]['configvalue'])&&$menu_group[2]['configkey']=='employee_group'?1:0;
+
+            $sSql = "SELECT * FROM `usermenu` where isdisabled !=1 and parentid = {$v['menuid']}";
+            $query = $this->db->query($sSql);
+            $parentarray[$k]['sub'] = $query->result_array();
+
+            foreach ($parentarray[$k]['sub'] as $k1=>$v1){
+                $parentarray[$k]['sub'][$k1]['admin_group'] = in_array($v1['menuid'],$menu_group[0]['configvalue'])&&$menu_group[0]['configkey']=='admin_group'?1:0;
+                $parentarray[$k]['sub'][$k1]['finance_group'] = in_array($v1['menuid'],$menu_group[1]['configvalue'])&&$menu_group[1]['configkey']=='finance_group'?1:0;
+                $parentarray[$k]['sub'][$k1]['employee_group'] = in_array($v1['menuid'],$menu_group[2]['configvalue'])&&$menu_group[2]['configkey']=='employee_group'?1:0;
+            }
+        }
+
+        $data['results'] = $parentarray;
+//        var_dump($parentarray);
+        return $data;
+    }
+
 }
