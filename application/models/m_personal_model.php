@@ -175,8 +175,15 @@ class m_personal_model extends CI_Model
         }
 
         $data['results'] = $parentarray;
-//        var_dump($parentarray);
+        //var_dump($parentarray);
         return $data;
+    }
+
+    public function editPowerConfig($group='',$value=''){
+        if($group=='' || $value=='') return false;
+
+        $this->db->where('configkey', $group);
+        return $this->db->update('config',$value);
     }
 
 }

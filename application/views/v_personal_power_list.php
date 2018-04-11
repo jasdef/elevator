@@ -39,14 +39,12 @@ include "sidebar-nav.php";
 <div class="content">
 
     <div class="header">
-
-        <h1 class="page-title">編輯保固單</h1>
+        <h1 class="page-title"><?=$this->data['page_title']?></h1>
     </div>
 
     <ul class="breadcrumb">
-        <li><a href="<?= base_url("/mainpage/index") ?>">首頁</a> <span class="divider">/</span></li>
-        <li><a href="<?= site_url("/warranty/warranty_home") ?>">保固單管理</a> <span class="divider">/</span></li>
-        <li class="active">編輯保固單</li>
+        <li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
+        <?=$this->data['breadcrumb_trail']?>
     </ul>
 
     <ul class="nav nav-tabs">
@@ -60,42 +58,59 @@ include "sidebar-nav.php";
             <div id="myTabContent" class="tab-content">
                 <?php foreach($this->data['tabPane'] as $vTabPane): ?>
                 <div class="tab-pane <?=$vTabPane=='admin_group'?'active':'' ?> in" id="<?='view_'.$vTabPane ?>">
-                    <div class="span8">
-                        <div class="well">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>主菜單管理</th>
-                                    <th>子菜單管理</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach($this->data['list'] as $k=>$v): ?>
-                                <tr>
-                                    <td><?=$v['menuid']?></td>
-                                    <td>
-                                        <label class="checkbox inline">
-                                            <input type="checkbox" id="inlineCheckbox" name="sport[]" value="<?=$v['menuid']?>"  <?=$v[$vTabPane]==1?'checked':''?> > <?=$v['title']?>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <ul class="unstyled">
-                                        <?php foreach ($v['sub'] as $k1=>$v1):?>
-                                        <li>
-                                            <label class="checkbox inline">
-                                                <input type="checkbox" id="inlineCheckbox" name="sport[]" value="<?=$v1['menuid']?>" <?=$v[$vTabPane]==1?'checked':''?>> <?=$v1['title']?>
-                                            </label>
-                                        </li>
-                                        <?php endforeach;?>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
+<!--                    <form id="tab" name="fomr1" action="--><?//=site_url("/personal/personal_power_list?tabpane={$vTabPane}")?><!--" method="post">-->
+                    <form id="tab" name="fomr1" action="<?=site_url("/personal/personal_power_list")?>" method="post">
+                        <input type="hidden" name="type" value="edit">
+                        <input type="hidden" name="tabpane" value="<?=$vTabPane?>">
+                        <div class="span8">
+                            <div class="well">
+                                <div class="btn-toolbar">
+                                    <button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>主菜單管理</th>
+                                        <th>子菜單管理</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($this->data['list'] as $k => $v): ?>
+                                        <tr>
+                                            <td><?= $v['menuid'] ?></td>
+                                            <td>
+                                                <label class="checkbox inline">
+                                                    <input type="checkbox" id="inlineCheckbox" name="sport[]"
+                                                           value="<?= $v['menuid'] ?>" <?= $v[$vTabPane] == 1 ? 'checked' : '' ?> > <?= $v['title'] ?>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <ul class="unstyled">
+                                                    <?php foreach ($v['sub'] as $k1 => $v1): ?>
+                                                        <li>
+                                                            <?php if($v1['actioner']=='personal_power_list'):?>
+                                                            <label>
+                                                                <i class="icon-minus-sign"></i><?= $v1['title'] ?>
+                                                            </label>
+                                                            <?php else:?>
+                                                            <label class="checkbox inline">
+                                                                <input type="checkbox" id="inlineCheckbox"
+                                                                       name="sport[]"
+                                                                       value="<?= $v1['menuid'] ?>" <?= $v1[$vTabPane] == 1 ? 'checked' : '' ?> > <?= $v1['title'] ?>
+                                                            </label>
+                                                            <?php endif;?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <?php endforeach;?>
             </div>

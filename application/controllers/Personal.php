@@ -398,6 +398,24 @@ class Personal extends CI_Controller
         $public_tools = new public_tools();
         $m_personal_model = new m_personal_model();
 
+        $type = $this->input->post('type');
+        if($type=='edit'){
+            $sport_array = $this->input->post('sport');
+            $tabpane = $this->input->post('tabpane');
+            asort($sport_array);
+            $sport='';
+            foreach ($sport_array as $v){
+                $sport .= $v.',';
+            }
+            $sport = $sport!=''?substr($sport,0,-1):'';
+
+            if($sport!='' && $tabpane!=''){
+                $isupdate = $m_personal_model->editPowerConfig($tabpane,array('configvalue'=>$sport));
+            }
+
+            header("location:".site_url("/personal/personal_power_list"));
+        }
+
         $this->data['page_title'] = '權限管理';
         $this->data['breadcrumb_trail'] = $public_tools->breadcrumbTrail(array('人員管理','權限管理'));
 

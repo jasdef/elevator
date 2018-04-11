@@ -52,7 +52,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,10,11,12,13,14,15,16', 'admin預設權限');
+INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,10,11,12,13,14,15,16,25', 'admin預設權限');
 INSERT INTO `config` VALUES ('2', 'finance_group', '1,2,3,4,10,11,12,13,14,15,16', '財務預設權限');
 INSERT INTO `config` VALUES ('3', 'employee_group', '5,6,7,8,9,17,18,19,20,21,22,23,24', '員工預設權限');
 
@@ -159,9 +159,6 @@ CREATE TABLE `imgaddress` (
 -- ----------------------------
 -- Records of imgaddress
 -- ----------------------------
-INSERT INTO `imgaddress` VALUES ('1', 'warranty', '29', 'warranty_20180405102626.jpg', '2018-04-05 16:26:41', '1');
-INSERT INTO `imgaddress` VALUES ('2', 'warranty', '29', 'warranty_20180405102801.jpg', '2018-04-05 16:28:01', '0');
-INSERT INTO `imgaddress` VALUES ('3', 'warranty', '29', 'warranty_20180405102825.jpg', '2018-04-05 16:28:25', '0');
 
 -- ----------------------------
 -- Table structure for photo
@@ -335,6 +332,7 @@ INSERT INTO `usermenu` VALUES ('21', '7', '規則清單', 'rulelist', 'rulelists
 INSERT INTO `usermenu` VALUES ('22', '8', '追蹤名單', 'usertrack', 'usertracking', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('23', '9', '評測結果', '', '', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('24', '9', '匯出檔案', 'projectadmin', 'excel', 'icon-caret-right', '1', '2', '0');
+INSERT INTO `usermenu` VALUES ('25', '4', '權限管理', 'personal', 'personal_power_list', 'icon-caret-right', '1', '1', '0');
 
 -- ----------------------------
 -- Table structure for warranty
