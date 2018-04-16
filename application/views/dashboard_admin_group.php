@@ -138,6 +138,10 @@
                                 <a href="<?= base_url("/Warranty/edit_warranty") ?>/warranty_id/<?= $this->data['warranty'][$j]->id; ?>"><i
                                             class="icon-pencil"></i></a>
                             </td>
+							<td>
+                                <a href="<?= base_url("/Warranty/edit_warranty") ?>/warranty_id/<?= $this->data['warranty'][$j]->id; ?>"><i
+                                            class="icon-group"></i></a>
+                            </td>
                         </tr>
 
                         <?php
@@ -192,6 +196,10 @@
                             <td>
                                 <a href="<?= base_url("/service/edit_service") ?>/service_id/<?= $this->data['service'][$j]->id; ?>"><i
                                             class="icon-pencil"></i></a>
+                            </td>
+							<td>
+                                <a href="<?= base_url("/Warranty/edit_warranty") ?>/warranty_id/<?= $this->data['warranty'][$j]->id; ?>"><i
+                                            class="icon-group"></i></a>
                             </td>
                         </tr>
 
