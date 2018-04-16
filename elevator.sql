@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-04-06 16:04:32
+Date: 2018-04-16 08:15:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,13 +29,14 @@ CREATE TABLE `account` (
   `menuidarray` text,
   `isdelete` tinyint(2) NOT NULL DEFAULT '0' COMMENT '邏輯刪除用戶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('8', 'admin', '46f94c8de14fb36680850768ff1b7f2a', 'admin', '1', '0', '1,2,3,4,10,11,12,13,14,15,16', '0');
 INSERT INTO `account` VALUES ('10', 'kk', '46f94c8de14fb36680850768ff1b7f2a', 'ja', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24', '0');
+INSERT INTO `account` VALUES ('11', 'staff', '0643368ca8849867a3e5bf5a1522676b', '員工', '3', '0', '5,6,7,8,9,17,18,19,20,21,22,23,24', '0');
 
 -- ----------------------------
 -- Table structure for config
@@ -135,6 +136,7 @@ CREATE TABLE `form_action_log` (
   `staff` int(255) DEFAULT NULL,
   `dispatch_date` varchar(255) DEFAULT NULL,
   `finish_date` varchar(255) DEFAULT NULL,
+  `is_finish` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -154,7 +156,7 @@ CREATE TABLE `imgaddress` (
   `writedate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '寫入時間戳記',
   `isdelete` tinyint(2) DEFAULT '0' COMMENT '邏輯刪除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of imgaddress
@@ -303,7 +305,7 @@ CREATE TABLE `usermenu` (
   `sort` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
   `isdisabled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否刪除',
   PRIMARY KEY (`menuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of usermenu
@@ -312,11 +314,11 @@ INSERT INTO `usermenu` VALUES ('1', '0', '表單管理', 'report', '', 'icon-lis
 INSERT INTO `usermenu` VALUES ('2', '0', '電梯管理', 'elevator', '', 'icon-folder-open', '1', '2', '0');
 INSERT INTO `usermenu` VALUES ('3', '0', '客戶管理', 'customer', '', 'icon-book', '1', '3', '0');
 INSERT INTO `usermenu` VALUES ('4', '0', '人員管理', 'personal', '', 'icon-user', '1', '4', '0');
-INSERT INTO `usermenu` VALUES ('5', '0', '權限', 'userapplication', '', 'icon-user', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('6', '0', '專案', 'projectadmin', '', 'icon-folder-open', '1', '2', '0');
-INSERT INTO `usermenu` VALUES ('7', '0', '規則', 'rulelist', '', 'icon-list-ol', '1', '3', '0');
-INSERT INTO `usermenu` VALUES ('8', '0', '追蹤', 'usertrack', '', 'icon-search', '1', '4', '0');
-INSERT INTO `usermenu` VALUES ('9', '0', '圖表', 'dashboard', '', 'icon-th-list', '1', '1', '0');
+INSERT INTO `usermenu` VALUES ('5', '0', '權限', 'userapplication', '', 'icon-user', '1', '1', '1');
+INSERT INTO `usermenu` VALUES ('6', '0', '專案', 'projectadmin', '', 'icon-folder-open', '1', '2', '1');
+INSERT INTO `usermenu` VALUES ('7', '0', '規則', 'rulelist', '', 'icon-list-ol', '1', '3', '1');
+INSERT INTO `usermenu` VALUES ('8', '0', '追蹤', 'usertrack', '', 'icon-search', '1', '4', '1');
+INSERT INTO `usermenu` VALUES ('9', '0', '圖表', 'dashboard', '', 'icon-th-list', '1', '1', '1');
 INSERT INTO `usermenu` VALUES ('10', '1', '買賣單', 'form', 'transaction_home', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('11', '1', '保固單', 'Warranty', 'warranty_home', 'icon-caret-right', '1', '2', '0');
 INSERT INTO `usermenu` VALUES ('12', '1', '保養名冊', 'service', 'service_home', 'icon-caret-right', '1', '3', '0');
@@ -324,13 +326,13 @@ INSERT INTO `usermenu` VALUES ('13', '1', '新增上傳檔案', 'form', 'upload'
 INSERT INTO `usermenu` VALUES ('14', '2', '電梯列表', 'elevator', 'elevator_home', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('15', '3', '客戶列表', 'customer', 'customer_home', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('16', '4', '人員列表', 'personal', 'personal_list', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('17', '5', '權限申請狀況', 'userapplication', 'users', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('18', '5', '權限管理', 'userapplication', 'usersadmin', 'icon-caret-right', '1', '2', '0');
-INSERT INTO `usermenu` VALUES ('19', '6', '專案管理', 'projectadmin', 'project_home', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('20', '6', '受測名單', '', '', 'icon-caret-right', '1', '2', '0');
-INSERT INTO `usermenu` VALUES ('21', '7', '規則清單', 'rulelist', 'rulelistshow', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('22', '8', '追蹤名單', 'usertrack', 'usertracking', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('23', '9', '評測結果', '', '', 'icon-caret-right', '1', '1', '0');
+INSERT INTO `usermenu` VALUES ('17', '5', '權限申請狀況', 'userapplication', 'users', 'icon-caret-right', '1', '1', '1');
+INSERT INTO `usermenu` VALUES ('18', '5', '權限管理', 'userapplication', 'usersadmin', 'icon-caret-right', '1', '2', '1');
+INSERT INTO `usermenu` VALUES ('19', '6', '專案管理', 'projectadmin', 'project_home', 'icon-caret-right', '1', '1', '1');
+INSERT INTO `usermenu` VALUES ('20', '6', '受測名單', '', '', 'icon-caret-right', '1', '2', '1');
+INSERT INTO `usermenu` VALUES ('21', '7', '規則清單', 'rulelist', 'rulelistshow', 'icon-caret-right', '1', '1', '1');
+INSERT INTO `usermenu` VALUES ('22', '8', '追蹤名單', 'usertrack', 'usertracking', 'icon-caret-right', '1', '1', '1');
+INSERT INTO `usermenu` VALUES ('23', '9', '評測結果', '', '', 'icon-caret-right', '1', '1', '1');
 INSERT INTO `usermenu` VALUES ('24', '9', '匯出檔案', 'projectadmin', 'excel', 'icon-caret-right', '1', '2', '0');
 INSERT INTO `usermenu` VALUES ('25', '4', '權限管理', 'personal', 'personal_power_list', 'icon-caret-right', '1', '1', '0');
 
