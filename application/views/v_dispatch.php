@@ -49,9 +49,9 @@
 													<tr>
 														<td><?=$this->data[$j]->id;?></td>
 														<td><?=$this->data[$j]->type;?></td>
-														<td><?=$this->data[$j]->table;?></td>
-														<td><?=$this->data[$j]->disaptch;?></td>
-														<td><?=$this->data[$j]->staff;?></td>
+														<td><?=$this->data[$j]->table_name;?></td>
+														<td><?=$this->data[$j]->disaptch_name;?></td>
+														<td><?=$this->data[$j]->staff_name;?></td>
 														<td>
 														<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
 														</td>

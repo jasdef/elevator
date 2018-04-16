@@ -34,76 +34,12 @@ class Dispatch extends CI_Controller {
 	
 	public function dispatch_home() 
 	{
-
-        $iTransactionId=$this->input->get('transaction_id'); //買賣單
-        $iWarrantyId=$this->input->get('warranty_id'); //保固單
-        $iServiceId=$this->input->get('service_id'); //保養名冊
-
-        $form_model = new Form_model();
+		$action_model = new Form_action_log_model();
+		$member_model = new Memeber_model();
         $common = new Common();
 
-        if($iTransactionId && !$iWarrantyId){
-
-            $aRowTransactiondata=$form_model->getRowTransactiondata($iTransactionId);
-            $aRowTransactiondata['status_sta'] = $common->conversionbystatus($aRowTransactiondata['status']);
-            $this->data['RowTransactiondata'] = $aRowTransactiondata;
-
-            $aWarrantyldatalist=$form_model->getWarrantyldatalist($iTransactionId);
-            $this->data['Warrantyldatalist'] = $aWarrantyldatalist;
-
-            $this->load->view('v_transaction_process', $this->data);
-
-        }
-        elseif($iTransactionId && $iWarrantyId){
-            $aRowTransactiondata=$form_model->getRowTransactiondata($iTransactionId);
-            $aRowTransactiondata['status_sta'] = $common->conversionbystatus($aRowTransactiondata['status']);
-            $this->data['RowTransactiondata'] = $aRowTransactiondata;
-
-            $aRowWarrantydata=$form_model->getRowWarrantyldata($iWarrantyId);
-            $this->data['RowRowWarrantydata'] = $aRowWarrantydata;
-
-            $aServicedatalist=$form_model->getServicedatalist($iWarrantyId);
-
-
-            foreach($aServicedatalist as $k=>$row) {
-                $row['service_month'] = $common->converservicemonthByID($row['service_month']);
-                $row['license'] = $common->converlicenseByID($row['license']);
-                $row['status'] = "已完成收款";
-                    for ($i = 1; $i <= 6; $i++) {
-
-                        if ($row['payment_amount'.$i] != 0 && $row['item_status'.$i] != 5) {
-                            $row['status'] = "尚未收款完成";
-                        } else if ($row['payment_amount'.$i] != 0 && $row['item_status'.$i] == 5) {
-                            $row['status'] = "已完成收款";
-                        }
-                    }
-                $aServicedatalist[$k] = $row;
-            }
-            $this->data['Servicedatalist'] = $aServicedatalist;
-
-            $this->load->view('v_transaction_process2', $this->data);
-        }
-        else {
-
-            $sSearch = $this->input->get("Search");
-            $isorder = $this->input->get("isorder") ? $this->input->get("isorder") : 'id';
-            $isby = $this->input->get("isby");
-
-            $sOrder = '';
-            if ($isorder) {
-
-                if ($isby == '') {
-                    $isby = 'asc';
-                } elseif ($isby == 'asc') {
-                    $isby = 'desc';
-                } elseif ($isby == 'desc') {
-                    $isby = 'asc';
-                } else {
-                    $isby = '';
-                }
-                $sOrder = "$isorder $isby";
-            }
-
+		$temp = $action_model->getNotFinishLog();
+		
             $temp = $form_model->getTransaction($sSearch, $sOrder);
             $fristitem = 0;
             $totalitem = 0;
@@ -120,24 +56,11 @@ class Dispatch extends CI_Controller {
                 $this->data['isby'] = $isby;
 
                 foreach ($temp as $row):
-                    //	$row->status = $common->conversionFormStatusByID($row->status);
-                    //	$row->form_type = $common->conversionFormTypeByID($row->form_type);
-                    $row->status = 1;
-                    $row->is_complete = true;
-                    $row->left_money = $row->total_price;
                     if ($fristitem < $itemmax) {
-
-                        for ($i = 0; $i < 6; $i++) {
-
-                            if ($row->item[$i] != 0 && $row->item_status[$i] != 5) {
-                                $row->status = 2;
-								$row->is_complete = false;								
-                               
-                            } else if ($row->item[$i] != 0 && $row->item_status[$i] == 5) {
-                                $row->left_money -= ($row->total_price * ($row->item[$i] * 0.01));
-                            }
-                        }
-                        $row->status = $common->conversionbystatus($row->status);
+						$row->_name = $common->conversionFormName($row->type);
+						$row->type_name = $common->conversionFormName($row->type);
+						$row->staff_name = $member_model->getMemberByID($row->staff)->account;
+						$row->dispatch_name = $member_model->getMemberByID($row->dispatcher)->account;
                         $this->data[$fristitem] = $row;
                     }
                     $fristitem++;
@@ -164,11 +87,14 @@ class Dispatch extends CI_Controller {
                 $this->data['pagefrist'] = $pagefrist;
                 $this->data['pagetotal'] = $pagetotal;
                 $this->data['pageid'] = 1;
-            } else {
+            } 
+			else 
+			{
                 $this->data = null;
             }
-            $this->load->view('v_dispatch', $this->data);
-        }
+		
+
+        $this->load->view('v_dispatch', $this->data);       
 	}
 	
 	public function transaction_Search() 

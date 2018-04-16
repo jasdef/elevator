@@ -50,6 +50,20 @@ class Common
 				return '保固合約書';			
 		}
 	}
+	
+	public function conversionFormName() 
+	{
+		switch ($id) 
+		{
+			case 1:
+				return '買賣單';
+			case 2:
+				return '保養單';
+			case 3:
+				return '保固單';			
+		}		
+	}
+	
 
 	public function converservicemonthByID($id) 
 	{

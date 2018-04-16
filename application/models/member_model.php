@@ -71,6 +71,35 @@ class Member_model extends CI_Model
 		
 	}
 	
+	public function getMemberByID($id)
+	{
+		$person = new Personal_data();
+		$this->db->select('`id`,`account`,`password`,`permission`,`status`');
+		$this->db->from('account');
+		$this->db->where('id',$id);
+		$data = $this->db->get();
+		
+		if ($data->num_rows() > 0)
+		{
+			$r = $data->result();
+			
+			$params = (array)$r[0];
+			
+			foreach ($params as $k => $v)
+			{
+				
+				$person->$k = $v;
+			
+			}
+			
+			return $person;
+		}
+		else
+		{
+			return 0;
+		}		
+	}
+	
 	
 	public function getMemberData($account)
 	{
