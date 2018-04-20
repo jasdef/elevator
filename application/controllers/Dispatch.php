@@ -11,6 +11,8 @@ class Dispatch extends CI_Controller {
 		$this->load->model('Form_action_log_model');
 		$this->load->model('Form_model');
 		$this->load->model('Memeber_model');
+		$this->load->model('m_warranty_model');
+		$this->load->model('');
 		$this->load->library('datamodel');
 		$this->load->library('common');
         $this->load->library('pagination');
@@ -36,6 +38,10 @@ class Dispatch extends CI_Controller {
 	{
 		$action_model = new Form_action_log_model();
 		$member_model = new Memeber_model();
+		$from_model = new Form_model();
+		$warranty_model = new m_warranty_model();
+		$service_model = new m_service_model();
+		
         $common = new Common();
 
 		$temp = $action_model->getNotFinishLog();
@@ -56,8 +62,26 @@ class Dispatch extends CI_Controller {
                 $this->data['isby'] = $isby;
 
                 foreach ($temp as $row):
-                    if ($fristitem < $itemmax) {
-						$row->_name = $common->conversionFormName($row->type);
+                    if ($fristitem < $itemmax) 
+					{
+						switch ($row->type) 
+						{
+							case $common->FORM_TYPE_TRANSACTION:
+							$r = $form_model->getTransactionByID($row->table_id);
+							$row->table_name = $r->name;
+							break;							
+							case $common->FORM_TYPE_WARRANTY:
+							$r = $warranty_model->getwarrantyByID($row->table_id);
+							$row->table_name = $r->cumstomer;
+							break;
+							case $common->FORM_TYPE_SERVICE:
+							$r = $service_model->getserviceByID($row->table_id);
+							$w = $warranty_model->getwarrantyByID($r->warranty_id);
+							$table_name = $w->cumstomer;
+							break;							
+						}
+											
+						$row->table_name = $common->conversionFormName($row->type);
 						$row->type_name = $common->conversionFormName($row->type);
 						$row->staff_name = $member_model->getMemberByID($row->staff)->account;
 						$row->dispatch_name = $member_model->getMemberByID($row->dispatcher)->account;

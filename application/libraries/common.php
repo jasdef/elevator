@@ -16,6 +16,11 @@ class Common
 	public $ITEM_STAUTS_NOT_GET_MONEY = 4;//尚未收款
 	public $ITEM_STAUTS_ALREADY_GET_MONEY = 5;//已收款
 	
+	public $FORM_TYPE_TRANSACTION = 1;//買賣單
+	public $FORM_TYPE_WARRANTY = 2;//保固單
+	public $FORM_TYPE_SERVICE = 3;//保養單
+	
+	
 	public function conversionFormStatusByID($id) 
 	{
 		switch ($id) 
