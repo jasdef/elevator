@@ -12,7 +12,6 @@ class Dispatch extends CI_Controller {
 		$this->load->model('Form_model');
 		$this->load->model('Memeber_model');
 		$this->load->model('m_warranty_model');
-		$this->load->model('');
 		$this->load->library('datamodel');
 		$this->load->library('common');
         $this->load->library('pagination');
