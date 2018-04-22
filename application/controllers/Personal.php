@@ -409,6 +409,11 @@ class Personal extends CI_Controller
             }
             $sport = $sport!=''?substr($sport,0,-1):'';
 
+            $ispersonal_power_list = $this->input->post('ispersonal_power_list');
+            if($ispersonal_power_list && $tabpane=='admin_group'){
+                $sport = $sport.',25';
+            }
+
             if($sport!='' && $tabpane!=''){
                 $isupdate = $m_personal_model->editPowerConfig($tabpane,array('configvalue'=>$sport));
             }

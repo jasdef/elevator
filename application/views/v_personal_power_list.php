@@ -89,10 +89,12 @@ include "sidebar-nav.php";
                                                 <ul class="unstyled">
                                                     <?php foreach ($v['sub'] as $k1 => $v1): ?>
                                                         <li>
-                                                            <?php if($v1['actioner']=='personal_power_list'):?>
+                                                            <?php if($v1['actioner']=='personal_power_list' && $vTabPane=='admin_group'):?>
                                                             <label>
                                                                 <i class="icon-minus-sign"></i><?= $v1['title'] ?>
+                                                                <input type="hidden" name="ispersonal_power_list" value="1">
                                                             </label>
+                                                            <?php elseif($v1['actioner']=='personal_power_list'): ?>
                                                             <?php else:?>
                                                             <label class="checkbox inline">
                                                                 <input type="checkbox" id="inlineCheckbox"
