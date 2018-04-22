@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-04-22 21:34:50
+Date: 2018-04-22 22:55:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -53,7 +53,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,5,10,11,12,13,14,15,16,17,18', 'admin預設權限');
+INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,5,10,11,12,13,14,15,16,17,25', 'admin預設權限');
 INSERT INTO `config` VALUES ('2', 'finance_group', '1,2,3,4,10,11,12,13,14,15,16', '財務預設權限');
 INSERT INTO `config` VALUES ('3', 'employee_group', '5,6,7,8,9,17,18,19,20,21,22,23,24', '員工預設權限');
 
@@ -314,7 +314,7 @@ INSERT INTO `usermenu` VALUES ('1', '0', '表單管理', 'report', '', 'icon-lis
 INSERT INTO `usermenu` VALUES ('2', '0', '電梯管理', 'elevator', '', 'icon-folder-open', '1', '2', '0');
 INSERT INTO `usermenu` VALUES ('3', '0', '客戶管理', 'customer', '', 'icon-book', '1', '3', '0');
 INSERT INTO `usermenu` VALUES ('4', '0', '人員管理', 'personal', '', 'icon-user', '1', '4', '0');
-INSERT INTO `usermenu` VALUES ('5', '0', '派遣管理', 'userapplication', '', 'icon-user', '1', '5', '0');
+INSERT INTO `usermenu` VALUES ('5', '0', '派遣管理', 'dispatch', '', 'icon-user', '1', '5', '0');
 INSERT INTO `usermenu` VALUES ('6', '0', '專案', 'projectadmin', '', 'icon-folder-open', '1', '2', '1');
 INSERT INTO `usermenu` VALUES ('7', '0', '規則', 'rulelist', '', 'icon-list-ol', '1', '3', '1');
 INSERT INTO `usermenu` VALUES ('8', '0', '追蹤', 'usertrack', '', 'icon-search', '1', '4', '1');

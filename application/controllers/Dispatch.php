@@ -9,9 +9,10 @@ class Dispatch extends CI_Controller {
 		session_start();
         $this->load->model('public_tools'); //常用工具
 		$this->load->model('Form_action_log_model');
-		$this->load->model('Form_model');
-		$this->load->model('Memeber_model');
+		$this->load->model('form_model');
+		$this->load->model('m_personal_model');
 		$this->load->model('m_warranty_model');
+		$this->load->model('m_service_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
         $this->load->library('pagination');
@@ -36,8 +37,8 @@ class Dispatch extends CI_Controller {
 	public function dispatch_home() 
 	{
 		$action_model = new Form_action_log_model();
-		$member_model = new Memeber_model();
-		$from_model = new Form_model();
+		$member_model = new m_personal_model();
+		$form_model = new Form_model();
 		$warranty_model = new m_warranty_model();
 		$service_model = new m_service_model();
 		
@@ -45,7 +46,7 @@ class Dispatch extends CI_Controller {
 
 		$temp = $action_model->getNotFinishLog();
 		
-            $temp = $form_model->getTransaction($sSearch, $sOrder);
+         
             $fristitem = 0;
             $totalitem = 0;
 
