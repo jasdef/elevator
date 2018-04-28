@@ -34,7 +34,7 @@
 												<th><a href="#">表單名稱</a></th>
 												<th><a href="#">派遣人</a></th>
 												<th><a href="#">被派遣人</a></th>
-												<th class="sorttable_nosort">確認完成</th>
+												<th class="sorttable_nosort">動作</th>
 												<th class="sorttable_nosort">更換員工</th>
 											</tr>
 										</thead>
@@ -48,15 +48,15 @@
 					?>	
 													<tr>
 														<td><?=$this->data[$j]->id;?></td>
-														<td><?=$this->data[$j]->type;?></td>
+														<td><?=$this->data[$j]->type_name;?></td>
 														<td><?=$this->data[$j]->table_name;?></td>
-														<td><?=$this->data[$j]->disaptch_name;?></td>
+														<td><?=$this->data[$j]->dispatch_name;?></td>
 														<td><?=$this->data[$j]->staff_name;?></td>
 														<td>
-														<a href="<?=base_url("/Warranty/view_warranty_view")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-eye-open"></i></a>
+															<a href="<?=base_url("/Warranty/warranty_create_by_transaction/".$this->data[$j]->id."/".$this->data[$j]->elevator_num."")?>" <?php if(!$this->data[$j]->is_complete || $this->data[$j]->is_signing)echo 'hidden';?> >確認完成</a>
 														</td>
 														<td>
-															<a href="<?=base_url("/Warranty/delete_warranty")?>/warranty_id/<?=$this->data[$j]->id;?>" ><i class="icon-remove"></i></a>
+															<a href="<?=base_url("/dispatch/chage_staff_view")?>/dispatch_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil"></i></a>
 														</td>
 													</tr>
 					<?php							$fristitem++;

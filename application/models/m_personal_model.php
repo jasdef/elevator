@@ -65,12 +65,37 @@ class m_personal_model extends CI_Model
 				foreach ($row as $k => $v)
 				{
 					$personal_data[$k] = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}	
 			}
 			return $personal_data;
 		}
 		return 0;
+	}
+
+	public function getStaff()
+	{
+		$this->db->select('*');
+		$this->db->where('permission', '3');
+		$this->db->from('account');
+		
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$personal_data[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					$personal_data[$idx]->$k = $v;			
+				}
+				$idx++;
+			}
+			return $personal_data;
+		}
+		return 0;
+
 	}
 	
 	public function getpersonal() 
@@ -89,7 +114,6 @@ class m_personal_model extends CI_Model
 				foreach ($row as $k => $v)
 				{
 					$personal_data[$idx]->$k = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
 				}
 				$idx++;
 			}

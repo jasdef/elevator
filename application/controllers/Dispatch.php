@@ -31,9 +31,52 @@ class Dispatch extends CI_Controller {
 	public function addLog()
 	{
 		
-		
+		$action_model = new Form_action_log_model();
+		$personal_model = new m_personal_model();
+		$data = New datamodel;
+		$this->data = $this->uri->uri_to_assoc(3);
+		$table_type = $this->data['table_type'];
+		$this->data = $this->uri->uri_to_assoc(5);
+		$table_id = $this->data['table_id'];
+		$dispatcher = $_SESSION['id'];
+
+		$data->table_id = $table_id;
+		$data->table_type = $table_type;	
+		$data->dispatcher = $dispatcher;
+		$action_model->addLog($data);
+
+		redirect(base_url("/dispatch/dispatch_home"));	
 	}
 	
+	public function chage_staff_view() 
+	{
+		$action_model = new Form_action_log_model();
+		$personal_model = new m_personal_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["dispatch_id"];	
+		$this->data = $action_model->getLogByID($id);
+		$this->data['all_staff'] = $personal_model->getStaff();		
+
+		$this->load->view('v_edit_dispatch_staff', $this->data);
+
+	}
+
+	public function change_staff() 
+	{
+		$action_model = new Form_action_log_model();
+		$data = New datamodel;
+		$id = $this->input->post("Id");
+		$staff = $this->input->post("Staff"); 	
+
+		$data->id = $id;
+		$data->staff = $staff;		
+		
+		$action_model->changeStaff($data);
+
+		redirect(base_url("/dispatch/dispatch_home"));			
+	}
+
+
 	public function dispatch_home() 
 	{
 		$action_model = new Form_action_log_model();
@@ -59,32 +102,34 @@ class Dispatch extends CI_Controller {
                 }
                 $this->data['fristitem'] = $fristitem;
                 $this->data['itemmax'] = $itemmax;
-                $this->data['isby'] = $isby;
+                //$this->data['isby'] = $isby;
 
                 foreach ($temp as $row):
+
                     if ($fristitem < $itemmax) 
 					{
-						switch ($row->type) 
+						switch ($row->table_type) 
 						{
 							case $common->FORM_TYPE_TRANSACTION:
 							$r = $form_model->getTransactionByID($row->table_id);
-							$row->table_name = $r->name;
+							$row->table_name = $r['name'];
 							break;							
 							case $common->FORM_TYPE_WARRANTY:
 							$r = $warranty_model->getwarrantyByID($row->table_id);
-							$row->table_name = $r->cumstomer;
+							$row->table_name = $r['customer'];
 							break;
 							case $common->FORM_TYPE_SERVICE:
 							$r = $service_model->getserviceByID($row->table_id);
 							$w = $warranty_model->getwarrantyByID($r->warranty_id);
-							$table_name = $w->cumstomer;
+							$row->table_name = $w['customer'];
 							break;							
 						}
 											
-						$row->table_name = $common->conversionFormName($row->type);
-						$row->type_name = $common->conversionFormName($row->type);
-						$row->staff_name = $member_model->getMemberByID($row->staff)->account;
-						$row->dispatch_name = $member_model->getMemberByID($row->dispatcher)->account;
+					
+						$row->type_name = $common->conversionFormName($row->table_type);
+						if ($row->staff != null)
+							$row->staff_name = $member_model->getpersonalByID($row->staff)['name'];
+						$row->dispatch_name =  $member_model->getpersonalByID($row->dispatcher)['name'];
                         $this->data[$fristitem] = $row;
                     }
                     $fristitem++;
@@ -117,21 +162,20 @@ class Dispatch extends CI_Controller {
                 $this->data = null;
             }
 		
-
         $this->load->view('v_dispatch', $this->data);       
 	}
 	
-	public function transaction_Search() 
+	public function dispatch_Search() 
 	{
 
 		$searchvalue = $this->input->post("Search"); 
 		if($searchvalue != null)
 		{  
-			redirect(base_url("/Form/search_switchpage/1/".$searchvalue)); 
+			redirect(base_url("/dispatch/search_switchpage/1/".$searchvalue)); 
 		}			
 		else	
 		{
-			redirect(base_url("/Form/transaction_home")); 
+			redirect(base_url("/dispatch/dispatch_home")); 
 					
 		} 
 	}

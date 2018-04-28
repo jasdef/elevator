@@ -56,7 +56,7 @@ class Common
 		}
 	}
 	
-	public function conversionFormName() 
+	public function conversionFormName($id) 
 	{
 		switch ($id) 
 		{

@@ -139,8 +139,7 @@
                                             class="icon-pencil"></i></a>
                             </td>
 							<td>
-                                <a href="<?= base_url("/Warranty/edit_warranty") ?>/warranty_id/<?= $this->data['warranty'][$j]->id; ?>"><i
-                                            class="icon-group"></i></a>
+                                <a href="<?= base_url("/dispatch/addLog")?>/table_type/2/table_id/<?=$this->data['warranty'][$j]->id;?>"><i class="icon-group"></i></a>
                             </td>
                         </tr>
 
@@ -198,8 +197,7 @@
                                             class="icon-pencil"></i></a>
                             </td>
 							<td>
-                                <a href="<?= base_url("/Warranty/edit_warranty") ?>/warranty_id/<?= $this->data['warranty'][$j]->id; ?>"><i
-                                            class="icon-group"></i></a>
+                                <a href="<?= base_url("/dispatch/addLog")?>/table_type/3/table_id/<?=$this->data['service'][$j]->id;?>"><i class="icon-group"></i></a>
                             </td>
                         </tr>
 

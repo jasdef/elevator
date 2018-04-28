@@ -20,12 +20,35 @@ class Form_action_log_model extends CI_Model
 		$dispatch_date = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 		
 		$this->db->set('table_id',$data->table_id);
-		$this->db->set('table_type',$data->talbe_type);
+		$this->db->set('table_type',$data->table_type);
 		$this->db->set('dispatcher',$data->dispatcher);	
-		$this->db->set('staff',$data->staff);
+		$this->db->set('is_finish', 0);
 		$this->db->set('dispatch_date', $dispatch_date);
 		$this->db->insert('form_action_log');
 	}
+
+	public function getLogByID($id) 
+	{
+		$this->db->select('*');
+		$this->db->from('form_action_log');
+		$this->db->where('id', $id);
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			foreach ($result->result() as $row)
+			{
+				$form_data = array();
+				foreach ($row as $k => $v)
+				{
+					$form_data[$k] = $v;
+				}	
+			}
+			return $form_data;
+		}
+		return 0;
+	}
+
 	
 	public function changeStaff($data) 
 	{
@@ -53,21 +76,24 @@ class Form_action_log_model extends CI_Model
 	public function getNotFinishLog() 
 	{
 		$this->db->select('*');
-		$this->db->from('form_action_log');
 		$this->db->where('is_finish', 0);
+		$this->db->from('form_action_log');
+		
 		$result = $this->db->get();
 		
 		if ($result->num_rows() > 0)
 		{
+			$idx = 0;
 			foreach ($result->result() as $row)
 			{
-				$log_data = array();
+				$log[$idx] = new Datamodel();
 				foreach ($row as $k => $v)
 				{
-					$log_data[$k] = $v;
-				}	
+					$log[$idx]->$k = $v;			
+				}
+				$idx++;
 			}
-			return $log_data;
+			return $log;
 		}
 		return 0;
 	}
