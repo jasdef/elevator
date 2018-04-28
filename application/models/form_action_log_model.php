@@ -11,18 +11,18 @@ class Form_action_log_model extends CI_Model
 		$this->load->database();
 		$this->load->library('Form_data');
 		$this->load->library('Datamodel');
-	
+		$this->load->library('Common');
 	}
 	
 	public function addLog($data)
 	{
 		$nowDate = getdate();		
 		$dispatch_date = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
-		
+		$common = new Common();
 		$this->db->set('table_id',$data->table_id);
 		$this->db->set('table_type',$data->table_type);
 		$this->db->set('dispatcher',$data->dispatcher);	
-		$this->db->set('is_finish', 0);
+		$this->db->set('is_finish', $common->DISPATCH_STATE_NOT_DISPATCH_STAFF);
 		$this->db->set('dispatch_date', $dispatch_date);
 		$this->db->insert('form_action_log');
 	}
@@ -59,10 +59,11 @@ class Form_action_log_model extends CI_Model
 	
 	public function checkDone($id) 
 	{
+		$common = new Common();
 		$nowDate = getdate();		
 		$finish_date = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 		$this->db->where('id',$id);
-		$d['is_finish'] = 1;
+		$d['is_finish'] = $common->DISPATCH_STATE_CHECK_DONE;
 		$d['finish_date'] = $finish_date;
 		$this->db->update('form_action_log',$d);				
 	}
@@ -75,8 +76,9 @@ class Form_action_log_model extends CI_Model
 	
 	public function getNotFinishLog() 
 	{
+		$common = new Common();
 		$this->db->select('*');
-		$this->db->where('is_finish', 0);
+		$this->db->where('is_finish !=', $common->DISPATCH_STATE_CHECK_DONE);
 		$this->db->from('form_action_log');
 		
 		$result = $this->db->get();

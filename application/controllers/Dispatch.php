@@ -76,6 +76,34 @@ class Dispatch extends CI_Controller {
 		redirect(base_url("/dispatch/dispatch_home"));			
 	}
 
+	public function check_done() 
+	{	
+		$action_model = new Form_action_log_model();
+		$table_model = null;
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["dispatch_id"];			
+		$action_model->checkDone($id);
+		$temp = $action_model->getLogByID($id);
+		$table_model = $this->getModel($temp['table_type']);
+
+		$table_model->updateRemindState($temp['table_id']);
+		redirect(base_url("/dispatch/dispatch_home"));
+	}
+
+	public function getModel($table_type)
+	{
+		$common = new Common();
+
+		switch ($table_type) 
+		{
+			case $common->FORM_TYPE_TRANSACTION:
+				return new form_model();
+			case $common->FORM_TYPE_WARRANTY:
+				return new m_warranty_model();
+			case $common->FORM_TYPE_SERVICE:
+				return new m_service_model();
+		}
+	}
 
 	public function dispatch_home() 
 	{
@@ -120,12 +148,12 @@ class Dispatch extends CI_Controller {
 							break;
 							case $common->FORM_TYPE_SERVICE:
 							$r = $service_model->getserviceByID($row->table_id);
-							$w = $warranty_model->getwarrantyByID($r->warranty_id);
+							$w = $warranty_model->getwarrantyByID($r['warranty_id']);
 							$row->table_name = $w['customer'];
 							break;							
 						}
 											
-					
+						$row->status = $common->conversionDispatchStateName($row->is_finish);
 						$row->type_name = $common->conversionFormName($row->table_type);
 						if ($row->staff != null)
 							$row->staff_name = $member_model->getpersonalByID($row->staff)['name'];
@@ -178,21 +206,7 @@ class Dispatch extends CI_Controller {
 			redirect(base_url("/dispatch/dispatch_home")); 
 					
 		} 
-	}
-	
-	public function close_remind()//for 首頁 取消買賣單之後的保固單簽約提醒 
-	{
-		$this->data = $this->uri->uri_to_assoc(3);
-		$id = $this->data["transaction_id"];
-		$form_model = new Form_model();
-		$common = new Common();
-		$data = New datamodel;
-		$data->transaction_id = $id;
-		$data->is_signing = $common->NO_CONTUNUE_SIGNING;
-		
-		$form_model->updateTransactionSigningState($data);
-		redirect(base_url("/mainpage/index"));
-	}
+	}	
 	
 	public function search_switchpage($id,$searchvalue)
 	{	
@@ -287,96 +301,6 @@ class Dispatch extends CI_Controller {
 		}
 		$this->load->view('v_search_transaction', $this->data);	
 	}
-
-	
-	public function create_transaction_view() 
-	{
-		$customer_model = new Customer_model();
-		$this->data['customer'] = $customer_model->getCustomer();
-		//$this->data['formType'] = $formType;
-		$this->load->view('v_create_transaction', $this->data);	
-	}
-	
-	public function create_transaction_model() 
-	{
-		$form_model = new Form_model();
-		$data = New datamodel;
-		$name = $this->input->post("Company_name"); 	
-		$total_price = $this->input->post("Total_price"); 
-		$is_return = $this->input->post("IsReturn"); 
-		$start_date = $this->input->post("Start_date");  
-		$elevator_num = $this->input->post("Elevator_num");
-		$customer = $this->input->post("Customer"); 
-		$is_duty = $this->input->post("IsDuty");
-		$is_receipt = $this->input->post("IsReceipt");
-		$remark = $this->input->post("Remark");
-		$startDate = $this->input->post("Start_date");
-		
-		$remind = $this->input->post("Remind");
-		$item = array();
-		$item_status = array();
-		
-		for ($i = 0; $i < 6; $i++)
-		{	
-			$item_name[$i] = $this->input->post("Item_name".($i+1)) == Null ? "" : $this->input->post("Item_name".($i+1));
-			$item[$i] = $this->input->post("Item".($i+1)) == Null ? 0 : $this->input->post("Item".($i+1));
-			$item_status[$i] = $this->input->post("Item_status".($i+1)) == Null ? 0 : $this->input->post("Item_status".($i+1));			
-		}
-		
-		$data->name = $name;
-		$data->total_price = $total_price;
-		$data->return_back = $is_return;
-		$data->customer_id = $customer;
-		$data->start_date = $start_date;
-		$data->item = $item;
-		$data->item_status = $item_status;
-		$data->item_name = $item_name;
-		$data->remind = $remind;
-		$data->elevator_num = $elevator_num;
-		$data->is_duty = $is_duty;
-		$data->is_receipt = $is_receipt;
-		$data->remark = $remark;
-		
-		
-		$form_model->insertTransaction($data);
-		redirect(base_url("/form/transaction_home"));
-		
-	}
-	
-	public function delete_transaction_model() 
-	{
-		$form_model = new Form_model();
-		$this->data = $this->uri->uri_to_assoc(3);
-		$id = $this->data["transaction_id"];
-		$form_model->deleteTransaction($id);
-		$this->transaction_home();	
-	}
-	
-	
-	public function edit_transaction_view() 
-	{
-		$count=0;
-		$form_model = new Form_model();
-		$customer_model = new Customer_model();
-		$this->data = $this->uri->uri_to_assoc(3);
-		$id = $this->data["transaction_id"];
-		$this->data = $form_model->getTransactionByID($id);
-		
-		for ($i = 0; $i < 6; $i++)
-		{//echo $i;
-			//echo $this->data["item_name1"];
-			
-			if($this->data["item_name".($i+1)] != "")
-			{	
-				$count++;//計算item_name欄位有幾個被使用				
-			}
-
-		}
-		$this->data['item_count']=$count;
-	
-		$this->data['customer'] = $customer_model->getCustomer();						
-		$this->load->view('v_edit_transaction', $this->data);		
-	}
 	
 	public function view_transaction_view() 
 	{
@@ -412,75 +336,13 @@ class Dispatch extends CI_Controller {
 //		$this->load->view('v_view_transaction', $this->data);
 		$this->load->view('v_view_transaction_bk', $this->data);
 	}
-
-	public function delete_imgadd(){
-
-        $transaction_id = $this->input->get('transaction_id');
-        $id = $this->input->get('id');
-        $this->db->where('id', $id);
-
-        $d['isdelete'] = 1;
-        $this->db->update('imgaddress',$d);
-        redirect(base_url("/Form/view_transaction_view/transaction_id/{$transaction_id}"));
-    }
 		
-	public function edit_transaction_model() 
-	{
-		$form_model = new Form_model();
-		$data = New datamodel;
-		$id = $this->input->post("Id");
-		$name = $this->input->post("Company_name"); 	
-		$elevator_num = $this->input->post("Elevator_num");
-		$total_price = $this->input->post("Total_price"); 
-		$is_return = $this->input->post("IsReturn"); 
-		$start_date = $this->input->post("Start_date");  
-		$customer = $this->input->post("Customer"); 
-		$is_duty = $this->input->post("IsDuty");
-		$is_receipt = $this->input->post("IsReceipt");
-		$remark = $this->input->post("Remark");
-		$startDate = $this->input->post("Start_date");
-		
-		$remind = $this->input->post("Remind");
-		$item = array();
-		$item_status = array();
-		
-		for ($i = 0; $i < 6; $i++)
-		{
-			$item_name[$i] = $this->input->post("Item_name".($i+1));
-			$item[$i] = $this->input->post("Item".($i+1));
-			$item_status[$i] = $this->input->post("Item_status".($i+1));			
-		}
-		
-		$data->id = $id;
-		$data->name = $name;
-		$data->elevator_num = $elevator_num;
-		$data->total_price = $total_price;
-		$data->is_return = $is_return;
-		$data->customer_id = $customer;
-		$data->start_date = $start_date;
-		$data->item = $item;
-		$data->item_status = $item_status;
-		$data->item_name = $item_name;
-		$data->remind = $remind;
-		$data->is_duty = $is_duty;
-		$data->is_receipt = $is_receipt;
-		$data->remark = $remark;
-		
-		
-		$form_model->updateTransaction($data);
-
-        $public_tools = new public_tools();
-        $public_tools->upload_tools(array('table'=>'transaction','id'=>$id,'file_name'=>'transaction','upload_path'=>'transaction'));
-
-		redirect(base_url("/form/transaction_home"));
-		
-	}
 	
 	public function switch_page($id)
 	{
-		$form_model = new Form_model();
+		$action_log_model = new Form_action_log_model();
 		$common = new Common();
-		$temp = $form_model->getTransaction();
+		$temp = $action_log_model->getNotFinishLog();
 		$fristitem = 0;
 		$k = array();
 		if ($temp != 0) 
@@ -499,28 +361,12 @@ class Dispatch extends CI_Controller {
 			$this->data['fristitem'] = ($id - 1) * 10;//丟往前端迴圈參數
 			$this->data['itemmax'] = $itemmax;//丟往前端迴圈參數
 			foreach($temp as $row):
-				//$row->status = $common->conversionFormStatusByID($row->status);
-				//$row->form_type = $common->conversionFormTypeByID($row->form_type);
-				$row->status = 1;
-				$row->is_complete = true;
-				$row->left_money = $row->total_price;
+
 				if($fristitem>=$prevcount)
 				{				
 					if($fristitem < $itemmax)
 					{	
-						for($i=0;$i<6;$i++)
-						{
-							if ($row->item[$i] != 0 && $row->item_status[$i] != 5) 
-							{
-								$row->status = 2;	
-								$row->is_complete = false;
-							}
-							else if ($row->item[$i] != 0 && $row->item_status[$i] == 5)
-							{
-								$row->left_money -= ($row->total_price*($row->item[$i]*0.01));
-							}
-						}
-						$row->status = $common->conversionbystatus($row->status);
+						$row->status = $common->conversionDispatchStateName($row->is_finish);
 						$this->data[$count] = $row;
 						$count++;
 					}
@@ -563,7 +409,7 @@ class Dispatch extends CI_Controller {
 		{
 			$this->data = null;
 		}
-		$this->load->view('v_transaction_home', $this->data);
+		$this->load->view('v_dispatch', $this->data);
 	}
 
 				

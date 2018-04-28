@@ -17,6 +17,14 @@ class m_warranty_model extends CI_Model
 		$this->db->delete('warranty');
 	}	
 	
+	public function updateRemindState($id) 
+	{
+		$common = new Common();
+		$this->db->where('id',$id);
+		$d['is_remind'] = $common->FORM_STATUS_NOT_REMIND;
+		$this->db->update('warranty',$d);			
+	}
+
 	public function insertwarranty($data)
 	{
 
@@ -60,6 +68,7 @@ class m_warranty_model extends CI_Model
 		$d['fax_3'] = $data->fax_3;
 		$d['num'] = $data->num;
 		$d['is_remind'] = $data->is_remind;
+		$d['touch_time'] = $data->touch_time;
 		$d['transaction_id'] = $data->transaction_id;
 		$this->db->update('warranty',$d);
 		
@@ -191,6 +200,7 @@ class m_warranty_model extends CI_Model
 						if ($nowDate['mon'] > $temp[1]) 
 						{
 							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$row->touch_time = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 							$this->updatewarranty($row);
 							
 						}
@@ -223,8 +233,7 @@ class m_warranty_model extends CI_Model
 				$warranty_data[$idx] = new Datamodel();
 				foreach ($row as $k => $v)
 				{
-					$warranty_data[$idx]->$k = $v;
-					//$form_data[$idx]->manger= @$this->getMemberName($row->manager);// to do get elevator num
+					$warranty_data[$idx]->$k = $v;					
 				}
 				$idx++;
 			}

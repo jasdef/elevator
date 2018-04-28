@@ -20,6 +20,26 @@ class Common
 	public $FORM_TYPE_WARRANTY = 2;//保固單
 	public $FORM_TYPE_SERVICE = 3;//保養單
 	
+	public $DISPATCH_STATE_NOT_DISPATCH = 0;//還沒派遣
+	public $DISPATCH_STATE_NOT_DISPATCH_STAFF = 1;//還沒派遣員工
+	public $DISPATCH_STATE_ALREADY_DISPATCH = 2;//已經派遣員工了
+	public $DISPATCH_STATE_WAIT_CHECK = 3;//員工做完了，等待確認
+	public $DISPATCH_STATE_CHECK_DONE = 4;//確認完成
+
+	public function conversionDispatchStateName($state) 
+	{
+		switch ($state) 
+		{
+			case 1:
+				return '未派遣員工';
+			case 2:
+				return '已派員工';
+			case 3:
+				return '等待確認';
+			case 4:
+				return '確認完成';		
+		}		
+	}
 	
 	public function conversionFormStatusByID($id) 
 	{

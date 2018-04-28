@@ -52,15 +52,24 @@ class m_service_model extends CI_Model
 		$d['is_remind'] = $data->is_remind;
 		$d['do_times'] = $data->do_times;
 		$d['service_times'] = $data->service_times;
+		$d['touch_time'] = $data->touch_time;
 
-		for ($i = 0; $i < count($data->payment_date); $i++) 
+		if ($data->payment_date != null)
 		{
-			$d['payment_date'.($i+1)] = $data->payment_date[$i];
-			$d['payment_amount'.($i+1)] = $data->payment_amount[$i];
-			$d['item_status'.($i+1)] = $data->item_status[$i];
-		}
+
+			for ($i = 0; $i < count($data->payment_date); $i++) 
+			{
+				$d['payment_date'.($i+1)] = $data->payment_date[$i];
+				$d['payment_amount'.($i+1)] = $data->payment_amount[$i];
+				$d['item_status'.($i+1)] = $data->item_status[$i];
+			}
+		}	
+
 		$d['remark'] = $data->remark;
 		$d['warranty_id'] = $data->warranty_id;
+
+		print_r($d);
+
 		$this->db->update('service',$d);
 		
 	}
@@ -191,6 +200,15 @@ class m_service_model extends CI_Model
 		$d['is_signing'] = $data->is_signing;
 		$this->db->update('service',$d);			
 	}
+
+	public function updateRemindState($id) 
+	{
+		$common = new Common();
+		$this->db->where('id',$id);
+		$d['is_remind'] = $common->FORM_STATUS_NOT_REMIND;
+		$this->db->update('service',$d);			
+	}
+
 	
 	public function getRemindService() 
 	{
@@ -245,7 +263,7 @@ class m_service_model extends CI_Model
 			
 			foreach ($result->result() as $row)
 			{
-				
+				$row->payment_date = null;
 				if ($row->touch_time == null && $row->signing_day != null) 
 				{
 					$sratDate = $row->signing_day;
@@ -256,7 +274,8 @@ class m_service_model extends CI_Model
 					{
 						if ($nowDate['mon'] == $temp[1]) 
 						{
-							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;;
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$row->touch_time = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 							$this->updateservice($row);
 							
 						}
@@ -282,7 +301,8 @@ class m_service_model extends CI_Model
 					{
 						if ($nowDate['mon'] > $temp[1] && $is_need) 
 						{
-							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;;
+							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$row->touch_time = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 							$this->updateservice($row);
 							
 						}
