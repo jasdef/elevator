@@ -84,25 +84,117 @@ class Dispatch extends CI_Controller {
 		$id = $this->data["dispatch_id"];			
 		$action_model->checkDone($id);
 		$temp = $action_model->getLogByID($id);
-		$table_model = $this->getModel($temp['table_type']);
+		$this->process($temp['table_type'], $temp['table_id']);
 
-		$table_model->updateRemindState($temp['table_id']);
+		
 		redirect(base_url("/dispatch/dispatch_home"));
 	}
 
-	public function getModel($table_type)
+	public function process($table_type, $table_id)
 	{
 		$common = new Common();
 
 		switch ($table_type) 
 		{
-			case $common->FORM_TYPE_TRANSACTION:
-				return new form_model();
 			case $common->FORM_TYPE_WARRANTY:
-				return new m_warranty_model();
+				$model = new m_warranty_model();
+				$temp_data = $model->getwarrantyByID($table_id);
+				$temp_data['warranty_times']++;
+				$model->updateRemindState($temp_data);
+				break;
 			case $common->FORM_TYPE_SERVICE:
-				return new m_service_model();
+				$model = new m_service_model();
+				$temp_data = $model->getserviceByID($table_id);
+				$temp_data['service_times']++;
+				$model->updateRemindState($temp_data);
+				break;
 		}
+	}
+
+	public function dispatch_home_staff()
+	{
+		$action_model = new Form_action_log_model();
+		$member_model = new m_personal_model();
+		$form_model = new Form_model();
+		$warranty_model = new m_warranty_model();
+		$service_model = new m_service_model();	
+        $common = new Common();
+		$temp = $action_model->getDispatchList();
+		
+         
+            $fristitem = 0;
+            $totalitem = 0;
+
+            if ($temp != 0) {
+                $totalitem = count($temp);
+                if (10 > $totalitem) {
+                    $itemmax = $totalitem;
+                } else {
+                    $itemmax = 10;
+                }
+                $this->data['fristitem'] = $fristitem;
+                $this->data['itemmax'] = $itemmax;
+                //$this->data['isby'] = $isby;
+
+                foreach ($temp as $row):
+
+                    if ($fristitem < $itemmax) 
+					{
+						switch ($row->table_type) 
+						{
+							case $common->FORM_TYPE_TRANSACTION:
+							$r = $form_model->getTransactionByID($row->table_id);
+							$row->table_name = $r['name'];
+							break;							
+							case $common->FORM_TYPE_WARRANTY:
+							$r = $warranty_model->getwarrantyByID($row->table_id);
+							$row->table_name = $r['customer'];
+							break;
+							case $common->FORM_TYPE_SERVICE:
+							$r = $service_model->getserviceByID($row->table_id);
+							$w = $warranty_model->getwarrantyByID($r['warranty_id']);
+							$row->table_name = $w['customer'];
+							break;							
+						}
+											
+						$row->status = $common->conversionDispatchStateName($row->is_finish);
+						$row->type_name = $common->conversionFormName($row->table_type);
+						if ($row->staff != null)
+							$row->staff_name = $member_model->getpersonalByID($row->staff)['name'];
+						$row->dispatch_name =  $member_model->getpersonalByID($row->dispatcher)['name'];
+                        $this->data[$fristitem] = $row;
+                    }
+                    $fristitem++;
+                endforeach;
+
+                //資料筆數
+                if ($totalitem >= 10) {
+                    $totalitem;
+                    if ($totalitem % 10 != 0) {
+                        $pageitem = floor($totalitem / 10) + 1;
+                    } else {
+                        $pageitem = $totalitem / 10;
+                    }
+                } else {
+                    $pageitem = 1;
+                }
+                //頁數
+                $pagefrist = 0;
+                if ($pageitem > 10) {
+                    $pagetotal = 10;
+                } else {
+                    $pagetotal = $pageitem;
+                }
+                $this->data['pagefrist'] = $pagefrist;
+                $this->data['pagetotal'] = $pagetotal;
+                $this->data['pageid'] = 1;
+            } 
+			else 
+			{
+                $this->data = null;
+            }
+		
+        $this->load->view('v_dispatch_staff', $this->data);     
 	}
 
 	public function dispatch_home() 

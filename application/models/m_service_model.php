@@ -201,11 +201,12 @@ class m_service_model extends CI_Model
 		$this->db->update('service',$d);			
 	}
 
-	public function updateRemindState($id) 
+	public function updateRemindState($data) 
 	{
 		$common = new Common();
-		$this->db->where('id',$id);
+		$this->db->where('id',$data['id']);
 		$d['is_remind'] = $common->FORM_STATUS_NOT_REMIND;
+		$d['service_times'] = $data['service_times'];
 		$this->db->update('service',$d);			
 	}
 

@@ -48,12 +48,13 @@ class Form_action_log_model extends CI_Model
 		}
 		return 0;
 	}
-
 	
 	public function changeStaff($data) 
 	{
+		$common = new Common();
 		$this->db->where('id',$data->id);
 		$d['staff'] = $data->staff;
+		$d['is_finish'] = $common->DISPATCH_STATE_ALREADY_DISPATCH;
 		$this->db->update('form_action_log',$d);				
 	}	
 	
@@ -74,6 +75,36 @@ class Form_action_log_model extends CI_Model
 		$this->db->delete('form_action_log');		
 	}
 	
+	public function getDispatchList()
+	{
+		$common = new Common();
+		$this->db->select('*');
+		$this->db->where('is_finish !=', $common->DISPATCH_STATE_CHECK_DONE);//因為回照片會改成狀態3 但有可能要多傳一些照片 所以先這樣做
+
+		$this->db->where('staff', $_SESSION['id']);
+		$this->db->from('form_action_log');
+		
+		$result = $this->db->get();
+		
+		if ($result->num_rows() > 0)
+		{
+			$idx = 0;
+			foreach ($result->result() as $row)
+			{
+				$log[$idx] = new Datamodel();
+				foreach ($row as $k => $v)
+				{
+					$log[$idx]->$k = $v;			
+				}
+				$idx++;
+			}
+			return $log;
+		}
+		return 0;
+
+	}
+
+
 	public function getNotFinishLog() 
 	{
 		$common = new Common();

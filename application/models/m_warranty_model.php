@@ -17,11 +17,12 @@ class m_warranty_model extends CI_Model
 		$this->db->delete('warranty');
 	}	
 	
-	public function updateRemindState($id) 
+	public function updateRemindState($data) 
 	{
 		$common = new Common();
-		$this->db->where('id',$id);
+		$this->db->where('id',$data['id']);
 		$d['is_remind'] = $common->FORM_STATUS_NOT_REMIND;
+		$d['warranty_times'] = $data['warranty_times'];
 		$this->db->update('warranty',$d);			
 	}
 
