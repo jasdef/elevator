@@ -60,7 +60,7 @@
 					
 					if (status == 5) 
 					{
-						result -= price *(items[i]*0.01);						
+						result -= parseInt(price *(items[i]*0.01));						
 					}						
 				}
 					

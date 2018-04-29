@@ -58,6 +58,14 @@ class Form_action_log_model extends CI_Model
 		$this->db->update('form_action_log',$d);				
 	}	
 	
+	public function actionDoneStaff($id)
+	{
+		$common = new Common();
+		$this->db->where('id',$id);
+		$d['is_finish'] = $common->DISPATCH_STATE_WAIT_CHECK;
+		$this->db->update('form_action_log',$d);
+	}
+
 	public function checkDone($id) 
 	{
 		$common = new Common();

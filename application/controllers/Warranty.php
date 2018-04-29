@@ -10,6 +10,7 @@ class Warranty extends CI_Controller {
         $this->load->model('public_tools'); //常用工具
 		$this->load->model('Customer_model');
 		$this->load->model('m_warranty_model');
+		$this->load->model('Form_action_log_model');
 		$this->load->model('Form_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
@@ -285,7 +286,61 @@ class Warranty extends CI_Controller {
 		$this->data = $warranty_model->getwarranty();	
 		redirect(base_url("/warranty/warranty_home"));	
 	}
+	
+	public function edit_warranty_staff() 
+	{
+		$warranty_model = new m_warranty_model();
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["warranty_id"];
+		$this->data = $this->uri->uri_to_assoc(5);
+		$action_id = $this->data["action_id"];
+
+		$this->data = $warranty_model->getwarrantyByID($id);
+		if($this->data['contacter_3'] != null)
+		{
+			 $this->data['contacter_count'] = 3 ;
+		}
+		elseif($this->data['contacter_2'] != null)
+		{
+			$this->data['contacter_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['contacter_count'] = 1 ;
+		}
+				
+		if($this->data['tel_3'] != null)
+		{
+			 $this->data['tel_count'] = 3 ;
+		}
+		elseif($this->data['tel_2'] != null)
+		{
+			$this->data['tel_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['tel_count'] = 1 ;
+		}
 		
+		
+		if($this->data['fax_3'] != null)
+		{
+			$this->data['fax_count'] = 3 ;
+		}
+		elseif($this->data['fax_2'] != null)
+		{
+			$this->data['fax_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['fax_count'] = 1 ;
+		}
+		
+		$this->data['action_id'] = $action_id;
+
+		$this->load->view('v_edit_warranty_staff', $this->data);
+	}
+
 	public function edit_warranty() 
 	{
 		$warranty_model = new m_warranty_model();
@@ -337,7 +392,7 @@ class Warranty extends CI_Controller {
 	
 	public function view_warranty_view() 
 	{
-				$warranty_model = new m_warranty_model();
+		$warranty_model = new m_warranty_model();
 		$this->data = $this->uri->uri_to_assoc(3);
 		$id = $this->data["warranty_id"];
 		$this->data = $warranty_model->getwarrantyByID($id);
@@ -400,6 +455,18 @@ class Warranty extends CI_Controller {
         redirect(base_url("/Warranty/view_warranty_view/warranty_id/{$transaction_id}"));
     }
 	
+    public function warranty_edit_staff()
+    {
+    	$id = $this->input->post("Id");
+    	$action_id = $this->input->post("Action_id");
+    	$action_model = new Form_action_log_model();
+    	$public_tools = new public_tools();
+        $public_tools->upload_tools(array('table'=>'warranty','id'=>$id,'file_name'=>'warranty','upload_path'=>'warranty'));
+
+        $action_model->actionDoneStaff($action_id);
+		redirect(base_url("/dispatch/dispatch_home_staff"));
+    }
+
 	public function warranty_edit() 
 	{
 		$warranty_model = new m_warranty_model();

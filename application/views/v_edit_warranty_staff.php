@@ -37,40 +37,31 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/warranty/warranty_home")?>">保固單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/dispatch/dispatch_home_staff")?>">事務管理</a> <span class="divider">/</span></li>
 						<li class="active">編輯保固單</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit")?>" method="post" enctype="multipart/form-data">
+						<form id="tab" name="edit_custiner" action="<?=site_url("/warranty/warranty_edit_staff")?>" method="post" enctype="multipart/form-data">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">取消</button>
 							</div>
 							<div class="well">		
 								
-								<label>買賣單編號</label>
-								<input type="text" name = "transaction_id" value="<?php print($this->data['transaction_id']);?>" class="input-xlarge">
-								<p hidden="hidden"><input type="text" name = "is_remind" value="<?php print($this->data['is_remind']);?>" ></p>
+								<label>事務編號</label>
+								<input type="text" name = "Action_id" value="<?php print($this->data['action_id']);?>" readonly="readonly" class="input-xlarge">
+
 								<label>保固單編號</label>
 								<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" class="input-xlarge">
 								
 								<label>客戶名稱</label>
-								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">
-								
-								<label>機件保固</label>
-								<input type="text" name = "mechanical_warranty" value="<?php print($this->data['mechanical_warranty']);?>" class="input-xlarge"> 年
-								
-								<label>免費保養</label>
-								<input type="text" name = "free_maintenance" value="<?php print($this->data['free_maintenance']);?>" class="input-xlarge"> 年
-								
-								<label>合約開始日期(西元yyyy/mm/dd)</label>
-								<input type="text" id="datepicker" name = "effective_date" value="<?php print($this->data['effective_date']);?>" class="input-xlarge">
-								
+								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">							
+							
 								
 								<label>聯絡人</label>
-								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
+								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge">
 								<div id="contacter_">
 								<?php
 									if($this->data['contacter_2'] != null)
@@ -88,7 +79,7 @@
 								<input type="text" name = "address" value="<?php print($this->data['address']);?>" class="input-xlarge">
 								
 								<label>電話</label>
-								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
+								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> 
 								<div id="tel_">
 								<?php
 									if($this->data['tel_2'] != null)
@@ -103,7 +94,7 @@
 								</div>	
 								
 								<label>傳真</label>
-								<input type="text" name = "fax_1" value="<?php print($this->data['fax_1']);?>" class="input-xlarge"> <input type="button" id="fax_bnt" value="+"  /> <input type="button" onclick="delField('fax_')" value="-" />
+								<input type="text" name = "fax_1" value="<?php print($this->data['fax_1']);?>" class="input-xlarge"> 
 								<div id="fax_">
 								<?php
 									if($this->data['fax_2'] != null)
@@ -136,14 +127,7 @@
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 								<button class="btn btn-danger" data-dismiss="modal">Delete</button>
 							</div>
-						</div>
-						
-						<footer>
-							<hr>
-							<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-							<p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-							<p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-						</footer>
+						</div>						
 					</div>
 				</div>
 			</div>

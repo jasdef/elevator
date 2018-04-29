@@ -46,6 +46,8 @@ class m_warranty_model extends CI_Model
 		$this->db->set('num',$data->num);
 		$this->db->set('is_remind', $data->is_remind);
 		$this->db->set('transaction_id', $data->transaction_id);
+		$this->db->set('warranty_times', 0);
+
 		$this->db->insert('warranty');	
 	}
 	
@@ -187,6 +189,7 @@ class m_warranty_model extends CI_Model
 						if ($nowDate['mon'] == $temp[1]) 
 						{
 							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
+							$row->touch_time = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];
 							$this->updatewarranty($row);
 							
 						}

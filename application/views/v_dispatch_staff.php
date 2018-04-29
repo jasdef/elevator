@@ -56,11 +56,11 @@
 
 															
 														<td <?php if($this->data[$j]->table_type != 2)echo 'hidden';?>>
-														<a href="<?=base_url("/Warranty/edit_warranty_staff")?>/warranty_id/<?=$this->data[$j]->table_id;?>" ><i class="icon-pencil" ></i></a>
+														<a href="<?=base_url("/Warranty/edit_warranty_staff")?>/warranty_id/<?=$this->data[$j]->table_id;?>/action_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil" ></i></a>
 														</td>
 																					
 														<td <?php if($this->data[$j]->table_type != 3)echo 'hidden';?>>
-														<a href="<?=base_url("/service/edit_service_staff")?>/service_id/<?=$this->data[$j]->table_id;?>" ><i class="icon-pencil" ></i></a>
+														<a href="<?=base_url("/service/edit_service_staff")?>/service_id/<?=$this->data[$j]->table_id;?>/action_id/<?=$this->data[$j]->id;?>" ><i class="icon-pencil" ></i></a>
 														</td>
 
 													</tr>

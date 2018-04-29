@@ -164,7 +164,7 @@ class Form extends CI_Controller {
 								$row->is_complete = false;								
                                
                             } else if ($row->item[$i] != 0 && $row->item_status[$i] == 5) {
-                                $row->left_money -= ($row->total_price * ($row->item[$i] * 0.01));
+                                $row->left_money -= (int)($row->total_price * ($row->item[$i] * 0.01));
                             }
                         }
                         $row->status = $common->conversionbystatus($row->status);

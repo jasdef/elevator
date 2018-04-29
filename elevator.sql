@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2018-04-22 22:55:43
+Date: 2018-04-29 10:40:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 INSERT INTO `config` VALUES ('1', 'admin_group', '1,2,3,4,5,10,11,12,13,14,15,16,17,25', 'admin預設權限');
 INSERT INTO `config` VALUES ('2', 'finance_group', '1,2,3,4,10,11,12,13,14,15,16', '財務預設權限');
-INSERT INTO `config` VALUES ('3', 'employee_group', '5,6,7,8,9,17,18,19,20,21,22,23,24', '員工預設權限');
+INSERT INTO `config` VALUES ('3', 'employee_group', '6,18', '員工預設權限');
 
 -- ----------------------------
 -- Table structure for customer
@@ -138,11 +138,20 @@ CREATE TABLE `form_action_log` (
   `finish_date` varchar(255) DEFAULT NULL,
   `is_finish` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of form_action_log
 -- ----------------------------
+INSERT INTO `form_action_log` VALUES ('87', '2', '29', '8', '11', '2018/4/28', null, null);
+INSERT INTO `form_action_log` VALUES ('88', '2', '29', '8', '11', '2018/4/28', '2018/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('89', '3', '1', '8', '11', '2018/4/29', '2018/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('90', '2', '42', '8', '11', '2018/4/29', '2018/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('91', '2', '42', '8', '11', '2018/4/29', '2018/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('92', '2', '42', '8', '11', '2018/4/29', '2018/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('93', '3', '13', '8', '11', '2019/4/29', '2019/4/29', '4');
+INSERT INTO `form_action_log` VALUES ('94', '3', '13', '8', '11', '2019/5/29', '2019/5/29', '4');
+INSERT INTO `form_action_log` VALUES ('95', '3', '13', '8', '11', '2019/5/29', '2019/5/29', '4');
 
 -- ----------------------------
 -- Table structure for imgaddress
@@ -156,11 +165,17 @@ CREATE TABLE `imgaddress` (
   `writedate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '寫入時間戳記',
   `isdelete` tinyint(2) DEFAULT '0' COMMENT '邏輯刪除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of imgaddress
 -- ----------------------------
+INSERT INTO `imgaddress` VALUES ('1', 'warranty', '29', 'warranty_20180428145022.jpg', '2018-04-29 09:01:40', '1');
+INSERT INTO `imgaddress` VALUES ('2', 'warranty', '29', 'warranty_20180429025544.jpg', '2018-04-29 08:55:44', '0');
+INSERT INTO `imgaddress` VALUES ('3', 'warranty', '29', 'warranty_20180429030248.jpg', '2018-04-29 09:02:48', '0');
+INSERT INTO `imgaddress` VALUES ('4', 'service', '1', 'service_20180429033334.jpg', '2018-04-29 09:33:34', '0');
+INSERT INTO `imgaddress` VALUES ('5', 'warranty', '42', 'warranty_20180429035605.jpg', '2018-04-29 09:56:05', '0');
+INSERT INTO `imgaddress` VALUES ('6', 'service', '13', 'service_20190429040838.jpg', '2019-04-29 10:08:38', '0');
 
 -- ----------------------------
 -- Table structure for photo
@@ -234,13 +249,13 @@ CREATE TABLE `service` (
   `do_times` int(10) DEFAULT '1',
   `touch_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service
 -- ----------------------------
-INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '500000', '2018/03/16', '2018/03/30', '', '', '', '', '20000', '50000', '0', '0', '0', '0', '5', '4', '', '', '', '', '      ', '27', '0', '1', null, '0', '2018/03/22');
-INSERT INTO `service` VALUES ('12', '2018/03/14', '1', '1', '1', '2019/03/01', '0', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '', '', '', '', '', '              ', '1', '0', '1', '0', '1', '2018/03/22');
+INSERT INTO `service` VALUES ('1', '2018/02/07', '1', '2', '1', '2018/01/29', '500000', '2018/03/16', '2018/03/30', '', '', '', '', '20000', '50000', '0', '0', '0', '0', '5', '4', '', '', '', '', '            ', '29', '0', '1', '2', '2', '2019/5/29');
+INSERT INTO `service` VALUES ('13', '2019/04/29', '2', '1', '1', '2019/04/11', '1000000', '2019/04/08', '', '', '', '', '', '20000', '0', '0', '0', '0', '0', '5', '', '', '', '', '', '  ', '42', '0', '0', '4', '2', '2019/5/29');
 
 -- ----------------------------
 -- Table structure for transaction_form
@@ -278,7 +293,7 @@ CREATE TABLE `transaction_form` (
   `is_duty` int(1) DEFAULT '0',
   `is_receipt` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of transaction_form
@@ -289,6 +304,7 @@ INSERT INTO `transaction_form` VALUES ('36', '利通', '200000', '2017-10-17', n
 INSERT INTO `transaction_form` VALUES ('46', '測試表單', '150000', '2018-01-06', null, '2', null, '訂金', '裝修', null, null, null, null, '10', '90', null, null, null, null, '5', '5', null, null, null, null, '11', '2', null, null, null);
 INSERT INTO `transaction_form` VALUES ('47', '林政揚豪宅', '2500000', '2018-01-06', null, '2', null, '訂金', '貨到', '安裝完成', '驗收', null, null, '30', '50', '10', '10', null, null, '5', '5', '5', '5', null, null, '11', '3', null, null, null);
 INSERT INTO `transaction_form` VALUES ('49', '測試表單', '150000', '2018-04-05', '1', null, null, '訂金', '第二期', '尾款', null, null, null, '30', '30', '10', null, null, null, '5', '5', '5', null, null, null, '11', '3', '這邊我記錄了一些東西', '1', '1');
+INSERT INTO `transaction_form` VALUES ('51', '四月二十九', '10000', '2018-04-29', '1', '1', null, '訂金', '貨到', null, null, null, null, '30', '70', null, null, null, null, '5', '5', null, null, null, null, '11', '1', '', '1', '1');
 
 -- ----------------------------
 -- Table structure for usermenu
@@ -315,7 +331,7 @@ INSERT INTO `usermenu` VALUES ('2', '0', '電梯管理', 'elevator', '', 'icon-f
 INSERT INTO `usermenu` VALUES ('3', '0', '客戶管理', 'customer', '', 'icon-book', '1', '3', '0');
 INSERT INTO `usermenu` VALUES ('4', '0', '人員管理', 'personal', '', 'icon-user', '1', '4', '0');
 INSERT INTO `usermenu` VALUES ('5', '0', '派遣管理', 'dispatch', '', 'icon-user', '1', '5', '0');
-INSERT INTO `usermenu` VALUES ('6', '0', '專案', 'projectadmin', '', 'icon-folder-open', '1', '2', '1');
+INSERT INTO `usermenu` VALUES ('6', '0', '事務管理', 'dispatch', '', 'icon-user', '1', '6', '0');
 INSERT INTO `usermenu` VALUES ('7', '0', '規則', 'rulelist', '', 'icon-list-ol', '1', '3', '1');
 INSERT INTO `usermenu` VALUES ('8', '0', '追蹤', 'usertrack', '', 'icon-search', '1', '4', '1');
 INSERT INTO `usermenu` VALUES ('9', '0', '圖表', 'dashboard', '', 'icon-th-list', '1', '1', '1');
@@ -327,7 +343,7 @@ INSERT INTO `usermenu` VALUES ('14', '2', '電梯列表', 'elevator', 'elevator_
 INSERT INTO `usermenu` VALUES ('15', '3', '客戶列表', 'customer', 'customer_home', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('16', '4', '人員列表', 'personal', 'personal_list', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('17', '5', '派遣列表', 'dispatch', 'dispatch_home', 'icon-caret-right', '1', '1', '0');
-INSERT INTO `usermenu` VALUES ('18', '5', '權限管理', 'userapplication', 'usersadmin', 'icon-caret-right', '1', '2', '1');
+INSERT INTO `usermenu` VALUES ('18', '6', '事務列表', 'dispatch', 'dispatch_home_staff', 'icon-caret-right', '1', '1', '0');
 INSERT INTO `usermenu` VALUES ('19', '6', '專案管理', 'projectadmin', 'project_home', 'icon-caret-right', '1', '1', '1');
 INSERT INTO `usermenu` VALUES ('20', '6', '受測名單', '', '', 'icon-caret-right', '1', '2', '1');
 INSERT INTO `usermenu` VALUES ('21', '7', '規則清單', 'rulelist', 'rulelistshow', 'icon-caret-right', '1', '1', '1');
@@ -363,16 +379,12 @@ CREATE TABLE `warranty` (
   `is_remind` int(1) DEFAULT '0',
   `touch_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of warranty
 -- ----------------------------
-INSERT INTO `warranty` VALUES ('1', '林政揚阿姆', '2', '1', '2018/03/22', '0', '林政揚阿姆', null, null, '卓蘭鎮豪宅裡', '093333311313', null, null, '04-25250950', null, null, '28906300', '47', null, '1', '2018/03/22');
-INSERT INTO `warranty` VALUES ('29', '阿奇', '2', '1', '2018/04/30', '11', '阿奇的媽媽', null, null, '台中市東勢區', '09200304', null, null, '', null, null, '6985856745', '49', '0', '1', null);
-INSERT INTO `warranty` VALUES ('30', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '49', '0', null, null);
-INSERT INTO `warranty` VALUES ('31', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '49', '0', null, null);
-INSERT INTO `warranty` VALUES ('39', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', '0', null, null);
-INSERT INTO `warranty` VALUES ('40', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', '0', null, null);
-INSERT INTO `warranty` VALUES ('41', null, null, null, null, '0', null, null, null, null, null, null, null, null, null, null, null, '47', '0', null, null);
+INSERT INTO `warranty` VALUES ('1', '林政揚阿姆', '2', '1', '2018/03/22', '0', '林政揚阿姆', null, null, '卓蘭鎮豪宅裡', '093333311313', null, null, '04-25250950', null, null, '28906300', '47', null, '1', '2018/4/28');
+INSERT INTO `warranty` VALUES ('29', '阿奇', '2', '1', '2018/03/22', '12', '阿奇的媽媽2', null, null, '台中市東勢區', '09200304', null, null, '25250950', null, null, '6985856745', '47', '0', '2', '2018/4/28');
+INSERT INTO `warranty` VALUES ('42', '奇儒', '1', '1', '2018/04/29', '14', '楊奇儒', '吳宗憲', null, '台中市北區', '09888333', '09938383', null, '32141241241', null, null, '123124124124', '51', null, '2', '2018/4/29');
 SET FOREIGN_KEY_CHECKS=1;

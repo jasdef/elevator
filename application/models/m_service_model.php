@@ -27,6 +27,8 @@ class m_service_model extends CI_Model
 		$this->db->set('license_day',$data->license_day);
 		$this->db->set('do_times',$data->do_times);
 		$this->db->set('Total_price',$data->Total_price);
+		$this->db->set('service_times',0);
+
 		for ($i = 0; $i < 6; $i++) 
 		{
 			$this->db->set('payment_date'.($i+1), $data->payment_date[$i]);
@@ -67,8 +69,6 @@ class m_service_model extends CI_Model
 
 		$d['remark'] = $data->remark;
 		$d['warranty_id'] = $data->warranty_id;
-
-		print_r($d);
 
 		$this->db->update('service',$d);
 		
@@ -286,21 +286,26 @@ class m_service_model extends CI_Model
 				{
 					$touchTime = $row->touch_time;
 					$is_need = false;
-					
+					$temp = mb_split("/",$touchTime);
+
 					if ($row->service_times == 0)
 					{					
 						$is_need = true;
 					}
 					else if (($row->service_times % $row->do_times) != 0) 
-					{						
+					{			
+								
 						$is_need = true;
 					}
-					
-					$temp = mb_split("/",$touchTime);
-					
+					else if (($row->service_times % $row->do_times) == 0 && ($nowDate['year'] == $temp[0] && $nowDate['mon'] > $temp[1]))
+					{
+
+						$is_need = true;
+					}
+
 					if ($nowDate['year'] == $temp[0])
 					{
-						if ($nowDate['mon'] > $temp[1] && $is_need) 
+						if ($nowDate['mon'] >= $temp[1] && $is_need) 
 						{
 							$row->is_remind = $common->FORM_STATUS_NEED_REMIND;
 							$row->touch_time = $nowDate['year']."/".$nowDate['mon']."/".$nowDate['mday'];

@@ -1,6 +1,6 @@
 <div class="row-fluid">
     <div class="block span6">
-        <a href="#tablewidget" class="block-heading" data-toggle="collapse">人員事件表</a>
+      <!--  <a href="#tablewidget" class="block-heading" data-toggle="collapse">人員事件表</a>
         <div id="tablewidget" class="block-body collapse in">
             <table class="table sortable">
                 <thead>
@@ -49,7 +49,7 @@
                     <td>未完成</td>
                 </tr>
                 </tbody>
-            </table>
+            </table>-->
         </div>
     </div>
 </div>

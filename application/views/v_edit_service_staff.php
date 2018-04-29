@@ -169,13 +169,13 @@
 				
 					<ul class="breadcrumb">
 						<li><a href="<?=base_url("/mainpage/index")?>">首頁</a> <span class="divider">/</span></li>
-						<li><a href="<?=site_url("/service/service_home")?>">保養單管理</a> <span class="divider">/</span></li>
+						<li><a href="<?=site_url("/dispatch/dispatch_home_staff")?>">事務管理</a> <span class="divider">/</span></li>
 						<li class="active">編輯保養單</li>
 					</ul>
 
 				<div class="container-fluid">
 					<div class="row-fluid">
-						<form id="tab" name="fomr1" action="<?=site_url("/service/service_edit")?>" method="post" enctype="multipart/form-data">
+						<form id="tab" name="fomr1" action="<?=site_url("/service/service_edit_staff")?>" method="post" enctype="multipart/form-data">
 							<div class="btn-toolbar">
 								<button class="btn btn-primary" type="submit"><i class="icon-plus"></i>儲存</button>
 								<button class="btn" type="button" onclick="history.back()">取消</button>
@@ -184,12 +184,8 @@
 								<table  class="table sortable">
 									<tr>
 										<th>
-											保固單編號<br>
-											<input type="text" name = "warranty_id" value="<?php print($this->data['warranty_id']);?>" style=width:200px>
-										</th>
-										<th hidden="hidden">
-										
-											<input type="text" name = "is_remind" value="<?php print($this->data['is_remind']);?>" >
+											事務編號編號<br>
+											<input type="text" name = "Action_id" value="<?php print($this->data['action_id']);?>" readonly="readonly" style=width:200px>
 										</th>
 									</tr>
 									<tr>	
@@ -197,118 +193,63 @@
 											保養單編號<br>
 											<input type="text" name = "Id" value="<?php print($this->data['id']);?>" readonly="readonly" style=width:200px>
 										</th>
-									</tr>
-									<tr>	
-										<th>
-											簽約日(西元yyyy/mm/dd)<br>
-											<input type="text" id="signing_day" name = "signing_day" value="<?php print($this->data['signing_day']);?>" style=width:200px>，簽約年限<input type="text" id="mechanical_warranty" name = "mechanical_warranty" value="<?php print($this->data['mechanical_warranty']);?>" style=width:20px onChange="calculatetime(this)"> 年
-										</th>
-									</tr>
-									<tr>	
-										<th>
-											簽約到期日(西元yyyy/mm/dd)<br>
-											<input type="text" id="signing_over_day" name="signing_over_day" value="0" style=width:200px disabled>
-										</th>
-									</tr>
-									<tr>	
-										<th>
-										月保養<br>
-											<select  name="service_month" style=width:215px onChange="calculate(this)">
-												<option value = 0 <?php if ($this->data['service_month'] == 0)echo "selected=\"selected\"";?>>請選擇月保養</option>
-												<option value = 1 <?php if ($this->data['service_month'] == 1)echo "selected=\"selected\"";?>>每月保養</option>
-												<option value = 2 <?php if ($this->data['service_month'] == 2)echo "selected=\"selected\"";?>>雙月保養</option>
-												<option value = 3 <?php if ($this->data['service_month'] == 3)echo "selected=\"selected\"";?>>季保養</option>
-											</select>
-										</th>
-									</tr>
-									<tr>	
-										<th>
-										保養次數<br>
-											<select  name="do_times" style=width:215px onChange="calculate(this)">
-												<option value = 0 <?php if ($this->data['do_times'] == 0)echo "selected=\"selected\"";?>>請選擇保養次數</option>
-												<option value = 1 <?php if ($this->data['do_times'] == 1)echo "selected=\"selected\"";?>>1次</option>
-												<option value = 2 <?php if ($this->data['do_times'] == 2)echo "selected=\"selected\"";?>>2次</option>
-											</select>
-										</th>
-									</tr>
-									<tr>	
-										<th>
-											有無許可證<br>
-											<select id="license" name="license" style=width:215px onChange="calculate(this)">
-												<option value = 1 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>有</option>
-												<option value = 2 <?php if ($this->data['license'] == 0)echo "selected=\"selected\"";?>>無</option>
-											</select>
-										</th>
-									</tr>
-									<tr>	
-										<th>
-											許可證到期日(西元yyyy/mm/dd)<br>
-											<input type="text" id="datepicker1" name = "license_day" value="<?php print($this->data['license_day']);?>" style=width:200px>								
-										</th>
-									</tr>
-									<tr>	
-										<th>
-											總價<br>
-											<input type="text" id="Total_price" name = "Total_price" value="<?php print($this->data['Total_price']);?>" style=width:200px onChange="calculate(this)"> 
-										</th>
-									</tr>
+									</tr>									
+							
 								</table>
-								<table id="table" class="table sortable">
-									<tbody>
-										<tr>
-										<th>繳款時間(西元yyyy/mm/dd)<br><input type="text" id="payment_date1" name="payment_date1" value="<?php print($this->data['payment_date1']);?>"  style=width:200px ></th>					
-										<th>繳款金額<br><input type="text" id="payment_amount1" name="payment_amount1" value="<?php print($this->data['payment_amount1']);?>" style=width:200px onChange="calculate(this)"></th>
-										<th>剩餘金額<br><input type="text" id="Item1_price" name="Item1_price" value="0" style=width:200px onChange="calculate(this)" disabled></th>
-										<th>表單狀態<br>
-											<select id="item_status1" name="item_status1" style=width:200px onChange="calculate(this)">
-											
-												<option value = 0 <?php if ($this->data['item_status1'] == 0)echo "selected=\"selected\"";?>>請選擇表單狀態</option>
-												<option value = 1 <?php if ($this->data['item_status1'] == 1)echo "selected=\"selected\"";?>>已開發票</option>
-												<option value = 2 <?php if ($this->data['item_status1'] == 2)echo "selected=\"selected\"";?>>已送請款單</option>
-												<option value = 3 <?php if ($this->data['item_status1'] == 3)echo "selected=\"selected\"";?>>已送請款單/發票</option>
-												<option value = 4 <?php if ($this->data['item_status1'] == 4)echo "selected=\"selected\"";?>>尚未收款</option>
-												<option value = 5 <?php if ($this->data['item_status1'] == 5)echo "selected=\"selected\"";?>>已收款</option>
-											</select>
-										</th>
-										<th>
-											<br><input type="button" value="+" onclick="add_new_data()"> <input type="button" value="-" onclick="remove_data()">
-										</th>
-										</tr>	
+
+								<label>客戶名稱</label>
+								<input type="text" name = "customer" value="<?php print($this->data['customer']);?>" class="input-xlarge">	
+
+								<label>聯絡人</label>
+								<input type="text" name = "contacter_1" value="<?php print($this->data['contacter_1']);?>" class="input-xlarge"> <input type="button" id="cont_bnt" value="+"  /> <input type="button" onclick="delField('contacter_')" value="-" />
+								<div id="contacter_">
 								<?php
-										$item_count = $this->data['payment_date_count'];
-										for ($i = 1; $i < $item_count; $i++)
-										{				
-											echo '<tr>';
-											echo '<th><input type="text" id="payment_date'.($i+1). '" name="payment_date'.($i+1). '" value="'.$this->data["payment_date".($i+1)].'" style=width:200px ></th>';		
-											echo '<th><input type="text" id="payment_amount'.($i+1). '" name="payment_amount'.($i+1). '" value="' .$this->data["payment_amount".($i+1)]. '" style=width:200px onChange="calculate(this)"></th>';
-											echo '<th><input type="text" id="Item'.($i+1). '_price" name="Item'.($i+1). '_price" value="0" style=width:200px onChange="calculate(this)"  disabled></th>';
-											echo '<th>';
-												echo '<select id="item_status'.($i+1). '" name="item_status'.($i+1). '" style=width:200px onChange="calculate(this)">';
-													
-													echo '<option value = 0 '; if ($this->data["item_status".($i+1)] == 0) echo 'selected=\"selected\"'; echo '">請選擇表單狀態</option>';
-													echo '<option value = 1 '; if ($this->data["item_status".($i+1)] == 1) echo 'selected=\"selected\"'; echo '">已開發票</option>';
-													echo '<option value = 2 '; if ($this->data["item_status".($i+1)] == 2) echo 'selected=\"selected\"'; echo '">已送請款單</option>';
-													echo '<option value = 3 '; if ($this->data["item_status".($i+1)] == 3) echo 'selected=\"selected\"'; echo '">已送請款單/發票</option>';
-													echo '<option value = 4 '; if ($this->data["item_status".($i+1)] == 4) echo 'selected=\"selected\"'; echo '">尚未收款</option>';
-													echo '<option value = 5 '; if ($this->data["item_status".($i+1)] == 5) echo 'selected=\"selected\"'; echo '">已收款</option>';
-												echo '</select>';
-											echo '</th>';
-											echo '<th>';
-											echo '</th>';
-											echo '</tr>	';										
+									if($this->data['contacter_2'] != null)
+									{
+										echo "<div id=contacter_2>聯絡人2</br> <input type=text name= contacter_2 value=".$this->data['contacter_2']." class=input-xlarge></div>";
+										if($this->data['contacter_3'] != null)
+										{
+											echo "<div id=contacter_3>聯絡人3</br> <input type=text name= contacter_3 value=".$this->data['contacter_3']." class=input-xlarge></div>";
 										}
-								?>		
-											
-									</tbody>
-								</table>
-								<table  class="table sortable">
-									<tr>
-										<th>
-											備註事項<br>
-											<textarea name="remark" style="width:1000px;height:100px;"> <?php echo $this->data['remark'];?> </textarea>
-										</th>
-									</tr>
-								</table>
+									}
+								?>
+								</div>
+								
+								<label>地址</label>
+								<input type="text" name = "address" value="<?php print($this->data['address']);?>" class="input-xlarge">
+								
+								<label>電話</label>
+								<input type="text" name = "tel_1" value="<?php print($this->data['tel_1']);?>" class="input-xlarge"> <input type="button" id="tel_bnt" value="+"  /> <input type="button" onclick="delField('tel_')" value="-" />
+								<div id="tel_">
+								<?php
+									if($this->data['tel_2'] != null)
+									{	
+										echo "<div id=tel_2>電話2</br> <input type=text name= tel_2 value=".$this->data['tel_2']." class=input-xlarge></div>";
+										if($this->data['tel_3'] != null)
+										{
+											echo "<div id=tel_3>電話3</br> <input type=text name= tel_3 value=".$this->data['tel_3']." class=input-xlarge></div>";
+										}
+									}
+								?>
+								</div>	
+								
+								<label>傳真</label>
+								<input type="text" name = "fax_1" value="<?php print($this->data['fax_1']);?>" class="input-xlarge"> <input type="button" id="fax_bnt" value="+"  /> <input type="button" onclick="delField('fax_')" value="-" />
+								<div id="fax_">
+								<?php
+									if($this->data['fax_2'] != null)
+									{	
+										echo "<div id=fax_2>電話2</br> <input type=text name= fax_2 value=".$this->data['fax_2']." class=input-xlarge></div>";
+										if($this->data['fax_3'] != null)
+										{
+											echo "<div id=fax_3>電話3</br> <input type=text name= fax_3 value=".$this->data['fax_3']." class=input-xlarge></div>";
+										}
+									}
+								?>
+								</div>	
+								<label>統一編號</label>
+								<input type="text" name = "Num" value="<?php print($this->data['num']);?>" class="input-xlarge">
+
 
                                 <table  class="table sortable">
                                     <tr>
@@ -321,10 +262,7 @@
 
 							</div>
 						</form>
-						<script type='text/javascript'>
-							calculate(this);
-							calculatetime(this);
-						</script>
+
 						<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -338,13 +276,6 @@
 								<button class="btn btn-danger" data-dismiss="modal">Delete</button>
 							</div>
 						</div>
-						
-						<footer>
-							<hr>
-							<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-							<p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-							<p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-						</footer>
 					</div>
 				</div>
 			</div>
@@ -353,40 +284,7 @@
 				$(function() {
 					$('.demo-cancel-click').click(function(){return false;});
 				});
-			</script>
-			<script type="text/javascript">
-				var count=1;
-				function OneClick() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick1() {
-					document.getElementById('test').disabled = false;
-					document.getElementById('new_people').disabled = false;
-				}
-				function OneClick2() {
-					document.getElementById('test').disabled = true;
-					document.getElementById('new_people').disabled = true;
-				}
-				function checkall() {
-					checkboxes = document.getElementsByName('selected');
-					for(var i=0, n=checkboxes.length;i<=n;i++) 
-					{
-						if(i==n){
-							count=count+1;
-						}
-						if((count%2)==0)
-						{
-							checkboxes[i].checked = false;
-						}
-						elseSubjects
-						{
-							checkboxes[i].checked = true;
-						}
-						
-					}
-				}
-			</script>
+			</script>			
 			<script src="lib/bootstrap/js/bootstrap.js"></script>
 			<script type="text/javascript">
 				$("[rel=tooltip]").tooltip();
@@ -394,128 +292,182 @@
 					$('.demo-cancel-click').click(function(){return false;});
 				});
 			</script>
-			<script type="text/javascript">
-				var min = <?php	if($this->data['payment_date_count']==0){echo '1';}else{echo $this->data['payment_date_count'];}?>;
-				var tdunm;//判斷新增到第幾個欄位
-				function add_new_data() {	
-					var num = document.getElementById("table").rows.length;
-					//建立新的tr 因為是從0開始算 所以目前的row數剛好為目前要增加的第幾個tr
-					//alert(num);
-					
-					if(fomr1.payment_date1.value != "")
-					{
-						tdunm = 1;
-						if(num == 2)
-						{
-							if(fomr1.payment_date2.value != "")
-							{
-								tdunm = 1;
-							}
-							else
-							{
-								tdunm = 0;
-							}
-						}
-						else if(num == 3)
-						{
-							if(fomr1.payment_date3.value != "")
-							{
-								tdunm = 1;
-							}
-							else
-							{
-								tdunm = 0;
-							}
-						}		
-						else if(num == 4)
-						{
-							if(fomr1.payment_date4.value != "")
-							{
-								tdunm = 1;
-							}
-							else
-							{
-								tdunm = 0;
-							}
-						}
-						else if(num == 5)
-						{
-							if(fomr1.payment_date5.value != "")
-							{
-								tdunm = 1;
-							}
-							else
-							{
-								tdunm = 0;
-							}
-						}
-					}
-					else
-					{
-						tdunm = 0;	
-					}
-					if(tdunm != 0)
-					{
-						if(min<6)
-						{
-							min++;
-							 //先取得目前的row數
 
-							 var Tr = document.getElementById("table").insertRow(num);
-							 //建立新的td 而Tr.cells.length就是這個tr目前的td數
-							 Td = Tr.insertCell(Tr.cells.length);
-							 //而這個就是要填入td中的innerHTML
-							 Td.innerHTML='<input type="text" id="payment_date'+min+'" name="payment_date'+min+'" value="" style=width:200px >';
-							 //這裡也可以用不同的變數來辨別不同的td (我是用同一個比較省事XD)
-							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='<input type="text" id="payment_amount'+min+'" name="payment_amount'+min+'" value="0" style=width:200px onChange="calculate(this)">';
-							 
-							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='<input type="text" id="Item'+min+'_price" name="Item'+min+'_price" value="0" style=width:200px onChange="calculate(this)"  disabled>';
-							 
-							 Td = Tr.insertCell(Tr.cells.length);
-							 Td.innerHTML='	<select id="item_status'+min+'" name="item_status'+min+'" style=width:200px onChange="calculate(this)"><option value = 0 selected="selected">請選擇表單狀態</option><option value = 1>已開發票</option><option value = 2>已送請款單</option><option value = 3>已送請款單/發票</option><option value = 4>尚未收款</option><option value = 5>已收款</option></select>';
-							 //這樣就好囉 記得td數目要一樣 不然會亂掉~
-							// alert(min);
-							$(function() {
-							$( "#payment_date"+(min) ).datepicker({
-							showOn: "button",
-							buttonImage: "<?=base_url("images/calendar.png");?>",//"../images/calendar.png"亦可執行
-							buttonImageOnly: true
-							});
-							$( "#payment_date"+(min) ).change(function() {
-							$( "#payment_date"+(min) ).datepicker( "option", "dateFormat", "yy/mm/dd" );});
-							});
-							 
-						}
-						else
-						{
-							alert("最多6個欄位");
+			<script> //新增欄位 java script
+				var countMin = 1; 
+				var contMin =<?php echo $this->data['contacter_count'];?>;
+				var TelMin = <?php echo $this->data['tel_count'];?>;
+				var faxMin = <?php echo $this->data['fax_count'];?>;
+				var divname;
+				$("#cont_bnt").click(function () //聯絡人欄位新增
+				{	var contname = "contacter_";
+					var Fieldvarle;
+					var insdivname = "" +contname+ contMin ;
+					if(edit_custiner.contacter_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(edit_custiner.contacter_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
 						}
 					}
 					else
 					{
-						alert("欄位空白");
+						Fieldvarle = 0;
 					}
-					/*var num = document.getElementById("table").rows.length;
-					for($i=0;$i<num;$i++)
+					if(Fieldvarle != 0)
 					{
-							
-					}*/
-	
-				}
-				function remove_data() {
-					//先取得目前的row數
-					var num = document.getElementById("table").rows.length;
-					//防止把標題跟原本的第一個刪除XD
-					if(num >1)
-					{
-						min--;
-					//刪除最後一個
-					document.getElementById("table").deleteRow(-1);
+						if(contMin < 3)
+						{
+						contMin++;
+						divname=""+contname+ contMin ;
+						$("#contacter_").append('<div id="' +contname+ contMin + '">聯絡人'+contMin+'<br><input type="text" name="contacter_'+contMin+'" value="" class="input-xlarge" /> </div>');
+						}																		
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
 					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+				
+				$("#tel_bnt").click(function () //電話欄位新增
+				{	var telname = "tel_";
+					var Fieldvarle;
+					var insdivname = "" +telname+ TelMin ;
+					if(edit_custiner.tel_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(edit_custiner.tel_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}
+					if(Fieldvarle != 0)
+					{
+						if(TelMin < 3)
+						{
+						TelMin++;
+						divname=""+telname+ TelMin ;
+						$("#tel_").append('<div id="' +telname+ TelMin + '">電話'+TelMin+'<br><input type="text" name="tel_'+TelMin+'" value="" class="input-xlarge" /> </div>');
+						}																		
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+				$("#fax_bnt").click(function () //傳真欄位新增
+				{	var faxname = "fax_";
+					var Fieldvarle;
+					var insdivname = "" +faxname+ faxMin ;
+					if(edit_custiner.fax_1.value != "")
+					{	
+						Fieldvarle = 1;	
+						if(divname == insdivname)
+						{	
+							if(edit_custiner.fax_2.value != "")
+							{								
+								Fieldvarle = 1;
+							}
+							else
+							{								
+								Fieldvarle = 0;
+							}
+						}
+					}
+					else
+					{
+						Fieldvarle = 0;
+					}
+					if(Fieldvarle != 0)
+					{
+						if(faxMin < 3)
+						{
+						faxMin++;
+						divname=""+faxname+ faxMin ;
+						$("#fax_").append('<div id="' +faxname+ faxMin + '">傳真'+faxMin+'<br><input type="text" name="fax_'+faxMin+'" value="" class="input-xlarge" /> </div>');
+						}																		
+						else
+						{	
+							alert("最多3個欄位"); 
+						}
+					}
+					else
+					{
+						alert("欄位為空值");
+					}
+				});
+					
+				function delField(name) //刪除欄位
+				{
+					if(name	==	"contacter_")
+					{
+						count = contMin;
+						if(contMin > 1)
+						{
+							contMin--;
+						}
+					}
+					else if(name == "address_")
+					{
+						count = AddrMin;
+						if(AddrMin > 1)
+						{
+							AddrMin--;
+						}
+					}
+					else if(name == "tel_")
+					{						
+						count = TelMin;
+						if(TelMin > 1)
+						{
+							TelMin--;
+						}
+					}
+					else if(name == "fax_")	
+					{
+						count = faxMin;
+						if(faxMin > 1)
+						{
+							faxMin--;
+						}
+					}
+					if (count > countMin) {
+						$("#"+name+count).remove();
+						
+					} 
+					else 
+					{
+						alert("無新增欄位可以刪除");
+					}	
 				}
-			</script> 
+			</script> 			
 		</body>
 	</html>
 

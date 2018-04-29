@@ -11,6 +11,7 @@ class Service extends CI_Controller {
 		$this->load->model('Customer_model');
 		$this->load->model('m_service_model');
 		$this->load->model('m_warranty_model');
+		$this->load->model('Form_action_log_model');
 		$this->load->library('datamodel');
 		$this->load->library('common');
 
@@ -225,7 +226,68 @@ class Service extends CI_Controller {
 		$this->data = $m_service_model->getservice();	
 		redirect(base_url("/service/service_home"));	
 	}
+	
+	public function edit_service_staff()	
+	{
+		$service_model = new m_service_model();
+		$warranty_model = new m_warranty_model();
+
+		$this->data = $this->uri->uri_to_assoc(3);
+		$id = $this->data["service_id"];
+		$this->data = $this->uri->uri_to_assoc(5);
+		$action_id = $this->data["action_id"];
+
+		$service = $service_model->getserviceByID($id);
+
+		$this->data = $warranty_model->getwarrantyByID($service['warranty_id']);
+		if($this->data['contacter_3'] != null)
+		{
+			 $this->data['contacter_count'] = 3 ;
+		}
+		elseif($this->data['contacter_2'] != null)
+		{
+			$this->data['contacter_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['contacter_count'] = 1 ;
+		}
+				
+		if($this->data['tel_3'] != null)
+		{
+			 $this->data['tel_count'] = 3 ;
+		}
+		elseif($this->data['tel_2'] != null)
+		{
+			$this->data['tel_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['tel_count'] = 1 ;
+		}
 		
+		
+		if($this->data['fax_3'] != null)
+		{
+			$this->data['fax_count'] = 3 ;
+		}
+		elseif($this->data['fax_2'] != null)
+		{
+			$this->data['fax_count'] = 2 ;
+		}
+		else
+		{
+			$this->data['fax_count'] = 1 ;
+		}
+		
+		$this->data['id'] = $service['id'];
+
+		$this->data['warranty_id'] = $service['warranty_id'];
+		$this->data['action_id'] = $action_id;
+		$this->load->view('v_edit_service_staff', $this->data);
+	}
+
+
 	public function edit_service() 
 	{
 		$service_model = new m_service_model();
@@ -279,6 +341,18 @@ class Service extends CI_Controller {
         redirect(base_url("/service/view_service_view/service_id/{$transaction_id}"));
     }
 	
+	public function service_edit_staff()
+	{	
+		$action_id = $this->input->post("Action_id");
+		$id = $this->input->post("Id");
+		$action_model = new Form_action_log_model();
+		$public_tools = new public_tools();
+        $public_tools->upload_tools(array('table'=>'service','id'=>$id,'file_name'=>'service','upload_path'=>'service'));
+        $action_model->actionDoneStaff($action_id);
+
+        redirect(base_url("/dispatch/dispatch_home_staff"));
+	}
+
 	public function service_edit() 
 	{
 		$service_model = new m_service_model();
