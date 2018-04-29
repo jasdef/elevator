@@ -111,7 +111,7 @@
                     <th><a href="#">保固年限</a></th>
                     <th><a href="#">開始日期</a></th>
                     <th><a href="#">需做總數</a></th>
-                    <th><a href="#">剩餘次數</a></th>
+                    <th><a href="#">已做次數</a></th>
                     <th class="sorttable_nosort">檢視</th>
                     <th class="sorttable_nosort">編輯</th>
                     <th class="sorttable_nosort">派遣</th>
@@ -169,7 +169,7 @@
                     <th><a href="#">保養年限</a></th>
                     <th><a href="#">開始日期</a></th>
                     <th><a href="#">需做總數</a></th>
-                    <th><a href="#">剩餘次數</a></th>
+                    <th><a href="#">已做次數</a></th>
                     <th class="sorttable_nosort">檢視</th>
                     <th class="sorttable_nosort">編輯</th>
                     <th class="sorttable_nosort">派遣</th>
