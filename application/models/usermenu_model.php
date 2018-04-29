@@ -30,11 +30,12 @@ class Usermenu_model extends CI_Model
         $query = $this->db->query($sSql);
         $configmenu = $query->row_array();
 
-        $diffstr = $useridmenu['menuidarray'] .','.$configmenu['configvalue'];
-        $diffarray = explode(',',$diffstr);
-        $diffarray = array_unique($diffarray);
-        asort($diffarray);
-        $useridmenu['menuidarray'] = implode(',',$diffarray);
+//        $diffstr = $useridmenu['menuidarray'] .','.$configmenu['configvalue'];
+//        $diffarray = explode(',',$diffstr);
+//        $diffarray = array_unique($diffarray);
+//        asort($diffarray);
+//        $useridmenu['menuidarray'] = implode(',',$diffarray);
+        $useridmenu['menuidarray'] = $configmenu['configvalue'];
 
         if(!isset($useridmenu['menuidarray']) || $useridmenu['menuidarray']==''){
             session_start();
