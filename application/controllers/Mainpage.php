@@ -82,6 +82,9 @@ class Mainpage extends CI_Controller {
                         }
                         $this->data['transaction'] = $temp_array;
                     }
+					else {
+						$this->data['transaction'] = array();
+					}
 
 
                     $temp = $warranty_model->getRemindWarranty();
