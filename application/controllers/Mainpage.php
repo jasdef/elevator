@@ -61,6 +61,11 @@ class Mainpage extends CI_Controller {
                                 }
                             }
 
+                            if ($row->left_money > 0) {
+                                $row->status = "尚未收款完成";
+                                $isAdd = true;
+                            }
+
                             if ($isAdd)
                             {
                                 $temp_array[$index] = $row;

@@ -152,7 +152,7 @@ class Form extends CI_Controller {
                 foreach ($temp as $row):
                     //	$row->status = $common->conversionFormStatusByID($row->status);
                     //	$row->form_type = $common->conversionFormTypeByID($row->form_type);
-                    $row->status = 1;
+                    $row->status = $common->TRANSACTION_PAY_DONE;
                     $row->is_complete = true;
                     $row->left_money = $row->total_price;
                     if ($fristitem < $itemmax) {
@@ -160,13 +160,19 @@ class Form extends CI_Controller {
                         for ($i = 0; $i < 6; $i++) {
 
                             if ($row->item[$i] != 0 && $row->item_status[$i] != 5) {
-                                $row->status = 2;
+                                $row->status = $common->TRANSACTION_NOT_PAY_DONE;
 								$row->is_complete = false;								
                                
                             } else if ($row->item[$i] != 0 && $row->item_status[$i] == 5) {
                                 $row->left_money -= (int)($row->total_price * ($row->item[$i] * 0.01));
                             }
                         }
+
+                        if ($row->left_money > 0) {
+                        	$row->is_complete = false;	
+                            $row->status = $common->TRANSACTION_NOT_PAY_DONE;
+                        }
+
                         $row->status = $common->conversionbystatus($row->status);
                         $this->data[$fristitem] = $row;
                     }

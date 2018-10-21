@@ -25,6 +25,9 @@ class Common
 	public $DISPATCH_STATE_ALREADY_DISPATCH = 2;//已經派遣員工了
 	public $DISPATCH_STATE_WAIT_CHECK = 3;//員工做完了，等待確認
 	public $DISPATCH_STATE_CHECK_DONE = 4;//確認完成
+	public $TRANSACTION_PAY_DONE = 1;//買賣單已完成收款
+	public $TRANSACTION_NOT_PAY_DONE = 2;//買賣單尚未完成收款
+
 
 	public function conversionDispatchStateName($state) 
 	{
